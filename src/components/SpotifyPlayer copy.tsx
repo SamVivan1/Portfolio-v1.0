@@ -1,9 +1,9 @@
-// ...existing code...
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaMusic, FaSpotify } from "react-icons/fa";
+import { FaVolumeMute, FaVolumeUp, FaMusic, FaSpotify } from "react-icons/fa";
 import Image from "next/image";
+import usePersistentState from "../hooks/usePersistentState";
 
 interface SpotifyTrack {
   id: string;
@@ -34,6 +34,7 @@ interface SpotifyData {
 }
 
 export default function SpotifyPlayer() {
+  const [isMuted, setIsMuted] = usePersistentState("spotify-muted", false);
   const [spotifyData, setSpotifyData] = useState<SpotifyData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -67,9 +68,14 @@ export default function SpotifyPlayer() {
     return () => clearInterval(interval);
   }, []);
 
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
+
   const getAlbumArt = () => {
     if (!spotifyData?.item?.album?.images?.length) return null;
 
+    // Get the smallest image that's at least 64x64
     const images = spotifyData.item.album.images
       .filter((img) => img.height >= 64)
       .sort((a, b) => a.height - b.height);
@@ -122,8 +128,6 @@ export default function SpotifyPlayer() {
     );
   }
 
-  const listeningLabel = "I'm listening to";
-
   return (
     <div className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-purple-400/30 text-white p-4 rounded-2xl shadow-lg transition-all duration-300 min-w-[280px] group hover:shadow-purple-500/20">
       <div className="flex items-center space-x-3">
@@ -153,11 +157,6 @@ export default function SpotifyPlayer() {
 
         {/* Track Info */}
         <div className="flex-1 min-w-0">
-          {isCurrentlyPlaying() && (
-            <div className="text-xs text-green-300 italic mb-1">
-              {listeningLabel}
-            </div>
-          )}
           <div className="text-sm font-medium truncate group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 transition-all duration-300">
             {getTrackTitle()}
           </div>
@@ -183,6 +182,15 @@ export default function SpotifyPlayer() {
             <FaSpotify className="text-lg" />
           </a>
         )}
+
+        {/* Mute Button */}
+        <button
+          onClick={toggleMute}
+          className="opacity-0 group-hover:opacity-100 transition-all duration-200 hover:text-purple-300 hover:scale-110"
+          title={isMuted ? "Show music info" : "Hide music info"}
+        >
+          {isMuted ? <FaVolumeMute size={18} /> : <FaVolumeUp size={18} />}
+        </button>
       </div>
 
       {/* Progress bar for currently playing */}
@@ -235,4 +243,3 @@ export default function SpotifyPlayer() {
     </div>
   );
 }
-// ...existing code...
