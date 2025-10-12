@@ -10,7 +10,10 @@ const nextConfig: NextConfig = {
       "digitalent.komdigi.go.id",
       "i.scdn.co", // Spotify album art
     ],
-    unoptimized: true,
+    unoptimized: false,
+    formats: ["image/webp"],
+    deviceSizes: [640, 750, 828, 1080, 1200],
+    minimumCacheTTL: 60,
   },
   eslint: {
     ignoreDuringBuilds: true, // <--- tambahkan ini
