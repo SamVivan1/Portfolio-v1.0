@@ -3,9 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: samvivan-portfolio
+    container_name: portfolio
     ports:
-      - "3000:3000"
+      - "3003:3000"
     env_file:
       - .env
     environment:
