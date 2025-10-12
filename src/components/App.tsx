@@ -1,11 +1,18 @@
 "use client";
 
-import Hero from "./Hero";
+import dynamic from "next/dynamic";
 import Navbar from "./Navbar";
-import Skills from "./Projects";
-import Experience from "./Experience";
-import Background from "./Animation/Background";
-import CursorSplash from "./Animation/CursorSplash";
+
+// Dynamic imports for components not needed immediately
+const Hero = dynamic(() => import("./Hero"), { ssr: true });
+const Skills = dynamic(() => import("./Projects"), { ssr: true });
+const Experience = dynamic(() => import("./Experience"), { ssr: true });
+const Background = dynamic(() => import("./Animation/Background"), {
+  ssr: false,
+});
+const CursorSplash = dynamic(() => import("./Animation/CursorSplash"), {
+  ssr: false,
+});
 
 export default function App() {
   return (

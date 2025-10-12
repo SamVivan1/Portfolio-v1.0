@@ -8,8 +8,15 @@ export default function Background() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
     if (!ctx) return;
+
+    // Performance optimization flags
+    const isLowEndDevice = !matchMedia("(min-device-memory: 4gb)").matches;
+    const isMobile = window.innerWidth < 768;
+    const preferredFPS = isMobile ? (isLowEndDevice ? 20 : 30) : 60;
+    const frameInterval = 1000 / preferredFPS;
+    let lastFrameTime = 0;
 
     let particles: Array<{
       x: number;
@@ -69,9 +76,18 @@ export default function Background() {
     resizeCanvas();
     window.addEventListener("resize", debouncedResize);
 
-    const animate = () => {
+    const animate = (timestamp: number) => {
+      if (timestamp - lastFrameTime < frameInterval) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrameTime = timestamp;
+
       const rect = canvas.getBoundingClientRect();
       ctx.clearRect(0, 0, rect.width, rect.height);
+
+      // Batch rendering for better performance
+      ctx.beginPath();
       particles.forEach((p) => {
         p.x += p.speedX;
         p.y += p.speedY;
@@ -100,10 +116,11 @@ export default function Background() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    animate();
+    animate(performance.now());
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      window.removeEventListener("resize", debouncedResize);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
