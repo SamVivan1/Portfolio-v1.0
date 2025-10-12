@@ -8,7 +8,7 @@ import Footer from "./Footer";
 import Skills from "./Projects";
 import Experience from "./Experience";
 import CursorEffect from "./CursorEffect";
-import SpotifyPlayer from "./SpotifyPlayer";
+
 import { gsap } from "gsap";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -143,7 +143,6 @@ export default function App() {
 
       {/* Cursor Effect */}
       <CursorEffect />
-      <SpotifyPlayer />
     </div>
   );
 }

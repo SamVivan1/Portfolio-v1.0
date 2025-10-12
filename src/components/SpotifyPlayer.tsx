@@ -38,6 +38,7 @@ export default function SpotifyPlayer() {
   const [spotifyData, setSpotifyData] = useState<SpotifyData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showEmbed, setShowEmbed] = useState(false);
 
   const fetchSpotifyData = async () => {
     try {
@@ -203,6 +204,40 @@ export default function SpotifyPlayer() {
               }%`,
             }}
           ></div>
+        </div>
+      )}
+
+      {/* Optional in-page Spotify embed: user must start playback there */}
+      {spotifyData?.item?.id && (
+        <div className="mt-3">
+          <button
+            onClick={() => setShowEmbed((s) => !s)}
+            className="text-xs px-2 py-1 bg-white/5 hover:bg-white/10 rounded transition"
+            aria-pressed={showEmbed}
+            aria-label={
+              showEmbed ? "Hide embedded player" : "Show embedded player"
+            }
+          >
+            {showEmbed ? "Hide player" : "Open in-page player"}
+          </button>
+
+          {showEmbed && (
+            <div className="mt-2">
+              <div className="text-xs text-gray-300 mb-1">
+                Play in embedded Spotify player (you may need to be logged into
+                Spotify)
+              </div>
+              <iframe
+                title="Spotify Player"
+                src={`https://open.spotify.com/embed/track/${spotifyData.item.id}`}
+                width="100%"
+                height={80}
+                frameBorder="0"
+                allow="encrypted-media; autoplay; clipboard-write; fullscreen; picture-in-picture"
+                className="rounded-lg"
+              ></iframe>
+            </div>
+          )}
         </div>
       )}
     </div>
