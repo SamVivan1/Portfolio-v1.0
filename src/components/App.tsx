@@ -14,6 +14,7 @@ const Background = dynamic(() => import("./reactbits/Background"), {
 const CursorSplash = dynamic(() => import("./reactbits/CursorSplash"), {
   ssr: false,
 });
+const Footer = dynamic(() => import("./Footer"), { ssr: true });
 
 const About = dynamic(() => import("./About"), { ssr: true });
 import { gsap } from "gsap";
@@ -84,6 +85,9 @@ export default function App() {
         </section>
         <section id="projects">
           <Projects />
+        </section>
+        <section id="footer">
+          <Footer />
         </section>
       </div>
     </div>
