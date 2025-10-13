@@ -3,7 +3,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-export default function Navbar() {
+interface NavbarProps {
+  onNavigate: (sectionId: string) => void;
+}
+
+export default function Navbar({ onNavigate }: NavbarProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -23,14 +27,18 @@ export default function Navbar() {
           {/* Desktop menu */}
           <ul className="hidden md:flex space-x-10">
             <li className="text-gray-300 hover:text-white font-bold">
-              <a href="#hero">Home</a>
-            </li>
-            <li className="text-gray-300 hover:text-white font-bold">About</li>
-            <li className="text-gray-300 hover:text-white font-bold">
-              Projects
+              <button onClick={() => onNavigate("hero")}>Home</button>
             </li>
             <li className="text-gray-300 hover:text-white font-bold">
-              Contact
+              <button onClick={() => onNavigate("about")}>About</button>
+            </li>
+            <li className="text-gray-300 hover:text-white font-bold">
+              <button onClick={() => onNavigate("projects")}>Projects</button>
+            </li>
+            <li className="text-gray-300 hover:text-white font-bold">
+              <button onClick={() => onNavigate("experience")}>
+                Experience
+              </button>
             </li>
           </ul>
           <div className="hidden md:flex items-center space-x-4 font-semibold bg-purple-600 hover:bg-purple-700 px-3 py-2 text-white rounded-2xl transition-colors duration-250">
@@ -70,16 +78,44 @@ export default function Navbar() {
         >
           <ul className="flex flex-col gap-2 w-full">
             <li className="text-gray-300 hover:text-white font-bold">
-              <a href="#hero" onClick={() => setOpen(false)}>
+              <button
+                onClick={() => {
+                  onNavigate("hero");
+                  setOpen(false);
+                }}
+              >
                 Home
-              </a>
-            </li>
-            <li className="text-gray-300 hover:text-white font-bold">About</li>
-            <li className="text-gray-300 hover:text-white font-bold">
-              Projects
+              </button>
             </li>
             <li className="text-gray-300 hover:text-white font-bold">
-              Contact
+              <button
+                onClick={() => {
+                  onNavigate("about");
+                  setOpen(false);
+                }}
+              >
+                About
+              </button>
+            </li>
+            <li className="text-gray-300 hover:text-white font-bold">
+              <button
+                onClick={() => {
+                  onNavigate("skills");
+                  setOpen(false);
+                }}
+              >
+                Projects
+              </button>
+            </li>
+            <li className="text-gray-300 hover:text-white font-bold">
+              <button
+                onClick={() => {
+                  onNavigate("experience");
+                  setOpen(false);
+                }}
+              >
+                Experience
+              </button>
             </li>
           </ul>
           <button className="w-full font-semibold bg-purple-600 hover:bg-purple-700 px-3 py-2 text-white rounded-2xl transition-colors duration-250">
