@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
             },
             {
               icon: <FaEnvelope />,
-              url: "mailto:bintangpanjik@gmail.com",
+              url: "mailto:bintang10panji@gmail.com",
               label: "Email",
             },
           ].map((link, i) => (
