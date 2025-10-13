@@ -4,11 +4,31 @@ const nextConfig: NextConfig = {
   /* config options here */
   output: "standalone",
   images: {
-    domains: [
-      "avatars.githubusercontent.com",
-      "inxignia-admin.soi.asia",
-      "digitalent.komdigi.go.id",
-      "i.scdn.co", // Spotify album art
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "inxignia-admin.soi.asia",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "digitalent.komdigi.go.id",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.scdn.co",
+        port: "",
+        pathname: "/**",
+      },
     ],
     unoptimized: false,
     formats: ["image/webp"],
@@ -24,3 +44,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+

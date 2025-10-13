@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
 
-export default function Footer() {
+const Footer: React.FC = () => {
   return (
     <footer
       id="contact"
@@ -84,4 +84,6 @@ export default function Footer() {
       </motion.div>
     </footer>
   );
-}
+};
+
+export default React.memo(Footer);

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -19,12 +19,13 @@ export const metadata: Metadata = {
   other: {
     "darkreader-lock": "", // Prevent darkreader flashing
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -44,17 +45,7 @@ export default function RootLayout({
         ></script>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0d0d13" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-          if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-              navigator.serviceWorker.register('/sw.js').catch(()=>{});
-            });
-          }
-        `,
-          }}
-        />
+        
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

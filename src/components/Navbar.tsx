@@ -1,14 +1,23 @@
-"use client";
-
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const DesktopMenu = dynamic(() => import("./DesktopMenu"));
+const MobileMenu = dynamic(() => import("./MobileMenu"));
 
 interface NavbarProps {
   onNavigate: (sectionId: string) => void;
 }
 
-export default function Navbar({ onNavigate }: NavbarProps) {
+const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   const [open, setOpen] = useState(false);
+
+  const handleNavigate = useCallback(
+    (sectionId: string) => {
+      onNavigate(sectionId);
+    },
+    [onNavigate]
+  );
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50">
@@ -24,29 +33,12 @@ export default function Navbar({ onNavigate }: NavbarProps) {
             />
             <h1 className="text-white font-bold text-[25px]">Portfolio</h1>
           </div>
-          {/* Desktop menu */}
-          <ul className="hidden md:flex space-x-10">
-            <li className="text-gray-300 hover:text-white font-bold">
-              <button onClick={() => onNavigate("hero")}>Home</button>
-            </li>
-            <li className="text-gray-300 hover:text-white font-bold">
-              <button onClick={() => onNavigate("about")}>About</button>
-            </li>
-            <li className="text-gray-300 hover:text-white font-bold">
-              <button onClick={() => onNavigate("projects")}>Projects</button>
-            </li>
-            <li className="text-gray-300 hover:text-white font-bold">
-              <button onClick={() => onNavigate("experience")}>
-                Experience
-              </button>
-            </li>
-          </ul>
+          <DesktopMenu onNavigate={handleNavigate} />
           <div className="hidden md:flex items-center space-x-4 font-semibold bg-purple-600 hover:bg-purple-700 px-3 py-2 text-white rounded-2xl transition-colors duration-250">
             <a href="https://instagram.com/bintang.panjii" target="_blank">
               Contact me
             </a>
           </div>
-          {/* Hamburger button for mobile */}
           <button
             className="md:hidden flex items-center text-white"
             onClick={() => setOpen(!open)}
@@ -66,63 +58,10 @@ export default function Navbar({ onNavigate }: NavbarProps) {
             </svg>
           </button>
         </div>
-        {/* Mobile dropdown menu */}
-        <div
-          className={`md:hidden mt-2 rounded-2xl border border-white/20 bg-white/10 backdrop-filter backdrop-blur-md p-4 flex flex-col items-end gap-4 transition-all duration-500 ease-in-out transform
-            ${
-              open
-                ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
-                : "opacity-0 scale-95 -translate-y-4 pointer-events-none"
-            }`}
-          style={{ willChange: "opacity, transform" }}
-        >
-          <ul className="flex flex-col gap-2 w-full">
-            <li className="text-gray-300 hover:text-white font-bold">
-              <button
-                onClick={() => {
-                  onNavigate("hero");
-                  setOpen(false);
-                }}
-              >
-                Home
-              </button>
-            </li>
-            <li className="text-gray-300 hover:text-white font-bold">
-              <button
-                onClick={() => {
-                  onNavigate("about");
-                  setOpen(false);
-                }}
-              >
-                About
-              </button>
-            </li>
-            <li className="text-gray-300 hover:text-white font-bold">
-              <button
-                onClick={() => {
-                  onNavigate("skills");
-                  setOpen(false);
-                }}
-              >
-                Projects
-              </button>
-            </li>
-            <li className="text-gray-300 hover:text-white font-bold">
-              <button
-                onClick={() => {
-                  onNavigate("experience");
-                  setOpen(false);
-                }}
-              >
-                Experience
-              </button>
-            </li>
-          </ul>
-          <button className="w-full font-semibold bg-purple-600 hover:bg-purple-700 px-3 py-2 text-white rounded-2xl transition-colors duration-250">
-            Contact me
-          </button>
-        </div>
+        {open && <MobileMenu onNavigate={handleNavigate} setOpen={setOpen} />}
       </div>
     </nav>
   );
-}
+};
+
+export default React.memo(Navbar);
