@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Shuffle from "./Animation/Shuffle";
+import Shuffle from "./reactbits/Shuffle";
 import SpotifyPlayer from "./SpotifyPlayer";
 
 export default function Hero() {

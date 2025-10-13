@@ -7,10 +7,10 @@ import Navbar from "./Navbar";
 const Hero = dynamic(() => import("./Hero"), { ssr: true });
 const Skills = dynamic(() => import("./Projects"), { ssr: true });
 const Experience = dynamic(() => import("./Experience"), { ssr: true });
-const Background = dynamic(() => import("./Animation/Background"), {
+const Background = dynamic(() => import("./reactbits/Background"), {
   ssr: false,
 });
-const CursorSplash = dynamic(() => import("./Animation/CursorSplash"), {
+const CursorSplash = dynamic(() => import("./reactbits/CursorSplash"), {
   ssr: false,
 });
 

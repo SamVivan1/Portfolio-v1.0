@@ -1,7 +1,7 @@
 import { FaExternalLinkAlt } from "react-icons/fa";
 import Image from "next/image";
-import FadeContent from "./Animation/FadeContent";
-import BlurText from "./Animation/BlurText";
+import FadeContent from "./reactbits/FadeContent";
+import BlurText from "./reactbits/BlurText";
 
 interface Certificate {
   logo: string;

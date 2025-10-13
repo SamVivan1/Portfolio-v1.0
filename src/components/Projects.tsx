@@ -9,7 +9,7 @@ import {
   FaGithub,
 } from "react-icons/fa";
 import { useGitHub } from "../hooks/useGitHub";
-import AnimatedContent from "./Animation/AnimatedContent";
+import AnimatedContent from "./reactbits/AnimatedContent";
 
 interface Repository {
   title: string;
@@ -93,11 +93,11 @@ export default function Skills() {
         threshold={0.3}
         delay={0}
       >
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 justify-center">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 justify-center ">
           {repositories.map((project, i) => (
             <div
               key={i}
-              className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 flex flex-col justify-between shadow-lg hover:shadow-purple-600/20 transition-all duration-300"
+              className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 flex flex-col justify-between shadow-lg hover:shadow-purple-600/20 transition-all duration-300 transition-transform duration-500 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]"
             >
               <div>
                 <h3 className="text-xl font-semibold text-purple-300">
