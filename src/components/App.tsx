@@ -14,6 +14,8 @@ const Background = dynamic(() => import("./reactbits/Background"), {
 const CursorSplash = dynamic(() => import("./reactbits/CursorSplash"), {
   ssr: false,
 });
+
+const About = dynamic(() => import("./About"), { ssr: true });
 import { gsap } from "gsap";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -73,6 +75,9 @@ export default function App() {
       <div ref={smoothContent} className="relative z-20 mt-20 md:mt-0">
         <section id="hero">
           <Hero />
+        </section>
+        <section id="about">
+          <About />
         </section>
         <section id="experience">
           <Experience />
