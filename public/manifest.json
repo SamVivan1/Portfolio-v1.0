@@ -4,53 +4,41 @@
   "description": "Computer Engineering Student | Linux Enthusiast | Homelab Tinkerer",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0a0f",
-  "theme_color": "#0d0d13",
+  "background_color": "#190b21",
+  "theme_color": "#190b21",
   "orientation": "any",
   "categories": ["portfolio", "development"],
   "icons": [
     {
-      "src": "/file.svg",
+      "src": "/android-launchericon-192-192.png",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/file.svg",
+      "src": "/android-launchericon-512-512.png",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/file.svg",
+      "src": "/android-launchericon-192-192.png",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "maskable"
     },
     {
-      "src": "/file.svg",
+      "src": "/android-launchericon-512-512.png",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Projects",
-      "url": "/#projects",
-      "description": "View my projects"
-    },
-    {
-      "name": "Experience",
-      "url": "/#experience",
-      "description": "View my experience"
     }
   ],
   "screenshots": [
     {
-      "src": "/screenshot1.png",
+      "src": "/Wide310x150Logo.scale-400.png",
       "type": "image/png",
-      "sizes": "1080x1920"
+      "sizes": "1240x600"
     }
   ],
   "prefer_related_applications": false
