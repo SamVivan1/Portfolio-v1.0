@@ -5,7 +5,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 
-const GlassSurface = dynamic(() => import("./GlassSurface"), { ssr: false });
+const GlassSurface = dynamic(() => import("./reactbits/GlassSurface"), { ssr: false });
 const DesktopMenu = dynamic(() => import("./DesktopMenu"));
 const MobileMenu = dynamic(() => import("./MobileMenu"));
 
@@ -52,7 +52,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                 alt="Logo"
                 width={32} // Ukuran logo mobile lebih kecil
                 height={32}
-                className="rounded-full shadow-lg md:w-[40px] md:h-[40px]"
+                className="shadow-lg md:w-[40px] md:h-[30px]"
               />
               <h1 className="text-white font-black text-[18px] md:text-[22px] tracking-tight">
                 Portfolio

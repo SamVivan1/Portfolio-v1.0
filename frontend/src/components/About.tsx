@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Mail, UserCheck, Calendar, GraduationCap, Globe2, ExternalLink } from 'lucide-react';
 import BlurText from "./reactbits/BlurText";
-import MagicBento from "./MagicBento";
+import MagicBento from "./reactbits/MagicBento";
 import TechStack from "./about/TechStack";
 
 // --- 1. DATA DENGAN LINK ---

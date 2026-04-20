@@ -5,12 +5,12 @@ import { gsap } from 'gsap';
 import dynamic from 'next/dynamic';
 
 // PERBAIKAN: Cara memanggil Named Exports dengan dynamic import
-const Intro = dynamic(() => import('./About').then(mod => mod.Intro), { ssr: false });
-const ContactInfo = dynamic(() => import('./About').then(mod => mod.ContactInfo), { ssr: false });
-const ProfessionalStatus = dynamic(() => import('./About').then(mod => mod.ProfessionalStatus), { ssr: false });
-const Education = dynamic(() => import('./About').then(mod => mod.Education), { ssr: false });
-const ExperienceSection = dynamic(() => import('./About').then(mod => mod.ExperienceSection), { ssr: false });
-const Languages = dynamic(() => import('./About').then(mod => mod.Languages), { ssr: false });
+const Intro = dynamic(() => import('../About').then(mod => mod.Intro), { ssr: false });
+const ContactInfo = dynamic(() => import('../About').then(mod => mod.ContactInfo), { ssr: false });
+const ProfessionalStatus = dynamic(() => import('../About').then(mod => mod.ProfessionalStatus), { ssr: false });
+const Education = dynamic(() => import('../About').then(mod => mod.Education), { ssr: false });
+const ExperienceSection = dynamic(() => import('../About').then(mod => mod.ExperienceSection), { ssr: false });
+const Languages = dynamic(() => import('../About').then(mod => mod.Languages), { ssr: false });
 export interface BentoProps {
   enableStars?: boolean;
   enableSpotlight?: boolean;
