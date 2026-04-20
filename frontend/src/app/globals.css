@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* ... rest of your theme */
+}
+
+/* --- ANIMASI TETAP SAMA --- */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-shift { animation: gradientShift 3s ease infinite; }
+
+:root {
+  --radius: 0.625rem;
+  /* Paksa background transparan agar Plasma terlihat */
+  --background: transparent; 
+  --foreground: oklch(0.145 0 0);
+  /* ... rest of variables */
+}
+
+.dark {
+  /* Di mode dark, kita juga buat transparan */
+  --background: transparent;
+  --foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 10%);
+  /* ... rest of variables */
+}
+
+@layer base {
+  body {
+    /* KUNCINYA DI SINI: 
+       Kita set warna fallback di body, tapi biarkan background utamanya transparan 
+    */
+    @apply text-foreground;
+    background-color: #050505; /* Warna dasar jika Plasma gagal load */
+    min-height: 100vh;
+  }
+}
+
+/* Tambahkan ini agar canvas Plasma tidak terpotong */
+canvas {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
