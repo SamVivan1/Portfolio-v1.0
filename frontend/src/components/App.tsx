@@ -86,7 +86,7 @@ export default function App() {
         Menggunakan z-[-1] agar berada di belakang smooth-content
       */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        {(
+        {(!isMobile) && (
           <Plasma 
             color="#6366f1" // Indigo/Purple vibes
             speed={1.5} 
