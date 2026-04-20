@@ -32,7 +32,7 @@ jobs:
           # Deploy frontend dengan docker-compose production config
           echo "Building and deploying frontend..."
           cd frontend
-          docker compose -f docker-compose.prod.yaml up -d --build
+          docker compose up -d --build
           
           echo "✓ Frontend deployment completed"
           echo "Checking container status..."
