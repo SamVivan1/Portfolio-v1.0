@@ -32,16 +32,16 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           width="100%" 
           height="auto"
           borderRadius={24} // Sedikit dikecilkan untuk mobile agar tidak terlalu bulat
-          opacity={0.05}
+          opacity={0.93}
           backgroundOpacity={0.1}
-          blur={30}
-          brightness={70}
-          saturation={1.2}
-          redOffset={5}
-          blueOffset={10}
-          displace={1.2}
-          distortionScale={20}
-          borderWidth={0.2}
+          blur={11}
+          brightness={50}
+          saturation={1}
+          greenOffset={10}
+          blueOffset={20}
+          displace={0.5}
+          distortionScale={-180}
+          borderWidth={0.07}
           className="relative px-4 py-1 sm:py-2 border border-white/10"
         >
           {/* Container diketatkan min-height-nya untuk mobile agar tidak memakan banyak tempat */}
