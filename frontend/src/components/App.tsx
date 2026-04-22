@@ -118,7 +118,7 @@ export default function App() {
         </section>
         
         <section id="experience" className="py-20">
-          <Experience />
+          <Experience/>
         </section>
         
         <section id="projects" className="py-20">
