@@ -48,11 +48,11 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           <div className="flex justify-between items-center w-full min-h-[50px] md:min-h-[60px]">
             <div className="flex items-center space-x-3">
               <Image
-                src="/assets/logo.png"
+                src="/assets/logo.svg"
                 alt="Logo"
-                width={40} // Ukuran logo mobile lebih kecil
-                height={30}
-                className="shadow-lg md:w-[40px] md:h-[30px]"
+                width={50} // Ukuran logo mobile lebih kecil
+                height={50}
+                className="shadow-lg md:w-[60px] md:h-[60px]"
               />
               <h1 className="text-white font-black text-[18px] md:text-[22px] tracking-tight">
                 Portfolio

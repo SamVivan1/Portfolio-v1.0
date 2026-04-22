@@ -38,6 +38,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="theme-color" content="#0d0d13" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta
