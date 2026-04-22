@@ -50,8 +50,8 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
               <Image
                 src="/assets/logo.png"
                 alt="Logo"
-                width={32} // Ukuran logo mobile lebih kecil
-                height={32}
+                width={40} // Ukuran logo mobile lebih kecil
+                height={30}
                 className="shadow-lg md:w-[40px] md:h-[30px]"
               />
               <h1 className="text-white font-black text-[18px] md:text-[22px] tracking-tight">

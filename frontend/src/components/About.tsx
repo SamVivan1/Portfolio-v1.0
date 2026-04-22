@@ -27,7 +27,7 @@ const ABOUT_DATA = {
     degree: "Bachelor of Computer Engineering",
     university: "Universitas Syiah Kuala",
     universityUrl: "https://usk.ac.id",
-    gpa: "GPA: 2.9/4.0"
+    gpa: "GPA: 3.48/4.0"
   },
   experience: [
     {
