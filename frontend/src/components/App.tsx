@@ -16,11 +16,8 @@ const Projects = dynamic(() => import("./Projects"), { ssr: true });
 const Experience = dynamic(() => import("./Experience"), { ssr: true });
 const About = dynamic(() => import("./About"), { ssr: true });
 const Footer = dynamic(() => import("./Footer"), { ssr: true });
+const LightPillar = dynamic(() => import("./reactbits/LightPillar"), { ssr: true }); // LightPillar menggunakan WebGL, jadi client-side only
 
-// Plasma harus client-side only karena menggunakan WebGL/OGL
-const Plasma = dynamic(() => import("./reactbits/Plasma"), {
-  ssr: false,
-});
 
 type ScrollSmootherInstance = ReturnType<typeof ScrollSmoother.create>;
 
@@ -87,13 +84,20 @@ export default function App() {
       */}
       <div className="fixed inset-0 pointer-events-none z-0">
         {(!isMobile) && (
-          <Plasma 
-            color="#6366f1" // Indigo/Purple vibes
-            speed={1.5} 
-            scale={1} 
-            opacity={1} 
-            mouseInteractive={true}
-          />
+          <LightPillar
+    topColor="#5227FF"
+    bottomColor="#FF9FFC"
+    intensity={2}
+    rotationSpeed={2}
+    glowAmount={0.002}
+    pillarWidth={3}
+    pillarHeight={0.4}
+    noiseIntensity={0}
+    pillarRotation={111}
+    interactive
+    mixBlendMode="screen"
+    quality="low"
+/>
         )}
       </div>
 
