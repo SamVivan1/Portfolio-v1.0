@@ -13,6 +13,9 @@ services:
       PORT: 3000
       NEXT_TELEMETRY_DISABLED: 1
     restart: unless-stopped
+    dns:
+    - 8.8.8.8
+    - 1.1.1.1
     networks:
       - portfolio-network
     healthcheck:
