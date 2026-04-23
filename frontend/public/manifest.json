@@ -16,19 +16,19 @@
       "purpose": "any"
     },
     {
-      "src": "/android-launchericon-512-512.svg",
+      "src": "/android-launchericon-512-512.png",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/android-launchericon-192-192.svg",
+      "src": "/android-launchericon-192-192.png",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "maskable"
     },
     {
-      "src": "/android-launchericon-512-512.svg",
+      "src": "/android-launchericon-512-512.png",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "maskable"
@@ -36,7 +36,7 @@
   ],
   "screenshots": [
     {
-      "src": "/Wide310x150Logo.scale-400.svg",
+      "src": "/Wide310x150Logo.scale-400.png",
       "type": "image/png",
       "sizes": "1240x600"
     }
