@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
+import Hero from "./Hero";
 
 // Registrasi Plugin GSAP
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
