@@ -12,7 +12,6 @@ const Education = dynamic(() => import('../About').then(mod => mod.Education), {
 const ExperienceSection = dynamic(() => import('../About').then(mod => mod.ExperienceSection), { ssr: false });
 const Languages = dynamic(() => import('../About').then(mod => mod.Languages), { ssr: false });
 export interface BentoProps {
-  enableStars?: boolean;
   enableSpotlight?: boolean;
   enableBorderGlow?: boolean;
   disableAnimations?: boolean;
@@ -27,7 +26,7 @@ export interface BentoProps {
 const DEFAULT_PARTICLE_COUNT = 6;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = '168, 85, 247'; // Menggunakan ungu sesuai tema Anda
-const MOBILE_BREAKPOINT = 768;
+
 
 // --- Helper: Particle Creation ---
 const createParticleElement = (x: number, y: number, color: string): HTMLDivElement => {
@@ -141,7 +140,7 @@ const ParticleCard: React.FC<{
 };
 
 // --- Sub-Component: GlobalSpotlight ---
-const GlobalSpotlight: React.FC<{ gridRef: React.RefObject<HTMLDivElement | null>; glowColor: string; radius: number; }> = ({ gridRef, glowColor, radius }) => {
+const GlobalSpotlight: React.FC<{ gridRef: React.RefObject<HTMLDivElement | null>; radius: number; }> = ({ gridRef, radius }) => {
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
       if (!gridRef.current) return;
@@ -165,7 +164,7 @@ const GlobalSpotlight: React.FC<{ gridRef: React.RefObject<HTMLDivElement | null
 };
 
 const MagicBento: React.FC<BentoProps> = ({
-  enableStars = true, enableSpotlight = true, enableBorderGlow = true,
+  enableSpotlight = true, enableBorderGlow = true,
   disableAnimations = false, spotlightRadius = DEFAULT_SPOTLIGHT_RADIUS,
   particleCount = DEFAULT_PARTICLE_COUNT, enableTilt = true,
   glowColor = DEFAULT_GLOW_COLOR, enableMagnetism = true
@@ -216,7 +215,7 @@ const MagicBento: React.FC<BentoProps> = ({
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(${glowColor}, 0.3); border-radius: 10px; }
       `}</style>
 
-      {enableSpotlight && !isCoarse && <GlobalSpotlight gridRef={gridRef} glowColor={glowColor} radius={spotlightRadius} />}
+      {enableSpotlight && !isCoarse && <GlobalSpotlight gridRef={gridRef} radius={spotlightRadius} />}
 
       <div className="bento-grid">
         {BENTO_COMPONENTS.map((item, index) => (
@@ -230,7 +229,7 @@ const MagicBento: React.FC<BentoProps> = ({
             enableMagnetism={!isCoarse && enableMagnetism}
           >
             <div className="relative z-10 h-full flex flex-col">
-              <span className="text-[10px] font-black tracking-[0.2em] uppercase text-purple-500/70 mb-5">
+              <span className="text-[10px] font-black tracking-[0.2em] uppercase text-accent-deep/70 mb-5">
                 {item.label}
               </span>
               <div className="flex-1 overflow-y-auto custom-scrollbar pr-2">

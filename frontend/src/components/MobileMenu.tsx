@@ -37,7 +37,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onNavigate, setOpen }) => {
               onClick={() => handleNavigate(item.id)}
               className="flex items-center gap-4 w-full p-4 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 group"
             >
-              <span className="text-purple-400 group-hover:scale-110 transition-transform">
+              <span className="text-accent group-hover:scale-110 transition-transform">
                 {item.icon}
               </span>
               <span className="font-bold text-lg">{item.label}</span>
@@ -56,7 +56,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onNavigate, setOpen }) => {
           href="https://instagram.com/bintang.panjii"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full font-bold bg-purple-600 hover:bg-purple-500 py-4 text-white rounded-xl shadow-[0_10px_20px_rgba(147,51,234,0.3)] transition-all active:scale-95"
+          className="flex items-center justify-center gap-2 w-full font-bold bg-accent-deep hover:bg-accent py-4 text-white rounded-xl shadow-[0_10px_20px_rgba(147,51,234,0.3)] transition-all active:scale-95"
         >
           <Send size={18} />
           Contact me

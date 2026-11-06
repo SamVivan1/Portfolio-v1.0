@@ -54,7 +54,7 @@ const TechStack = () => {
 
   return (
     <div className="mt-10 text-center">
-      <h3 className="text-3xl font-bold text-purple-400 mb-20">Tech Stack</h3>
+      <h3 className="text-3xl font-bold text-accent mb-20">Tech Stack</h3>
       <div
         style={{ height: "180px", position: "relative", overflow: "hidden" }}
       >

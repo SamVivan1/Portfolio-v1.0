@@ -61,7 +61,7 @@ export default function Hero() {
         </model-viewer>
         
         {/* Glow effect di belakang model */}
-        <div className="absolute inset-0 bg-purple-500/5 blur-[80px] -z-10 rounded-full" />
+        <div className="absolute inset-0 bg-accent/5 blur-[80px] -z-10 rounded-full" />
       </div>
 
       {/* 2. AREA BIODATA (KIRI DI DESKTOP - TIDAK DIUBAH) */}
@@ -90,7 +90,7 @@ export default function Hero() {
         />
         <p className="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed">
           Hello! I&apos;m a
-          <span className="text-purple-300 font-semibold">
+          <span className="text-accent-soft font-semibold">
             {" "} Computer Engineering {" "}
           </span>
           student at
@@ -103,7 +103,7 @@ export default function Hero() {
           </span>
           , open-source technology, and system tinkering. I love experimenting
           with homelabs, container setups, and
-          <span className="text-purple-300 font-semibold">
+          <span className="text-accent-soft font-semibold">
             {" "} automation {" "}
           </span>
           tools to create efficient and scalable environments that bring ideas

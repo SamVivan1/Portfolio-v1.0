@@ -43,14 +43,14 @@ export default function Skills() {
         className="min-h-screen py-20 px-6 md:px-16 text-center text-white relative z-10"
       >
         <h2 className="text-4xl font-bold mb-4">
-          <span className="text-purple-400">Skills</span> and Projects
+          <span className="text-accent">Skills</span> and Projects
         </h2>
         <p className="text-gray-300 mb-12 max-w-2xl mx-auto">
           Loading projects from GitHub...
         </p>
 
         <div className="flex justify-center items-center py-20">
-          <FaSpinner className="animate-spin text-4xl text-purple-400" />
+          <FaSpinner className="animate-spin text-4xl text-accent" />
         </div>
       </section>
     );
@@ -62,7 +62,7 @@ export default function Skills() {
       className="min-h-screen py-20 px-6 md:px-16 text-center text-white relative z-10"
     >
       <h2 className="text-4xl font-bold mb-4">
-        <span className="text-purple-400">Github</span> Projects
+        <span className="text-accent">Github</span> Projects
       </h2>
       <p className="text-gray-300 mb-12 max-w-2xl mx-auto">
         {error ? (
@@ -92,13 +92,13 @@ export default function Skills() {
           {repositories.map((project, i) => (
             <div
               key={i}
-              className="bg-white/10 backdrop-blur-md backdrop-filter rounded-2xl border border-white/20 p-6 flex flex-col justify-between shadow-lg hover:shadow-purple-600/20  transition-transform duration-500 hover:-translate-y-1 hover:shadow-[0_0_16px_rgba(168,85,247,0.2)]"
+              className="bg-white/10 backdrop-blur-md backdrop-filter rounded-2xl border border-white/20 p-6 flex flex-col justify-between shadow-lg hover:shadow-accent-deep/20  transition-transform duration-500 hover:-translate-y-1 hover:shadow-[0_0_16px_rgba(168,85,247,0.2)]"
             >
               <div>
-                <h3 className="text-xl font-semibold text-purple-300">
+                <h3 className="text-xl font-semibold text-accent-soft">
                   {project.title}
                 </h3>
-                <span className="inline-block bg-purple-700/40 text-sm px-3 py-1 rounded-full mt-2 mb-4">
+                <span className="inline-block bg-accent-deep/40 text-sm px-3 py-1 rounded-full mt-2 mb-4">
                   {project.type}
                 </span>
                 <p className="text-gray-300 text-sm mb-4">
@@ -121,7 +121,7 @@ export default function Skills() {
                   )}
                   {project.language && (
                     <div className="flex items-center gap-1">
-                      <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-accent-soft rounded-full"></div>
                       <span>{project.language}</span>
                     </div>
                   )}
@@ -146,7 +146,7 @@ export default function Skills() {
                   rel="noreferrer"
                   className={`flex items-center gap-2 justify-center px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     project.demo !== "#"
-                      ? "bg-gradient-to-r from-purple-500 to-indigo-500 hover:scale-105 cursor-pointer min-h-[44px]"
+                      ? "bg-gradient-to-r from-accent to-indigo-500 hover:scale-105 cursor-pointer min-h-[44px]"
                       : "bg-gray-600/50 text-gray-400 cursor-not-allowed opacity-50 min-h-[44px]"
                   }`}
                   onClick={
@@ -177,7 +177,7 @@ export default function Skills() {
           href={user?.profileUrl || "https://github.com/samvivan"}
           target="_blank"
           rel="noreferrer"
-          className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition-all"
+          className="bg-gradient-to-r from-accent-deep to-indigo-600 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition-all"
         >
           Explore All Repositories ⚡
         </a>

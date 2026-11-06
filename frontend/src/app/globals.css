@@ -5,6 +5,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-deep: var(--accent-deep);
   /* ... rest of your theme */
 }
 
@@ -22,6 +25,10 @@
   /* Paksa background transparan agar Plasma terlihat */
   --background: transparent; 
   --foreground: oklch(0.145 0 0);
+  /* Brand accent tokens (Electric Violet) */
+  --accent: #a855f7;
+  --accent-soft: #c084fc;
+  --accent-deep: #7c3aed;
   /* ... rest of variables */
 }
 
@@ -30,6 +37,10 @@
   --background: transparent;
   --foreground: oklch(0.985 0 0);
   --border: oklch(1 0 0 / 10%);
+  /* Brand accent tokens (Electric Violet) */
+  --accent: #a855f7;
+  --accent-soft: #c084fc;
+  --accent-deep: #7c3aed;
   /* ... rest of variables */
 }
 

@@ -93,23 +93,23 @@ const experiences: Experience[] = [
 const TimelineCard = ({ item, index }: { item: Experience; index: number }) => (
   <div className="relative group pl-8 pb-12 last:pb-0">
     {/* Garis Vertikal Timeline (Penghubung antar dot) */}
-    <div className="absolute left-[11px] top-2 h-full w-[2px] bg-gradient-to-b from-purple-500/50 via-fuchsia-500/20 to-transparent group-last:h-8" />
+    <div className="absolute left-[11px] top-2 h-full w-[2px] bg-gradient-to-b from-accent/50 via-fuchsia-500/20 to-transparent group-last:h-8" />
     
     {/* Dot Timeline */}
-    <div className="absolute left-0 top-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-slate-900 border-2 border-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.5)] group-hover:scale-125 transition-transform duration-300">
-      <div className="h-2 w-2 rounded-full bg-purple-400 animate-pulse" />
+    <div className="absolute left-0 top-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-slate-900 border-2 border-accent shadow-[0_0_10px_rgba(168,85,247,0.5)] group-hover:scale-125 transition-transform duration-300">
+      <div className="h-2 w-2 rounded-full bg-accent-soft animate-pulse" />
     </div>
 
     <FadeContent delay={index * 100}>
-      <div className="backdrop-blur-md bg-white/[0.03] border border-white/10 p-6 rounded-2xl hover:bg-white/[0.07] hover:border-purple-500/40 hover:shadow-[0_0_30px_rgba(168,85,247,0.15)] transition-all duration-500">
+      <div className="backdrop-blur-md bg-white/[0.03] border border-white/10 p-6 rounded-2xl hover:bg-white/[0.07] hover:border-accent/40 hover:shadow-[0_0_30px_rgba(168,85,247,0.15)] transition-all duration-500">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-          <span className="text-[10px] font-bold tracking-widest uppercase bg-purple-500/20 text-purple-300 px-3 py-1 rounded-lg border border-purple-500/30">
+          <span className="text-[10px] font-bold tracking-widest uppercase bg-accent/20 text-accent-soft px-3 py-1 rounded-lg border border-accent/30">
             {item.tag}
           </span>
           <span className="text-xs font-mono text-gray-400">{item.year}</span>
         </div>
 
-        <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-purple-400 transition-colors duration-300">
+        <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-accent transition-colors duration-300">
           {item.title}
         </h3>
 
@@ -125,11 +125,11 @@ const TimelineCard = ({ item, index }: { item: Experience; index: number }) => (
               href={cert.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-500/5 border border-white/5 hover:border-purple-500/50 hover:bg-purple-500/10 transition-all text-xs text-gray-300 hover:text-white min-h-[44px]"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-accent/5 border border-white/5 hover:border-accent/50 hover:bg-accent/10 transition-all text-xs text-gray-300 hover:text-white min-h-[44px]"
             >
               <Image src={cert.logo} alt="badge" width={18} height={18} className="object-contain" />
               <span>View Credential</span>
-              <FaExternalLinkAlt size={10} className="text-purple-500" />
+              <FaExternalLinkAlt size={10} className="text-accent-deep" />
             </a>
           ))}
         </div>
