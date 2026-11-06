@@ -45,7 +45,7 @@ export default function Hero() {
           ref={modelRef}
           src="/assets/linux.glb"
           alt="Linux Mascot"
-          loading="eager"
+          loading="lazy"
           shadow-intensity="0.6"
           environment-preset="city"
           camera-orbit="0deg 75deg 105%"
