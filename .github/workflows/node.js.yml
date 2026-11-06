@@ -35,11 +35,3 @@ jobs:
       working-directory: frontend
       run: npm test --if-present || true
 
-    # TODO: Add backend (Strapi) build steps when ready
-    # - name: Install dependencies (Backend)
-    #   working-directory: backend
-    #   run: npm ci
-    # 
-    # - name: Build Backend
-    #   working-directory: backend
-    #   run: npm run build

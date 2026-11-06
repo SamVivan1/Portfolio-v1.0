@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-06T00:00:00.000Z",
+  "title": "Design System: Muhammad Bintang Panji Kusuma — Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "void": { "role": "neutral", "displayName": "Void Black", "canonical": "oklch(0.05 0 0)", "tonalRamp": ["#000000", "#050505", "#0a0a0a", "#141414", "#1f1f1f", "#2a2a2a", "#404040", "#6b6b6b"] },
+      "deep-plum": { "role": "neutral", "displayName": "Deep Plum", "canonical": "oklch(0.12 0.02 300)", "tonalRamp": ["#08040d", "#0f0816", "#120F17", "#1a1322", "#241a30", "#302340", "#4a3660", "#7a6090"] },
+      "electric-violet": { "role": "primary", "displayName": "Electric Violet", "canonical": "oklch(0.63 0.26 295)", "tonalRamp": ["#2a0a4a", "#4a1280", "#6b1fb0", "#8b35d9", "#a855f7", "#b87af9", "#d0a8fb", "#e8d4fd"] },
+      "violet-bright": { "role": "primary", "displayName": "Violet Bright", "canonical": "oklch(0.75 0.18 295)", "tonalRamp": ["#3a1a60", "#5a2a90", "#7a3ab0", "#9a5ad0", "#c084fc", "#cea0fd", "#dcb8fe", "#ecd4ff"] },
+      "violet-soft": { "role": "primary", "displayName": "Violet Soft", "canonical": "oklch(0.85 0.1 295)", "tonalRamp": ["#5a3a70", "#7a5a90", "#9a7ab0", "#ba9ad0", "#d8b4fe", "#e2c8fe", "#ecd8ff", "#f6ecff"] },
+      "violet-deep": { "role": "primary", "displayName": "Violet Deep", "canonical": "oklch(0.45 0.24 295)", "tonalRamp": ["#1a0530", "#2a0a4a", "#3a1060", "#5a1a80", "#9333ea", "#a855f7", "#c084fc", "#d8b4fe"] },
+      "soft-pink": { "role": "secondary", "displayName": "Soft Pink", "canonical": "oklch(0.72 0.18 350)", "tonalRamp": ["#4a0a2a", "#7a1a4a", "#a02a6a", "#c84090", "#f472b6", "#f792c6", "#fab2d6", "#fdd2e6"] },
+      "sky-cyan": { "role": "secondary", "displayName": "Sky Cyan", "canonical": "oklch(0.78 0.14 210)", "tonalRamp": ["#0a2a3a", "#10405a", "#185a7a", "#207a9a", "#38bdf8", "#68cdfa", "#98ddfc", "#c8edfe"] },
+      "neon-pink": { "role": "tertiary", "displayName": "Neon Pink", "canonical": "oklch(0.9 0.12 330)", "tonalRamp": ["#4a0a3a", "#7a1a5a", "#a02a7a", "#d05aa0", "#FF9FFC", "#ffb8fd", "#ffd0fe", "#ffe8ff"] },
+      "deep-indigo": { "role": "tertiary", "displayName": "Deep Indigo", "canonical": "oklch(0.4 0.22 270)", "tonalRamp": ["#0a0520", "#1a0a40", "#2a1060", "#3a1580", "#5227FF", "#7a55ff", "#a080ff", "#c8b0ff"] },
+      "star-yellow": { "role": "tertiary", "displayName": "Star Yellow", "canonical": "oklch(0.85 0.18 95)", "tonalRamp": ["#3a2a00", "#5a4000", "#7a5a00", "#a07a00", "#facc15", "#fad845", "#fbe475", "#fdefa5"] },
+      "neutral-white": { "role": "neutral", "displayName": "Pure White", "canonical": "oklch(1 0 0)", "tonalRamp": ["#808080", "#999999", "#b3b3b3", "#cccccc", "#e6e6e6", "#f2f2f2", "#fafafa", "#ffffff"] },
+      "neutral-gray": { "role": "neutral", "displayName": "Muted Gray", "canonical": "oklch(0.7 0 0)", "tonalRamp": ["#2a2a2a", "#404040", "#5a5a5a", "#737373", "#9ca3af", "#b5b9c0", "#cdd0d5", "#e5e7eb"] },
+      "neutral-border": { "role": "neutral", "displayName": "Glass Border", "canonical": "oklch(1 0 0 / 0.1)", "tonalRamp": ["rgba(255,255,255,0.02)", "rgba(255,255,255,0.04)", "rgba(255,255,255,0.06)", "rgba(255,255,255,0.08)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.15)", "rgba(255,255,255,0.2)", "rgba(255,255,255,0.3)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero name (Shuffle animated)." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles with purple glow." },
+      "title": { "displayName": "Title", "purpose": "Card titles and sub-sections." },
+      "body": { "displayName": "Body", "purpose": "Paragraphs, max ~75ch." },
+      "label": { "displayName": "Label", "purpose": "Tags, badges, eyebrow text (mono, uppercase)." }
+    },
+    "shadows": [
+      { "name": "purple-glow-sm", "value": "0 0 10px rgba(168,85,247,0.5)", "purpose": "Timeline dots and small accents." },
+      { "name": "purple-glow-md", "value": "0 0 20px rgba(168,85,247,0.4)", "purpose": "Card/button hover." },
+      { "name": "purple-glow-lg", "value": "0 0 30px rgba(168,85,247,0.15)", "purpose": "Expanded card hover." },
+      { "name": "white-glass-glow", "value": "0 0 50px rgba(255,255,255,0.05)", "purpose": "Footer card ambient." },
+      { "name": "white-cta-glow", "value": "0 0 20px rgba(255,255,255,0.3)", "purpose": "White CTA hover." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Default state transitions." },
+      { "name": "duration-fast", "value": "200ms", "purpose": "Quick feedback (toggles, hover)." },
+      { "name": "duration-base", "value": "300ms", "purpose": "Standard transitions." },
+      { "name": "duration-slow", "value": "500ms", "purpose": "Card/section reveals." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button (White Pill)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "White pill CTA used for the navbar Contact button.",
+      "html": "<button class=\"ds-btn-primary\">Contact me</button>",
+      "css": ".ds-btn-primary { background: #ffffff; color: #050505; padding: 10px 24px; border: none; border-radius: 9999px; font-family: Geist, system-ui, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.02em; cursor: pointer; transition: box-shadow 0.3s cubic-bezier(0.4,0,0.2,1), transform 0.2s; } .ds-btn-primary:hover { box-shadow: 0 0 20px rgba(255,255,255,0.3); transform: translateY(-1px); }"
+    },
+    {
+      "name": "Gradient Button (Violet Pill)",
+      "kind": "button",
+      "refersTo": "button-gradient",
+      "description": "Electric-violet to indigo gradient pill used for Download CV and primary actions.",
+      "html": "<button class=\"ds-btn-gradient\">Download CV</button>",
+      "css": ".ds-btn-gradient { background: linear-gradient(90deg, #a855f7 0%, #6366f1 100%); color: #ffffff; padding: 12px 24px; border: none; border-radius: 20px; font-family: Geist, system-ui, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.3s; } .ds-btn-gradient:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(168,85,247,0.4); }"
+    },
+    {
+      "name": "Glass Card",
+      "kind": "card",
+      "refersTo": "card-glass",
+      "description": "Translucent glass surface floating over the void; used for project cards, about bento, timeline entries.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card-title\">Project Title</h3><p class=\"ds-card-body\">Short description of the project.</p></div>",
+      "css": ".ds-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #ffffff; font-family: Geist, system-ui, sans-serif; transition: border-color 0.3s, box-shadow 0.3s, transform 0.5s; } .ds-card:hover { border-color: rgba(168,85,247,0.4); box-shadow: 0 0 20px rgba(168,85,247,0.4); transform: translateY(-4px); } .ds-card-title { font-size: 20px; font-weight: 600; color: #c084fc; margin: 0 0 8px; } .ds-card-body { font-size: 14px; color: #9ca3af; line-height: 1.6; margin: 0; }"
+    },
+    {
+      "name": "Navbar Glass",
+      "kind": "nav",
+      "refersTo": "navbar-glass",
+      "description": "Fixed glass navigation bar with animated pill indicator.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav-brand\">Portfolio</span><ul class=\"ds-nav-list\"><li class=\"ds-nav-item ds-nav-item--active\">Home</li><li class=\"ds-nav-item\">About</li><li class=\"ds-nav-item\">Projects</li></ul></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; backdrop-filter: blur(11px); -webkit-backdrop-filter: blur(11px); font-family: Geist, system-ui, sans-serif; } .ds-nav-brand { font-size: 22px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; } .ds-nav-list { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; } .ds-nav-item { padding: 10px 20px; font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.5); border-radius: 16px; cursor: pointer; transition: color 0.5s; } .ds-nav-item--active { color: #ffffff; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(24px); }"
+    },
+    {
+      "name": "Badge / Tag",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Small uppercase tag used for project type and section eyebrows.",
+      "html": "<span class=\"ds-badge\">Next.js</span>",
+      "css": ".ds-badge { display: inline-block; padding: 4px 12px; background: rgba(168,85,247,0.2); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); border-radius: 12px; font-family: Geist, system-ui, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Headline with Glow",
+      "kind": "custom",
+      "refersTo": "headline-glow",
+      "description": "Section title with the signature purple text-shadow glow.",
+      "html": "<h2 class=\"ds-headline\">Professional Journey</h2>",
+      "css": ".ds-headline { font-family: Geist, system-ui, sans-serif; font-size: 36px; font-weight: 900; color: #ffffff; text-shadow: 0 0 15px rgba(168,85,247,0.4); margin: 0; line-height: 1.1; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Homelab Atrium",
+    "overview": "A dark, immersive viewing chamber where glowing glass panels float over a plasma field, and the work itself is the exhibit. The portfolio reads like a living control room for a homelab enthusiast: deep void background, translucent glass surfaces, and a single electric-violet accent that carries identity, emphasis, and glow. Motion is purposeful and atmospheric (scroll smoothing, animated text, a 3D Linux mascot that tracks the cursor), never decorative filler. Brand lives in the precise details — the purple glow, the glass blur, the rounded-full CTAs — not in loud chrome.",
+    "keyCharacteristics": [
+      "Dark void canvas (#050505) with a fixed, animated LightPillar shader behind all content.",
+      "Glassmorphism as the primary surface language: backdrop-blur, semi-transparent white layers, thin white borders.",
+      "Single accent — Electric Violet (#a855f7 / #c084fc) — used for headings, links, glows, borders, and emphasis.",
+      "Rounded-full pill CTAs and rounded-2xl glass cards; no sharp corners anywhere.",
+      "Geist Sans for all UI/body; Geist Mono only for labels and metadata.",
+      "Depth via glow and translucency, not hard drop shadows."
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "The electric-violet accent appears on ≤10% of any given screen. Its rarity is the point; everything else is white, gray, or glass.", "section": "colors" },
+      { "name": "The No-Hard-Shadow Rule", "body": "Surfaces never cast opaque drop shadows. Depth is conveyed by translucency, blur, and purple glow only.", "section": "colors" },
+      { "name": "The Glow-Headline Rule", "body": "Section headlines always carry a purple text-shadow glow (drop-shadow-[0_0_15px_rgba(168,85,247,0.4)]). Body text never does.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. Shadows and glows appear only as a response to state (hover, focus, active) or as the ambient headline glow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep the background transparent (bg-transparent) on content layers so the LightPillar shows through.",
+      "Do use Electric Violet (#a855f7) as the single accent; keep it to ≤10% of any screen.",
+      "Do use glass surfaces (backdrop-blur + semi-transparent white fill + thin white border) for cards, nav, and modals.",
+      "Do apply the purple headline glow to section titles only.",
+      "Do disable heavy effects (LightPillar, ScrollSmoother) below the md breakpoint.",
+      "Do use rounded-full for all CTAs and rounded-2xl for cards/panels.",
+      "Do keep body text in Muted Gray (#9ca3af) / white over the void for readability."
+    ],
+    "donts": [
+      "Don't introduce a second accent color or a light theme; the system is dark-only.",
+      "Don't use opaque drop shadows or hard edges on interactive elements.",
+      "Don't apply glassmorphism to body text or dense content; reserve it for surfaces.",
+      "Don't add new fonts; Geist + Geist Mono only.",
+      "Don't let the LightPillar or animations block interaction (pointer-events-none on the background layer).",
+      "Don't mix in generic Bootstrap/template layouts or cookie-cutter hero patterns."
+    ]
+  }
+}
