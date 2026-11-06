@@ -2,17 +2,16 @@
 import { useEffect, useRef } from "react";
 import Shuffle from "./reactbits/Shuffle";
 import BorderGlow from './reactbits/BorderGlow';
-import { base } from "motion/react-client";
 
 export default function Hero() {
-  const modelRef = useRef(null);
+  const modelRef = useRef<(HTMLElement & { cameraOrbit: string }) | null>(null);
 
   useEffect(() => {
     // Import library secara dinamis
     import("@google/model-viewer").catch(console.error);
 
     // Logic Follow Cursor (Parallax)
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (!modelRef.current) return;
       
       const { clientX, clientY } = e;
@@ -42,13 +41,12 @@ export default function Hero() {
     >
       {/* 1. AREA MODEL 3D (KANAN DI DESKTOP) */}
       <div className="relative order-1 md:order-2 w-full md:w-[500px] h-[400px] md:h-[500px] flex justify-center items-center">
-        {/* @ts-ignore */}
         <model-viewer
           ref={modelRef}
           src="/assets/linux.glb"
           alt="Linux Mascot"
           loading="eager"
-          shadow-intensity="1"
+          shadow-intensity="0.6"
           environment-preset="city"
           camera-orbit="0deg 75deg 105%"
           interaction-prompt="none"
@@ -63,7 +61,7 @@ export default function Hero() {
         </model-viewer>
         
         {/* Glow effect di belakang model */}
-        <div className="absolute inset-0 bg-blue-500/5 blur-[120px] -z-10 rounded-full" />
+        <div className="absolute inset-0 bg-purple-500/5 blur-[80px] -z-10 rounded-full" />
       </div>
 
       {/* 2. AREA BIODATA (KIRI DI DESKTOP - TIDAK DIUBAH) */}
@@ -91,21 +89,21 @@ export default function Hero() {
           onShuffleComplete={() => console.log("Name shuffle completed!")}
         />
         <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-          Hello! I'm a
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 font-semibold">
+          Hello! I&apos;m a
+          <span className="text-purple-300 font-semibold">
             {" "} Computer Engineering {" "}
           </span>
           student at
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 font-semibold">
+          <span className="text-cyan-300 font-semibold">
             {" "} Syiah Kuala University {" "}
           </span>
           with a deep passion for
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-violet-400 font-semibold">
+          <span className="text-pink-300 font-semibold">
             {" "} Linux {" "}
           </span>
           , open-source technology, and system tinkering. I love experimenting
           with homelabs, container setups, and
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 font-semibold">
+          <span className="text-purple-300 font-semibold">
             {" "} automation {" "}
           </span>
           tools to create efficient and scalable environments that bring ideas
@@ -119,9 +117,9 @@ export default function Hero() {
             backgroundColor="#110818"
             borderRadius={20}
             glowRadius={80}
-            glowIntensity={1}
+            glowIntensity={0.6}
             coneSpread={45}
-            animated={true}
+            animated={false}
             colors={['#c084fc', '#f472b6', '#38bdf8']}
           >
             <div className="py-3 px-5">

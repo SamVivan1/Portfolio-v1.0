@@ -35,10 +35,10 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60,
   },
   eslint: {
-    ignoreDuringBuilds: true, // <--- tambahkan ini
+    ignoreDuringBuilds: false,
   },
   typescript: {
-    ignoreBuildErrors: true, // opsional kalau ada type error
+    ignoreBuildErrors: false,
   },
 };
 

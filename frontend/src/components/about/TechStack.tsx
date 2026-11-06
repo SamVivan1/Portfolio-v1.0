@@ -17,6 +17,8 @@ import {
   SiArduino,
 } from "react-icons/si";
 import LogoLoop from "../reactbits/LogoLoop";
+import type { ComponentType } from "react";
+const TypedLogoLoop = LogoLoop as ComponentType<Record<string, unknown>>;
 
 const TechStack = () => {
   const techLogos = useMemo(
@@ -56,8 +58,8 @@ const TechStack = () => {
       <div
         style={{ height: "180px", position: "relative", overflow: "hidden" }}
       >
-        <LogoLoop
-          logos={techLogos as any}
+        <TypedLogoLoop
+          logos={techLogos}
           speed={120}
           direction="left"
           logoHeight={48}

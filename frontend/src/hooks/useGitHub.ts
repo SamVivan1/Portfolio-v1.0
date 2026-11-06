@@ -149,6 +149,6 @@ export const useGitHub = (): GitHubData => {
     repositories,
     user,
     loading,
-    error: error ? true : false,
+    error,
   };
 };

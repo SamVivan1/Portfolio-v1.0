@@ -69,14 +69,28 @@ export const fetchGitHubRepositories = async (): Promise<Repository[]> => {
     const repos = await response.json();
 
     // Filter dan format data repository
-    const formattedRepos = repos
+    interface GitHubRepo {
+      name: string;
+      fork: boolean;
+      archived: boolean;
+      language: string | null;
+      topics: string[] | null;
+      description: string | null;
+      homepage: string | null;
+      html_url: string;
+      stargazers_count: number;
+      forks_count: number;
+      updated_at: string;
+    }
+
+    const formattedRepos = (repos as GitHubRepo[])
       .filter(
-        (repo: any) =>
+        (repo) =>
           !repo.fork &&
           !repo.archived &&
           !GITHUB_CONFIG.EXCLUDE_REPOS.includes(repo.name.toLowerCase())
       ) // Hanya repository asli yang tidak di-archive dan tidak di-exclude
-      .sort((a: any, b: any) => {
+      .sort((a, b) => {
         // Prioritaskan repository yang ada di PRIORITY_REPOS
         const aPriority = GITHUB_CONFIG.PRIORITY_REPOS.includes(
           a.name.toLowerCase()
@@ -89,19 +103,19 @@ export const fetchGitHubRepositories = async (): Promise<Repository[]> => {
         return 0;
       })
       .map(
-        (repo: any): Repository => ({
+        (repo): Repository => ({
           title: repo.name
             .replace(/-/g, " ")
             .replace(/\b\w/g, (l) => l.toUpperCase()),
-          type: getProjectType(repo.language, repo.topics),
+          type: getProjectType(repo.language),
           description: repo.description || "No description available",
-          stack: getTechStack(repo.language, repo.topics),
+          stack: getTechStack(repo.language),
           demo: repo.homepage || "#",
           code: repo.html_url,
           stars: repo.stargazers_count,
           forks: repo.forks_count,
           updated: repo.updated_at,
-          language: repo.language,
+          language: repo.language || "Unknown",
         })
       )
       .slice(0, GITHUB_CONFIG.REPOS_PER_PAGE); // Maksimal sesuai konfigurasi
@@ -115,8 +129,7 @@ export const fetchGitHubRepositories = async (): Promise<Repository[]> => {
 
 // Fungsi untuk menentukan tipe project berdasarkan bahasa dan topics
 const getProjectType = (
-  language: string | null,
-  topics: string[] | null
+  language: string | null
 ): string => {
   if (!language) return "Project";
 
@@ -149,63 +162,12 @@ const getProjectType = (
 
 // Fungsi untuk menentukan tech stack berdasarkan bahasa dan topics
 const getTechStack = (
-  language: string | null,
-  topics: string[] | null
+  language: string | null
 ): string[] => {
   const stack: string[] = [];
 
   if (language) {
     stack.push(language);
-  }
-
-  // Mapping topics ke tech stack yang lebih familiar
-  if (topics) {
-    topics.forEach((topic) => {
-      const techMapping: { [key: string]: string } = {
-        react: "React",
-        vue: "Vue.js",
-        angular: "Angular",
-        nodejs: "Node.js",
-        express: "Express.js",
-        nextjs: "Next.js",
-        nuxtjs: "Nuxt.js",
-        tailwindcss: "Tailwind CSS",
-        bootstrap: "Bootstrap",
-        mongodb: "MongoDB",
-        postgresql: "PostgreSQL",
-        mysql: "MySQL",
-        redis: "Redis",
-        docker: "Docker",
-        kubernetes: "Kubernetes",
-        aws: "AWS",
-        azure: "Azure",
-        firebase: "Firebase",
-        typescript: "TypeScript",
-        javascript: "JavaScript",
-        python: "Python",
-        java: "Java",
-        spring: "Spring Boot",
-        django: "Django",
-        flask: "Flask",
-        fastapi: "FastAPI",
-        graphql: "GraphQL",
-        "rest-api": "REST API",
-        websocket: "WebSocket",
-        jwt: "JWT",
-        oauth: "OAuth",
-        jest: "Jest",
-        cypress: "Cypress",
-        webpack: "Webpack",
-        vite: "Vite",
-        eslint: "ESLint",
-        prettier: "Prettier",
-      };
-
-      const mappedTech = techMapping[topic.toLowerCase()];
-      if (mappedTech && !stack.includes(mappedTech)) {
-        stack.push(mappedTech);
-      }
-    });
   }
 
   // Batasi maksimal 4 tech stack

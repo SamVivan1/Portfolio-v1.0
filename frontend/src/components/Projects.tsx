@@ -2,7 +2,6 @@
 
 import {
   FaExternalLinkAlt,
-  FaCode,
   FaStar,
   FaCodeBranch,
   FaSpinner,
@@ -33,10 +32,6 @@ interface GitHubData {
   loading: boolean;
   error: string | null;
 }
-
-const handleAnimationComplete = () => {
-  console.log("All letters have animated!");
-};
 
 export default function Skills() {
   const { repositories, user, loading, error }: GitHubData = useGitHub();
@@ -97,7 +92,7 @@ export default function Skills() {
           {repositories.map((project, i) => (
             <div
               key={i}
-              className="bg-white/10 backdrop-blur-md backdrop-filter rounded-2xl border border-white/20 p-6 flex flex-col justify-between shadow-lg hover:shadow-purple-600/20  transition-transform duration-500 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+              className="bg-white/10 backdrop-blur-md backdrop-filter rounded-2xl border border-white/20 p-6 flex flex-col justify-between shadow-lg hover:shadow-purple-600/20  transition-transform duration-500 hover:-translate-y-1 hover:shadow-[0_0_16px_rgba(168,85,247,0.2)]"
             >
               <div>
                 <h3 className="text-xl font-semibold text-purple-300">

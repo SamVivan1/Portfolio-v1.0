@@ -52,7 +52,7 @@ const ABOUT_DATA = {
 
 const Intro = () => (
   <p className="text-white text-base md:text-lg leading-relaxed">
-    I'm <span className="text-purple-400 font-bold">{ABOUT_DATA.intro.name}</span>, {ABOUT_DATA.intro.description}
+    I&apos;m <span className="text-purple-400 font-bold">{ABOUT_DATA.intro.name}</span>, {ABOUT_DATA.intro.description}
   </p>
 );
 

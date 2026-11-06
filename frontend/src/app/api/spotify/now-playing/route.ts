@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { spotifyService } from "../../../../services/spotifyService";
 
 export async function GET() {

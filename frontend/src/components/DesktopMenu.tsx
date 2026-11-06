@@ -54,7 +54,7 @@ const DesktopMenu: React.FC<DesktopMenuProps> = ({ onNavigate }) => {
             {hoveredTab === item.id && (
               <motion.div
                 layoutId="nav-pill"
-                className="absolute inset-0 z-0 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.05)]"
+                className="absolute inset-0 z-0 rounded-2xl bg-white/[0.06] backdrop-blur-2xl border border-white/10 shadow-[0_0_10px_rgba(255,255,255,0.03)]"
                 
                 // Logic Zoomify & Liquid Stretch
                 initial={isFirstHover ? { opacity: 0, scale: 0.7, transformOrigin: 'center' } : false}

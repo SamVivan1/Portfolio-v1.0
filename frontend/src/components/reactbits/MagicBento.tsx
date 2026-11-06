@@ -24,7 +24,7 @@ export interface BentoProps {
   enableMagnetism?: boolean;
 }
 
-const DEFAULT_PARTICLE_COUNT = 12;
+const DEFAULT_PARTICLE_COUNT = 6;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = '168, 85, 247'; // Menggunakan ungu sesuai tema Anda
 const MOBILE_BREAKPOINT = 768;

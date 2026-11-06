@@ -6,7 +6,6 @@ import Navbar from "./Navbar";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
-import Hero from "./Hero";
 
 // Registrasi Plugin GSAP
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -80,6 +79,12 @@ export default function App() {
       ref={smoothWrapper}
       className="min-h-screen w-full relative text-white bg-[#050505] overflow-x-hidden"
     >
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:rounded-full focus:bg-white focus:text-black focus:font-bold"
+      >
+        Skip to content
+      </a>
       {/* LAYER 0: PLASMA BACKGROUND (Fixed)
         Menggunakan z-[-1] agar berada di belakang smooth-content
       */}
@@ -88,10 +93,10 @@ export default function App() {
           <LightPillar
     topColor="#5227FF"
     bottomColor="#FF9FFC"
-    intensity={2}
-    rotationSpeed={2}
+    intensity={1.2}
+    rotationSpeed={1.2}
     glowAmount={0.002}
-    pillarWidth={3}
+    pillarWidth={2.5}
     pillarHeight={0.4}
     noiseIntensity={0}
     pillarRotation={111}
@@ -111,6 +116,7 @@ export default function App() {
         bg-transparent adalah KUNCI agar Plasma terlihat.
       */}
       <div 
+        id="main-content"
         ref={smoothContent} 
         className="relative z-10 w-full flex flex-col bg-transparent"
       >

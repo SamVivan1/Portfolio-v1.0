@@ -64,7 +64,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
             <motion.div 
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="hidden md:flex items-center font-bold bg-white px-6 py-2.5 text-black rounded-full transition-shadow hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+              className="hidden md:flex items-center font-bold bg-white px-6 py-2.5 text-black rounded-full transition-shadow hover:shadow-[0_0_12px_rgba(255,255,255,0.15)]"
             >
               <a href="https://instagram.com/bintang.panjii" target="_blank" rel="noopener noreferrer">
                 Contact me

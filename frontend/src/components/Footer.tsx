@@ -16,11 +16,11 @@ const Footer: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="relative z-10 w-[90%] md:w-[85%] backdrop-blur-3xl bg-white/5 border border-white/10 rounded-2xl px-6 md:px-12 py-10 shadow-[0_0_50px_rgba(255,255,255,0.05)] flex flex-col items-center"
+        className="relative z-10 w-[90%] md:w-[85%] backdrop-blur-3xl bg-white/5 border border-white/10 rounded-2xl px-6 md:px-12 py-10 shadow-[0_0_30px_rgba(255,255,255,0.03)] flex flex-col items-center"
       >
         {/* Title */}
-        <h2 className="text-3xl md:text-4xl font-semibold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-4 text-center">
-          Let's Connect
+        <h2 className="text-3xl md:text-4xl font-semibold text-white mb-4 text-center">
+          Let&apos;s Connect
         </h2>
 
         {/* Description */}

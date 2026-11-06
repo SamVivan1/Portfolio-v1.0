@@ -144,7 +144,7 @@ class SpotifyService {
       }
 
       const data = await response.json();
-      return data.items.map((item: any) => item.track);
+      return data.items.map((item: { track: SpotifyTrack }) => item.track);
     } catch (error) {
       console.error("Error fetching recently played tracks:", error);
       return [];
