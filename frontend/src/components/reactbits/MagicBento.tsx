@@ -172,9 +172,13 @@ const MagicBento: React.FC<BentoProps> = ({
 }) => {
   const gridRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
+  const [isCoarse, setIsCoarse] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    if (typeof window !== "undefined" && window.matchMedia) {
+      setIsCoarse(window.matchMedia("(pointer: coarse)").matches);
+    }
   }, []);
 
   // Mapping komponen di dalam body fungsi untuk memastikan sub-komponen sudah termuat
@@ -212,18 +216,18 @@ const MagicBento: React.FC<BentoProps> = ({
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(${glowColor}, 0.3); border-radius: 10px; }
       `}</style>
 
-      {enableSpotlight && <GlobalSpotlight gridRef={gridRef} glowColor={glowColor} radius={spotlightRadius} />}
+      {enableSpotlight && !isCoarse && <GlobalSpotlight gridRef={gridRef} glowColor={glowColor} radius={spotlightRadius} />}
 
       <div className="bento-grid">
         {BENTO_COMPONENTS.map((item, index) => (
           <ParticleCard
             key={index}
             className={`card p-7 ${enableBorderGlow ? 'card--border-glow' : ''}`}
-            disableAnimations={disableAnimations}
-            particleCount={particleCount}
+            disableAnimations={disableAnimations || isCoarse}
+            particleCount={isCoarse ? 0 : particleCount}
             glowColor={glowColor}
-            enableTilt={enableTilt}
-            enableMagnetism={enableMagnetism}
+            enableTilt={!isCoarse && enableTilt}
+            enableMagnetism={!isCoarse && enableMagnetism}
           >
             <div className="relative z-10 h-full flex flex-col">
               <span className="text-[10px] font-black tracking-[0.2em] uppercase text-purple-500/70 mb-5">

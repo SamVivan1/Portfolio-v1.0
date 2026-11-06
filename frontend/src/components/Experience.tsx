@@ -125,7 +125,7 @@ const TimelineCard = ({ item, index }: { item: Experience; index: number }) => (
               href={cert.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-500/5 border border-white/5 hover:border-purple-500/50 hover:bg-purple-500/10 transition-all text-xs text-gray-300 hover:text-white"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-500/5 border border-white/5 hover:border-purple-500/50 hover:bg-purple-500/10 transition-all text-xs text-gray-300 hover:text-white min-h-[44px]"
             >
               <Image src={cert.logo} alt="badge" width={18} height={18} className="object-contain" />
               <span>View Credential</span>

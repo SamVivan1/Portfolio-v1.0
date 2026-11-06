@@ -61,7 +61,7 @@ const Footer: React.FC = () => {
               rel="noopener noreferrer"
               aria-label={link.label}
               whileHover={{ scale: 1.2 }}
-              className="text-2xl text-gray-400 hover:text-white transition-all"
+              className="text-2xl text-gray-400 hover:text-white transition-all min-w-[44px] min-h-[44px] flex items-center justify-center"
             >
               {link.icon}
             </motion.a>

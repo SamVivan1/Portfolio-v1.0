@@ -72,9 +72,11 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
             </motion.div>
 
             <button
-              className="md:hidden flex items-center text-white p-2"
+              className="md:hidden flex items-center justify-center text-white p-2 min-w-[44px] min-h-[44px]"
               onClick={() => setOpen(!open)}
               aria-label="Toggle Menu"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
             >
               <motion.div
                 animate={open ? { rotate: 90 } : { rotate: 0 }}
@@ -98,6 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
         <AnimatePresence>
           {open && (
             <motion.div
+              id="mobile-menu"
               initial={{ opacity: 0, y: -10, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}

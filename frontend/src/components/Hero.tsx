@@ -37,10 +37,10 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex flex-col md:flex-row items-center justify-center min-h-screen px-4 md:px-10 gap-8 md:gap-12 pt-16 sm:pt-20 md:pt-0 overflow-hidden"
+      className="relative flex flex-col md:flex-row items-center justify-center min-h-screen px-4 md:px-10 gap-6 md:gap-12 pt-16 sm:pt-20 md:pt-0 overflow-hidden"
     >
       {/* 1. AREA MODEL 3D (KANAN DI DESKTOP) */}
-      <div className="relative order-1 md:order-2 w-full md:w-[500px] h-[400px] md:h-[500px] flex justify-center items-center">
+      <div className="relative order-1 md:order-2 w-full md:w-[500px] h-[320px] sm:h-[400px] md:h-[500px] flex justify-center items-center overflow-hidden">
         <model-viewer
           ref={modelRef}
           src="/assets/linux.glb"
@@ -52,8 +52,8 @@ export default function Hero() {
           interaction-prompt="none"
           // "camera-controls" dihapus agar tidak bisa di-drag manual
           style={{ 
-            width: '150%', 
-            height: '150%', 
+            width: '100%', 
+            height: '100%', 
             outline: 'none',
             backgroundColor: 'transparent' 
           }}
@@ -69,10 +69,10 @@ export default function Hero() {
         <Shuffle
           text="Muhammad Bintang Panji Kusuma"
           tag="h1"
-          className="text-5xl font-extrabold text-white mb-6"
+          className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-6"
           style={{
             fontFamily: "inherit",
-            fontSize: "3rem",
+            fontSize: "clamp(1.75rem, 5vw, 3rem)",
             fontWeight: "800",
             color: "#ffffff",
             textAlign: "left",
@@ -88,7 +88,7 @@ export default function Hero() {
           rootMargin="-50px"
           onShuffleComplete={() => console.log("Name shuffle completed!")}
         />
-        <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+        <p className="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed">
           Hello! I&apos;m a
           <span className="text-purple-300 font-semibold">
             {" "} Computer Engineering {" "}

@@ -146,8 +146,8 @@ export default function Skills() {
                   rel="noreferrer"
                   className={`flex items-center gap-2 justify-center px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     project.demo !== "#"
-                      ? "bg-gradient-to-r from-purple-500 to-indigo-500 hover:scale-105 cursor-pointer"
-                      : "bg-gray-600/50 text-gray-400 cursor-not-allowed opacity-50"
+                      ? "bg-gradient-to-r from-purple-500 to-indigo-500 hover:scale-105 cursor-pointer min-h-[44px]"
+                      : "bg-gray-600/50 text-gray-400 cursor-not-allowed opacity-50 min-h-[44px]"
                   }`}
                   onClick={
                     project.demo === "#" ? (e) => e.preventDefault() : undefined
@@ -162,7 +162,7 @@ export default function Skills() {
                   href={project.code}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 justify-center border border-white/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition-all"
+                  className="flex items-center gap-2 justify-center border border-white/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition-all min-h-[44px]"
                 >
                   <FaGithub /> Code
                 </a>
