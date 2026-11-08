@@ -8,39 +8,46 @@ web
 
 ## Users
 
-Primary: recruiters and hiring managers screening Muhammad Bintang Panji Kusuma for internship and entry-level roles. They need to quickly verify skills, projects, credentials, and availability, and decide whether to reach out. Secondary audiences (engineering managers, peers, collaborators) are possible but not confirmed.
+Primary: recruiters and hiring managers screening Muhammad Bintang Panji Kusuma for internship and entry-level roles. They need to verify skills, projects, credentials, and availability quickly, then decide whether to reach out.
+
+Secondary: engineering peers and collaborators evaluating his homelab and open-source work; and prospective ProtoPrime3D customers who arrive through the workshop chapter. ProtoPrime3D has its own site and remains a secondary path.
 
 ## Product Purpose
 
-A personal portfolio that presents Muhammad Bintang Panji Kusuma — a Computer Engineering student at Universitas Syiah Kuala (expected graduation 2027) with interests in DevOps, homelab systems, and web development — to prospective employers and collaborators. Success means converting visits into internship/entry-level opportunities and inbound collaboration by making capability verifiable rather than merely claimed.
+A recruiter-first personal portfolio for Muhammad Bintang Panji Kusuma — a Computer Engineering student at Universitas Syiah Kuala (expected 2027) focused on DevOps, homelab systems, networking, and web development. Success means converting visits into internship/entry-level conversations and inbound collaboration by making capability verifiable rather than merely claimed.
 
 ## Positioning
 
-Live proof of skills: the portfolio demonstrates capability through interactive and verifiable artifacts (a 3D model viewer, live GitHub repository data, verifiable certificates with links, a downloadable CV) instead of static self-description. A generic resume or GitHub profile cannot show this combination of craft, systems experience, and verified credentials in one place.
+A scroll-driven pixel-art homelab, not a template portfolio. The visitor walks through four rooms — desk, server rack, workshop, rooftop — while live GitHub data, verified credentials, a real 3D printing business, and a downloadable CV sit one layer below the surface. The memorable experience earns attention; the Quick view and reduced-motion document make the evidence scannable in under a minute.
 
 ## Operating Context
 
-- Audience skims on both desktop and mobile; the site is a PWA (installable, service worker registered) and ships Dockerized (Dockerfiles/compose present) in addition to standard Next.js hosting.
-- Content is bilingual-ish in practice: Bahasa Indonesia (native), English (advanced), Japanese (beginner); site copy is in English.
+- Audience skims on desktop and mobile; the site is a PWA (installable, service worker registered) and ships Dockerized.
+- Copy is in English. The owner's languages are Bahasa Indonesia (native), English (advanced), Japanese (beginner).
 - The owner's professional context is homelab/DevOps and computer networking (BNSP-certified Junior Network Administrator), alongside coursework at Universitas Syiah Kuala in Banda Aceh, Indonesia.
-- Heavy motion is part of the experience (GSAP ScrollSmoother on desktop, WebGL light pillar, animated text, 3D model), so reduced-motion considerations are material even though no specific requirement is confirmed.
+- Heavy motion is part of the experience (scroll-driven camera, rain, LEDs, fire, avatar), so `prefers-reduced-motion` is a first-class path, not a fallback afterthought.
+- The business ProtoPrime3D operates at protoprime3d.my.id; the portfolio links to it but does not replace it.
 
 ## Capabilities and Constraints
 
 Capabilities:
-- Next.js 15 (App Router) + React 19 + TypeScript portfolio with Tailwind CSS 4.
-- Animated hero with a 3D Linux mascot (model-viewer, cursor-driven camera parallax) and WebGL light-pillar background (desktop).
-- About section with contact info, availability, education, experience, languages, and an interactive bento grid.
-- Projects section pulling live repositories from the GitHub API, with fallback sample data.
-- Experience timeline of SOI Asia / VSGA-DTS programs with verifiable certificate links.
-- Tech stack display, footer with social links, navbar with glass surface.
+- Next.js 15 (App Router) + React 19 + TypeScript + Tailwind CSS 4.
+- One continuous Canvas 2D pixel world (3900 × 800 logical pixels) behind four chapter panels.
+- Scroll-driven camera with desktop and portrait keyframes; ambient rain, LEDs, monitor cursor, steam, fire, stars, string lights, and a walking avatar.
+- Persistent HUD: wordmark, availability, local Banda Aceh time, chapter navigation, CV, Quick view, progress.
+- Quick view dialog: a complete, conventional resume with summary, education, experience, skills, projects, certifications, languages, and ProtoPrime3D.
+- Command palette (`Ctrl/Cmd + K`) for chapter jumps, links, CV, and copy-email.
+- Live GitHub project data with a curated, truthful fallback based on real repositories.
+- ProtoPrime3D workshop chapter with real part photos, machine specs, materials, lead time, and links.
+- Reduced-motion document: the same content in a normal vertical page, with static scene posters.
 - PWA manifest and service worker; Dockerized build.
 
-Constraints / undecided:
-- Viewport locks scaling (`userScalable: false`, max scale 1).
-- Dark theme baseline (#050505 background); visual identity is not yet captured in DESIGN.md.
-- No testimonials, case studies, or press exist; must not be fabricated.
-- Platform confirmed as web; native wrapper/mobile-app framing does not apply.
+Constraints:
+- No testimonials, client logos, case studies, or press exist; do not fabricate them.
+- ProtoPrime3D facts must stay traceable to protoprime3d.my.id. The business is a side path, not the portfolio's main funnel.
+- All credentials and project links must resolve to real sources.
+- Core information must be reachable without animation, via Quick view or the reduced-motion document.
+- Baseline WCAG 2.2 AA. The canvas is decorative (`aria-hidden`); content lives in real DOM.
 
 ## Brand Commitments
 
@@ -50,32 +57,37 @@ Constraints / undecided:
 - Availability: open for internship and entry-level opportunities.
 - Contact: bintang10panji@gmail.com; GitHub SamVivan1; LinkedIn (muhammad-bintang-panji-kusuma); Instagram @bintang.panjii.
 - Languages: Bahasa Indonesia (native), English (advanced), Japanese (beginner).
-- Assets that must be preserved: logo.svg, profile.png, profilecard.png, linux.glb, CV PDF, certificate PDFs, SOI Asia/VSGA credential links.
-- Voice: professional yet personable; engineering-credible; first-person ("I'm ...").
+- Business: ProtoPrime 3D — FDM 3D printing in Banda Aceh; Bambu Lab A1 mini; PLA+/PETG/TPU; 180 × 180 × 180 mm; 0.1 mm layers; 2–5 working days.
+- Assets preserved: profile portrait, CV PDF, certificate PDFs and verification links, ProtoPrime3D part photos and render.
+- Voice: professional yet personable; engineering-credible; first-person.
 
 ## Evidence on Hand
 
 Real, verifiable assets (paths relative to `frontend/public` unless noted):
 - CV: `Sertifikat/Muhammad_Bintang_Panji_Kusuma_CV.pdf`
-- Certificates: `Sertifikat/Sertifikat_MUHAMMAD BINTANG PANJI KUSUMA_Junior Network Administrator.pdf`; SOI Asia credentials with verification URLs (Understanding the Internet, APIE Camp, Service Design, APIE Advanced Camp).
-- Live GitHub repositories pulled via the GitHub API (with fallback sample data on failure).
-- 3D model: `assets/linux.glb` (Linux mascot).
-- Profile images: `assets/profile.png`, `assets/profilecard.png`.
-- Logo: `assets/logo.svg`, `assets/logo-bg.svg`.
+- Certificate: `Sertifikat/Sertifikat_MUHAMMAD BINTANG PANJI KUSUMA_Junior Network Administrator.pdf`
+- SOI Asia credentials with verification URLs: Understanding the Internet, APIE Camp, Service Design, APIE Advanced Camp.
+- Live GitHub repositories pulled from the GitHub API for `SamVivan1`, with a curated real fallback.
+- Profile portrait: `assets/profile.png`.
+- ProtoPrime3D part photos: `assets/protoprime/casing-iot.webp`, `assets/protoprime/kapal.webp`; render: `assets/protoprime/benchy.webp`.
+- Business facts: `https://protoprime3d.my.id`.
 
-Absences that future work must not fabricate: no testimonials, case studies, client logos, press mentions, or benchmarks exist.
+Absences that future work must not fabricate: testimonials, case studies, client logos, press mentions, benchmarks, hardware specs, uptime numbers, or pricing not present on the business site.
 
 ## Product Principles
 
-1. Show, don't tell: prefer live/verifiable proof (repos, certs, 3D, CV) over descriptive claims.
-2. Optimize for the recruiter's scan: lead with identity, availability, and evidence within the first viewport.
-3. Preserve real credentials: never fabricate or embellish experience, GPA, or certifications.
-4. Keep the portfolio honest about its own scope: it is a personal showcase, not a product or service.
-5. Treat motion as enhancement, not gate: core information must be reachable without relying on animation.
+1. Show, don't tell: live repositories, certificate links, real part photos, and a downloadable CV over descriptive claims.
+2. Optimize for the recruiter's scan: identity, availability, CV, and Quick view are reachable in the first viewport, without playing the site.
+3. Preserve real credentials: never embellish experience, GPA, certifications, or business facts.
+4. One world, one system: the cinematic journey and the document share the same content and visual language; the document is not a degraded afterthought.
+5. Motion is enhancement, not a gate: core information remains reachable with reduced motion, keyboard, or no JavaScript.
 
 ## Accessibility & Inclusion
 
-- Baseline WCAG 2.2 AA (confirmed). No further product-specific requirement established.
-- Open decision: whether to formally support `prefers-reduced-motion` given the heavy motion; not yet decided.
-EOF
-echo "written"
+- WCAG 2.2 AA baseline.
+- `prefers-reduced-motion` switches to a complete vertical document with static scene posters; no scroll-driven camera, parallax, rain, or blinking.
+- The cinematic canvas is decorative and `aria-hidden`; chapters are real articles with headings and links.
+- Quick view is a native `<dialog>` with focus containment and Escape to close.
+- Command palette supports arrow keys, Enter, and Escape.
+- Touch targets are at least 44px; mobile panels can be collapsed to reveal the world.
+- Focus rings use teal on the dark ground; body and link contrast are checked against the night palette.

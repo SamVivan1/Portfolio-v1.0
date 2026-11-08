@@ -2,16 +2,16 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-6 text-center text-white bg-[#050505]">
-      <h1 className="text-6xl font-black text-accent">404</h1>
-      <p className="text-gray-400 max-w-md">
-        The page you are looking for doesn&apos;t exist or has been moved.
+    <div className="flex min-h-screen flex-col items-center justify-center gap-5 bg-void px-6 text-center text-cream">
+      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber">
+        SIGNAL LOST
       </p>
-      <Link
-        href="/"
-        className="px-5 py-2.5 rounded-full bg-accent-deep hover:bg-accent transition-colors font-semibold"
-      >
-        Go home
+      <h1 className="font-pixel text-6xl leading-none text-teal">404</h1>
+      <p className="max-w-md text-sm leading-relaxed text-muted">
+        This room is not on the map. The desk is still where you left it.
+      </p>
+      <Link href="/" className="pixel-button pixel-button--primary">
+        Back to the desk
       </Link>
     </div>
   );

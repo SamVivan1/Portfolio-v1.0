@@ -1,44 +1,40 @@
 {
-  "name": "SamVivan's Portfolio",
-  "short_name": "Portfolio",
-  "description": "Computer Engineering Student | Linux Enthusiast | Homelab Tinkerer",
+  "name": "Bintang — Pixel Homelab Portfolio",
+  "short_name": "Bintang",
+  "description": "Computer Engineering student at Universitas Syiah Kuala. DevOps, homelab infrastructure, web development, and ProtoPrime3D.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#190b21",
-  "theme_color": "#190b21",
+  "background_color": "#08070f",
+  "theme_color": "#08070f",
   "orientation": "any",
+  "lang": "en",
+  "dir": "ltr",
   "categories": ["portfolio", "development"],
   "icons": [
     {
-      "src": "/android-launchericon-192-192.svg",
+      "src": "/android-launchericon-192-192.png",
       "sizes": "192x192",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any"
     },
     {
       "src": "/android-launchericon-512-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any"
     },
     {
       "src": "/android-launchericon-192-192.png",
       "sizes": "192x192",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "maskable"
     },
     {
       "src": "/android-launchericon-512-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/Wide310x150Logo.scale-400.png",
       "type": "image/png",
-      "sizes": "1240x600"
+      "purpose": "maskable"
     }
   ],
   "prefer_related_applications": false
