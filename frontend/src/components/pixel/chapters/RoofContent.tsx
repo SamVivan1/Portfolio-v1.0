@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa6";
 import { contactLinks, profile } from "../../../data/portfolio";
+import { track } from "../../../lib/analytics";
 import PixelButton from "../ui/PixelButton";
 import PixelChip from "../ui/PixelChip";
 
@@ -34,6 +35,7 @@ export default function RoofContent({ onTop }: RoofContentProps) {
   const copyEmail = async () => {
     try {
       await navigator.clipboard.writeText(profile.email);
+      track("email_copy");
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1800);
     } catch {
@@ -104,6 +106,7 @@ export default function RoofContent({ onTop }: RoofContentProps) {
           href={`mailto:${profile.email}`}
           variant="primary"
           icon={<Mail size={15} aria-hidden="true" />}
+          onClick={() => track("email_click", { source: "roof" })}
         >
           Email me
         </PixelButton>
@@ -126,6 +129,7 @@ export default function RoofContent({ onTop }: RoofContentProps) {
           download
           variant="quiet"
           icon={<Download size={15} aria-hidden="true" />}
+          onClick={() => track("cv_download", { source: "roof" })}
         >
           CV
         </PixelButton>

@@ -10,10 +10,13 @@ import {
   Monitor,
   Moon,
   Server,
+  Volume2,
+  VolumeX,
   Wrench,
   X,
 } from "lucide-react";
 import { CHAPTERS, profile } from "../../data/portfolio";
+import { track } from "../../lib/analytics";
 import PixelButton from "./ui/PixelButton";
 
 interface HudProps {
@@ -21,6 +24,8 @@ interface HudProps {
   onNavigate: (index: number) => void;
   onQuickView: () => void;
   onCommand: () => void;
+  soundEnabled: boolean;
+  onToggleSound: () => void;
 }
 
 const chapterIcons = [Monitor, Server, Wrench, Moon];
@@ -30,6 +35,8 @@ export default function Hud({
   onNavigate,
   onQuickView,
   onCommand,
+  soundEnabled,
+  onToggleSound,
 }: HudProps) {
   const [clock, setClock] = useState("--:--");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -120,12 +127,38 @@ export default function Hud({
             <Command size={13} aria-hidden="true" />
             <span>K</span>
           </button>
+          <button
+            type="button"
+            className={clsx("hud__sound", soundEnabled && "is-on")}
+            onClick={onToggleSound}
+            aria-pressed={soundEnabled}
+            aria-label={
+              soundEnabled
+                ? "Mute ambient sound"
+                : "Turn ambient sound on"
+            }
+            title={
+              soundEnabled
+                ? "Ambient sound is on — click to mute"
+                : "Ambient sound is off — click to enable"
+            }
+          >
+            {soundEnabled ? (
+              <Volume2 size={15} aria-hidden="true" />
+            ) : (
+              <VolumeX size={15} aria-hidden="true" />
+            )}
+            <span className="hud__sound-label">
+              {soundEnabled ? "Sound on" : "Muted"}
+            </span>
+          </button>
           <a
             className="hud__key hud__key--icon"
             href={profile.cv}
             download
             aria-label="Download CV"
             title="Download CV"
+            onClick={() => track("cv_download", { source: "hud" })}
           >
             <Download size={14} aria-hidden="true" />
           </a>
@@ -192,6 +225,7 @@ export default function Hud({
               variant="ghost"
               size="sm"
               icon={<Download size={13} aria-hidden="true" />}
+              onClick={() => track("cv_download", { source: "hud_mobile" })}
             >
               CV
             </PixelButton>
@@ -205,6 +239,21 @@ export default function Hud({
               icon={<Command size={13} aria-hidden="true" />}
             >
               Jump
+            </PixelButton>
+            <PixelButton
+              onClick={onToggleSound}
+              variant={soundEnabled ? "primary" : "ghost"}
+              size="sm"
+              icon={
+                soundEnabled ? (
+                  <Volume2 size={13} aria-hidden="true" />
+                ) : (
+                  <VolumeX size={13} aria-hidden="true" />
+                )
+              }
+              aria-pressed={soundEnabled}
+            >
+              {soundEnabled ? "Sound: on" : "Sound: off"}
             </PixelButton>
           </div>
         </div>

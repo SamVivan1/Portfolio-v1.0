@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { business, profile } from "../../data/portfolio";
+import { routedCaseStudies } from "../../data/caseStudies";
 
 interface CommandPaletteProps {
   open: boolean;
@@ -96,6 +97,39 @@ export default function CommandPalette({
         run: onQuickView,
         keywords: "cv resume experience education skills",
       },
+      {
+        id: "resume-page",
+        label: "Open resume page",
+        hint: "printable",
+        group: "Pages",
+        icon: <FileText size={15} aria-hidden="true" />,
+        run: () => {
+          window.location.href = "/resume";
+        },
+        keywords: "resume cv print pdf web version",
+      },
+      {
+        id: "homelab-page",
+        label: "Open homelab architecture",
+        hint: "full page",
+        group: "Pages",
+        icon: <Server size={15} aria-hidden="true" />,
+        run: () => {
+          window.location.href = "/homelab";
+        },
+        keywords: "homelab architecture hardware diagram ubuntu docker",
+      },
+      ...routedCaseStudies.map((study) => ({
+        id: `case-study-${study.slug}`,
+        label: `Case study: ${study.title}`,
+        hint: "project",
+        group: "Case studies",
+        icon: <FileText size={15} aria-hidden="true" />,
+        run: () => {
+          window.location.href = `/projects/${study.slug}`;
+        },
+        keywords: `${study.repo} ${study.stack.join(" ")}`,
+      })),
       {
         id: "cv",
         label: "Download CV",

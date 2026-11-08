@@ -23,7 +23,6 @@ export default function ScenePoster({
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    if (!reduced) return;
     const canvas = ref.current;
     if (!canvas) return;
     const parent = canvas.closest(".reduced-document");

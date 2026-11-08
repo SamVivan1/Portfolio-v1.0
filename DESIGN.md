@@ -156,12 +156,12 @@ The site is a fixed stage plus a tall scroll track. The canvas and HUD are `posi
 
 - **Stage:** full viewport, fixed, z-index 0. Canvas fills it; vignette and scanlines sit above the canvas at low opacity.
 - **HUD:** fixed, full viewport, pointer-events none; only controls receive pointer events. Top bar + bottom progress on desktop; top bar + bottom chapter nav on mobile. Wordmark 13px desktop / 12px mobile; status 12px; nav 12px.
-- **Chapter panels:** fixed, vertically centered on desktop; left/right of the stage depending on the room. Width `min(520px, 40vw)`; wide workshop panel `min(680px, 46vw)`. At ≤1100px, width narrows to 46vw / 52vw. At ≤900px, panels become bottom sheets above the mobile nav. Chapter 2 is **The Homelab** (`#homelab`).
-- **Panel body:** max-height 66vh desktop, 56svh mobile; internal scroll with an inset bottom shadow. The mobile panel has a collapse chevron that shrinks it to the title bar so the world is visible.
+- **Chapter panels:** fixed, vertically centered on desktop; left/right of the stage depending on the room. Width `min(520px, 40vw)`; wide workshop panel `min(680px, 46vw)`. At ≤1100px, width narrows to 46vw / 52vw. At ≤900px, panels become draggable bottom sheets above the mobile nav: collapsed (title bar), half (56svh), and full (`calc(100svh - 164px)`, kept clear of the HUD). Chapter 2 is **The Homelab** (`#homelab`).
+- **Panel body:** max-height 70vh desktop; flex-filled and scrollable on mobile; internal scroll with an inset bottom shadow. The mobile title bar is the drag handle (`touch-action: none`, pointer capture), and a chevron provides collapsed/half states for keyboard and assistive technology.
 - **Quick view:** native dialog, max-width 1160px, max-height 92dvh; full-screen on mobile.
 - **Command palette:** native dialog, max-width 640px, centered.
 - **Reduced-motion document:** max-width 1200px, normal vertical flow, scene poster above each chapter.
-- **Breakpoints:** 1100px (panel narrowing), 900px (mobile shell: bottom sheet, bottom nav, full-screen dialogs), 480px (single-column facts/specs, full-width actions).
+- **Breakpoints:** 1100px (panel narrowing; HUD actions compact to sound + Quick view), 900px (mobile shell: bottom sheet, bottom nav, full-screen dialogs), 480px (single-column facts/specs, full-width actions), 389px (drop the HUD wordmark and status so the logo, sound, and menu fit at 320px).
 - **Density:** generous around the world, tight inside panels. Panels are scanners, not posters.
 - **Alignment:** panels align to a 4vw inset on desktop; content uses a consistent 22px inner padding. Mobile sheets inset 10px.
 
@@ -198,8 +198,9 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 - Fixed top bar with the SamVivan mark (pixelated from `assets/logo.svg` to a 64 × 64 grid) and `BSP://HOMELAB` wordmark in Silkscreen.
 - Status line: green live dot + `OPEN TO INTERNSHIP` + Banda Aceh time in amber. Time is real (`Asia/Jakarta`).
 - Desktop nav: four chapter buttons with two-digit indices; active state is teal fill with void text.
-- Actions: command palette key, CV download, Quick view primary button.
-- Mobile: wordmark + status + menu button; bottom nav with four chapter icons and Resume.
+- Actions: command palette key, ambient-sound pill (`Sound on` / `Muted`, speaker icon, `aria-pressed`), CV download, Quick view primary button. At 901–1100px the command key, CV key, and sound label collapse so the nav still fits.
+- Mobile: wordmark + status + sound icon + menu button; bottom nav with four chapter icons and Resume. The mobile menu has a labeled `Sound: on/off` action.
+- At ≤389px the wordmark and status hide; the logo, sound, and menu remain.
 - Progress: bottom-left segment bar on desktop, thin top line on the mobile bottom nav.
 
 ### Buttons
@@ -220,7 +221,7 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 - Body: 22px padding, max 70vh, inset bottom shadow, thin scrollbar.
 - Footer: 1px top border, mono 12px, one line of context.
 - Active state: opacity 1, visible, translateY(-50%) scale(1). Inactive: opacity 0, hidden, translateY(-46%) scale(0.985). 260–320ms.
-- Mobile: bottom sheet above the nav; collapse to title bar on demand.
+- Mobile: bottom sheet above the nav with collapsed / half / full snap points; drag the title bar or use the chevron. Snap transitions are disabled while dragging; reduced motion makes them instant.
 
 ### Tabs
 - Underlined row, Silkscreen 12px. Active tab is amber fill with void text. Inactive is muted with a line-border hover.
@@ -233,6 +234,13 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 - Two-column body: 320px sidebar (education, contact, homelab, skills, languages, workshop) and main (profile, experience, projects, certifications, what I'm looking for).
 - Footer: source note + Copy email + Download CV.
 - Mobile: full-screen, single column, footer actions in a 2-column grid.
+
+### Pages (Case Study, Homelab, Resume)
+- `PageShell`: sticky 2px-line header with the pixel logo, wordmark, `World`, `Homelab`, `Resume`, `CV`, and `GitHub`; a static `ScenePoster`; a 1000px content column; and a quiet footer.
+- Case studies use a 2-column Problem/Approach/Result/Stack grid, a real image or blueprint card, and repository links. Body 16px, measure ≤75ch.
+- Homelab uses a 3-column fact grid, a vertical host → Docker → service-group diagram, and a service list. Dates are labeled `Verified Nov 2026`; the container count is described as a snapshot.
+- Resume shares `ResumeDocument` with Quick view. Print CSS hides the shell and buttons, switches to white/black, and avoids breaking experience, project, and certification rows.
+- Dialogs reuse the same content components at full width on mobile.
 
 ### Command Palette
 - Native `<dialog>`, terminal chrome: `bintang@homelab:~$ jump`, search field, listbox of chapters/actions/links, keyboard footer.
@@ -283,7 +291,8 @@ A single prerendered Canvas 2D world, 3900 × 800 logical pixels, floor at y=620
 - The chapter panels are articles with `inert` and `aria-hidden` when inactive; the active panel is a real reading surface.
 - The Quick view is a native dialog; focus is contained, Escape closes, and the close button is 40px.
 - The command palette is a dialog with a labelled input, listbox options, arrow-key navigation, and Enter/Escape.
-- The mobile panel collapse button has `aria-expanded` and a 36px target; all nav and action targets are ≥44px except compact HUD keys (36px, with 44px spacing).
+- The mobile panel chevron has `aria-expanded` and a 36px target; the title bar is a pointer drag handle. All nav and action targets are ≥44px except compact HUD keys (36px, with 44px spacing).
+- The sound toggle is a labeled button on desktop, an icon button plus labeled menu item on mobile, and exposes `aria-pressed`. It starts muted only after an explicit opt-out; first visits default on but playback waits for a user gesture.
 - `prefers-reduced-motion` delivers the full document with static posters; no camera, no rain, no blinking.
 - No horizontal scroll at 320px; panels and dialogs are width-constrained; body copy wraps.
 
@@ -311,10 +320,12 @@ A single prerendered Canvas 2D world, 3900 × 800 logical pixels, floor at y=620
 
 ## Technical Notes
 
-- **Content:** `frontend/src/data/portfolio.ts` is the single source of truth for profile, chapters, experience, certifications, homelab, skills, projects, business, and contact links.
+- **Content:** `frontend/src/data/portfolio.ts` is the single source of truth for profile, chapters, experience, certifications, homelab, skills, projects, business, and contact links. `data/caseStudies.ts` holds project narratives derived from the owner's READMEs.
 - **World:** `frontend/src/components/pixel/world/` (`palette.ts`, `helpers.ts`, `scenes.ts`, `index.ts`) draws the prerendered world and the dynamic frame.
 - **Stage:** `PixelStage.tsx` owns the canvas, viewport metrics, camera smoothing, and dynamic frame composition.
-- **Shell:** `Portfolio.tsx` owns scroll progress, chapter state, deep links, keyboard shortcuts, and the dialogs.
+- **Shell:** `Portfolio.tsx` owns scroll progress, chapter state, deep links, keyboard shortcuts, the dialogs, and the ambient audio element; `useAmbientSound.ts` handles gesture start, visibility pause, persistence, and `aria-pressed` state.
+- **Sheets:** `useMobileSheet.ts` handles pointer capture, velocity, clamping, and collapsed/half/full snapping; `PixelPanel.tsx` owns the `data-sheet` state and chevron.
+- **Analytics:** `lib/analytics.ts` is a no-op unless `NEXT_PUBLIC_UMAMI_SRC` and `NEXT_PUBLIC_UMAMI_WEBSITE_ID` are set. `TrackView` fires page-level events from server-rendered routes.
 - **Layout mapping:** `lib/chapters.ts` owns the world dimensions, chapter scroll ranges, camera keyframes (desktop + portrait), and scroll helpers.
 - **Live data:** `app/api/github/route.ts` fetches and caches GitHub repositories and user stats server-side (10-minute TTL), returning a curated real fallback on failure. `hooks/useLiveProjects.ts` is the client hook that calls it.
 - **Reduced motion:** `ReducedMotionDocument.tsx` + `ScenePoster.tsx`; the cinematic shell returns `null` when reduced motion is active.

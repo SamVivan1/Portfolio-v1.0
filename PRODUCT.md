@@ -34,8 +34,13 @@ Capabilities:
 - Next.js 15 (App Router) + React 19 + TypeScript + Tailwind CSS 4.
 - One continuous Canvas 2D pixel world (3900 × 800 logical pixels) behind four chapter panels.
 - Scroll-driven camera with desktop and portrait keyframes; ambient rain, LEDs, monitor cursor, steam, fire, stars, string lights, and a walking avatar.
-- Persistent HUD: wordmark, availability, local Banda Aceh time, chapter navigation, CV, Quick view, progress.
+- Persistent HUD: wordmark, availability, local Banda Aceh time, chapter navigation, CV, Quick view, sound toggle, progress.
 - Quick view dialog: a complete, conventional resume with summary, education, homelab, experience, skills, projects, certifications, languages, and ProtoPrime3D.
+- `/resume`: the same resume as an indexable, printable page.
+- Case studies: Lyra, OctoPad, n8n Workflows Backup, GNOME Desktop Widget, and this portfolio, each with problem, approach, result, stack, and repository link. Available as in-world overlays and shareable `/projects/[slug]` routes.
+- `/homelab`: hardware, verification date, service groups, and a one-host Docker diagram.
+- Draggable mobile chapter sheets with collapsed, half, and full snap points.
+- Ambient sound, default on for first-time visitors, started on the first user gesture, with a visible mute control and persistent preference.
 - Command palette (`Ctrl/Cmd + K`) for chapter jumps, links, CV, and copy-email.
 - Live GitHub project data with a curated, truthful fallback based on real repositories.
 - ProtoPrime3D workshop chapter with real part photos, machine specs, materials, lead time, and links.
@@ -43,11 +48,11 @@ Capabilities:
 - PWA manifest and service worker; Dockerized build.
 
 Constraints:
-- No testimonials, client logos, case studies, or press exist; do not fabricate them.
+- No testimonials, client logos, press mentions, or external case studies exist; do not fabricate them. The case studies in this portfolio are derived from the owner's own repository READMEs and verified facts.
 - ProtoPrime3D facts must stay traceable to protoprime3d.my.id. The business is a side path, not the portfolio's main funnel. The homelab chapter reflects the live server: Ubuntu 26.04 LTS on an allocated desktop PC (Ryzen 5 4600G, 14 GB RAM, ~3.7 TB), 66 running containers, and the services listed in `data/portfolio.ts`.
 - All credentials and project links must resolve to real sources.
-- Core information must be reachable without animation, via Quick view or the reduced-motion document.
-- Baseline WCAG 2.2 AA. The canvas is decorative (`aria-hidden`); content lives in real DOM.
+- Core information must be reachable without animation, via Quick view, `/resume`, or the reduced-motion document.
+- Baseline WCAG 2.2 AA. The canvas is decorative (`aria-hidden`); content lives in real DOM. Sound is never required to understand content.
 
 ## Brand Commitments
 
@@ -68,6 +73,7 @@ Real, verifiable assets (paths relative to `frontend/public` unless noted):
 - Certificate: `Sertifikat/Sertifikat_MUHAMMAD BINTANG PANJI KUSUMA_Junior Network Administrator.pdf`
 - SOI Asia credentials with verification URLs: Understanding the Internet, APIE Camp, Service Design, APIE Advanced Camp.
 - Live GitHub repositories pulled from the GitHub API for `SamVivan1` through the server route `/api/github`, with a curated real fallback.
+- Case-study source material: the owner's repository READMEs (`Lyra`, `octopad`, `n8n-Workflows-Backup`, `samvivan-gnome-widget`, `Portfolio-v1.0`, `homelab-composes`), linked from each study. Real screenshots are used where the repository provides them.
 - Homelab evidence: Ubuntu 26.04 LTS on an allocated desktop PC (Ryzen 5 4600G, 14 GB RAM, ~3.7 TB), 66 running containers, and the service list in `data/portfolio.ts`.
 - Profile portrait: `assets/profile.png`.
 - ProtoPrime3D part photos: `assets/protoprime/casing-iot.webp`, `assets/protoprime/kapal.webp`; render: `assets/protoprime/benchy.webp`.
@@ -90,5 +96,6 @@ Absences that future work must not fabricate: testimonials, case studies, client
 - The cinematic canvas is decorative and `aria-hidden`; chapters are real articles with headings and links.
 - Quick view is a native `<dialog>` with focus containment and Escape to close.
 - Command palette supports arrow keys, Enter, and Escape.
-- Touch targets are at least 44px; mobile panels can be collapsed to reveal the world.
+- Touch targets are at least 44px; mobile panels can be dragged between collapsed, half, and full heights, with a keyboard-accessible chevron fallback.
+- The sound toggle exposes `aria-pressed`, is reachable on desktop and mobile, and the preference persists. Audio starts only after a user gesture and pauses when the tab is hidden.
 - Focus rings use teal on the dark ground; body and link contrast are checked against the night palette.

@@ -4,6 +4,7 @@ import {
   ArrowRight,
   ExternalLink,
   FileText,
+  Server,
   ShieldCheck,
 } from "lucide-react";
 import {
@@ -17,12 +18,14 @@ import PixelChip from "../ui/PixelChip";
 
 interface HomelabContentProps {
   onQuickView?: () => void;
+  onOpenArchitecture?: () => void;
   onNext?: () => void;
   compact?: boolean;
 }
 
 export default function HomelabContent({
   onQuickView,
+  onOpenArchitecture,
   onNext,
   compact = false,
 }: HomelabContentProps) {
@@ -97,6 +100,23 @@ export default function HomelabContent({
             Full journey
           </PixelButton>
         ) : null}
+        {onOpenArchitecture ? (
+          <PixelButton
+            onClick={onOpenArchitecture}
+            variant="ghost"
+            icon={<Server size={15} aria-hidden="true" />}
+          >
+            Architecture
+          </PixelButton>
+        ) : (
+          <PixelButton
+            href="/homelab"
+            variant="ghost"
+            icon={<Server size={15} aria-hidden="true" />}
+          >
+            Architecture
+          </PixelButton>
+        )}
         <PixelButton
           href={profile.github}
           target="_blank"

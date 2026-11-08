@@ -20,6 +20,8 @@ const silkscreen = Silkscreen({
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const analyticsSrc = process.env.NEXT_PUBLIC_UMAMI_SRC;
+const analyticsWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -128,12 +130,23 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link
+          rel="apple-touch-icon"
+          href="/android-launchericon-192-192.png"
+        />
         <meta name="theme-color" content="#08070f" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta
           name="mobile-web-app-status-bar-style"
           content="black-translucent"
         />
+        {analyticsSrc && analyticsWebsiteId ? (
+          <script
+            defer
+            src={analyticsSrc}
+            data-website-id={analyticsWebsiteId}
+          />
+        ) : null}
         <script
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.classList.add('js');if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('reduced');}`,

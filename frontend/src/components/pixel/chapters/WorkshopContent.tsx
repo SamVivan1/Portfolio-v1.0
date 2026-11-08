@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowUpRight,
   ExternalLink,
@@ -10,6 +11,8 @@ import {
   Star,
 } from "lucide-react";
 import { business, profile } from "../../../data/portfolio";
+import { CaseStudy, caseStudyByRepo } from "../../../data/caseStudies";
+import { track } from "../../../lib/analytics";
 import { usePortfolioData } from "../PortfolioData";
 import PixelButton from "../ui/PixelButton";
 import PixelChip from "../ui/PixelChip";
@@ -18,11 +21,13 @@ import Tabs from "../ui/Tabs";
 interface WorkshopContentProps {
   idPrefix: string;
   compact?: boolean;
+  onOpenCaseStudy?: (study: CaseStudy) => void;
 }
 
 export default function WorkshopContent({
   idPrefix,
   compact = false,
+  onOpenCaseStudy,
 }: WorkshopContentProps) {
   const { projects, stats, loading, error, live } = usePortfolioData();
 
@@ -69,15 +74,10 @@ export default function WorkshopContent({
       </dl>
 
       <ul className="project-list" aria-label="Selected GitHub projects">
-        {projects.map((project) => (
-          <li key={project.name}>
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-row"
-              aria-label={`Open ${project.name} on GitHub`}
-            >
+        {projects.map((project) => {
+          const study = caseStudyByRepo.get(project.name);
+          const content = (
+            <>
               <span className="project-row__main">
                 <span className="project-row__top">
                   <span className="project-row__name">{project.name}</span>
@@ -93,6 +93,9 @@ export default function WorkshopContent({
                 </span>
                 <span className="project-row__meta">
                   <PixelChip tone="muted">{project.language}</PixelChip>
+                  {study ? (
+                    <PixelChip tone="teal">Case study</PixelChip>
+                  ) : null}
                   {project.topics.slice(0, 3).map((topic) => (
                     <span key={topic} className="project-topic">
                       #{topic}
@@ -105,9 +108,53 @@ export default function WorkshopContent({
                 size={16}
                 aria-hidden="true"
               />
-            </a>
-          </li>
-        ))}
+            </>
+          );
+
+          return (
+            <li key={project.name}>
+              {study && onOpenCaseStudy ? (
+                <div className="project-row project-row--split">
+                  <button
+                    type="button"
+                    className="project-row__button"
+                    onClick={() => onOpenCaseStudy(study)}
+                    aria-label={`Open ${project.name} case study`}
+                  >
+                    {content}
+                  </button>
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-row__external"
+                    aria-label={`Open ${project.name} on GitHub`}
+                  >
+                    <ExternalLink size={16} aria-hidden="true" />
+                  </a>
+                </div>
+              ) : study ? (
+                <Link
+                  href={`/projects/${study.slug}`}
+                  className="project-row"
+                  aria-label={`Open ${project.name} case study`}
+                >
+                  {content}
+                </Link>
+              ) : (
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-row"
+                  aria-label={`Open ${project.name} on GitHub`}
+                >
+                  {content}
+                </a>
+              )}
+            </li>
+          );
+        })}
       </ul>
 
       <div className="chapter-actions">
@@ -139,6 +186,7 @@ export default function WorkshopContent({
         <a
           className="pixel-link"
           href={business.url}
+          onClick={() => track("protoprime_click")}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -228,6 +276,7 @@ export default function WorkshopContent({
       <div className="chapter-actions">
         <PixelButton
           href={business.url}
+          onClick={() => track("protoprime_click")}
           target="_blank"
           rel="noopener noreferrer"
           variant="primary"

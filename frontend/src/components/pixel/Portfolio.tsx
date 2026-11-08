@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import { CHAPTERS } from "../../data/portfolio";
+import { CaseStudy } from "../../data/caseStudies";
 import {
   chapterForProgress,
   progressForChapter,
@@ -15,6 +16,8 @@ import {
   scrollToChapter,
 } from "../../lib/chapters";
 import { useReducedMotion } from "../../hooks/useMotionPreference";
+import { useAmbientSound } from "../../hooks/useAmbientSound";
+import { track } from "../../lib/analytics";
 import CommandPalette from "./CommandPalette";
 import DeskContent from "./chapters/DeskContent";
 import HomelabContent from "./chapters/HomelabContent";
@@ -23,6 +26,8 @@ import WorkshopContent from "./chapters/WorkshopContent";
 import Hud from "./Hud";
 import PixelStage from "./PixelStage";
 import QuickView from "./QuickView";
+import CaseStudyDialog from "./pages/CaseStudyDialog";
+import HomelabDialog from "./pages/HomelabDialog";
 import PixelPanel from "./ui/PixelPanel";
 
 export default function Portfolio() {
@@ -32,6 +37,32 @@ export default function Portfolio() {
   const [activePanel, setActivePanel] = useState(0);
   const [quickViewOpen, setQuickViewOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [activeCaseStudy, setActiveCaseStudy] = useState<CaseStudy | null>(
+    null
+  );
+  const [architectureOpen, setArchitectureOpen] = useState(false);
+  const { audioRef, enabled: soundEnabled, toggle: toggleSound } =
+    useAmbientSound();
+
+  const openQuickView = useCallback(() => {
+    track("quickview_open");
+    setQuickViewOpen(true);
+  }, []);
+
+  const openPalette = useCallback(() => {
+    track("palette_open");
+    setPaletteOpen(true);
+  }, []);
+
+  const openCaseStudy = useCallback((study: CaseStudy) => {
+    track("case_study_open", { slug: study.slug });
+    setActiveCaseStudy(study);
+  }, []);
+
+  const openArchitecture = useCallback(() => {
+    track("homelab_architecture_open");
+    setArchitectureOpen(true);
+  }, []);
 
   const syncScroll = useCallback(() => {
     const progress = progressFromScroll();
@@ -92,6 +123,10 @@ export default function Portfolio() {
   }, [reduced, syncScroll]);
 
   useEffect(() => {
+    if (activeChapter === 1) track("homelab_view");
+  }, [activeChapter]);
+
+  useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
@@ -123,6 +158,14 @@ export default function Portfolio() {
     <div className="cinematic-shell">
       <div className="scroll-track" aria-hidden="true" />
 
+      <audio
+        ref={audioRef}
+        src="/assets/audio/background.mp3"
+        loop
+        preload="metadata"
+        aria-hidden="true"
+      />
+
       <div className="pixel-stage">
         <PixelStage
           progressRef={progressRef}
@@ -135,7 +178,7 @@ export default function Portfolio() {
       <button
         type="button"
         className="skip-link"
-        onClick={() => setQuickViewOpen(true)}
+        onClick={openQuickView}
       >
         Skip the journey — open the resume
       </button>
@@ -143,8 +186,10 @@ export default function Portfolio() {
       <Hud
         activeChapter={activeChapter}
         onNavigate={navigate}
-        onQuickView={() => setQuickViewOpen(true)}
-        onCommand={() => setPaletteOpen(true)}
+        onQuickView={openQuickView}
+        onCommand={openPalette}
+        soundEnabled={soundEnabled}
+        onToggleSound={toggleSound}
       />
 
       <main className="chapter-stage" id="main-content">
@@ -157,7 +202,7 @@ export default function Portfolio() {
           footer={<span className="panel-footnote">The desk · Banda Aceh</span>}
         >
           <DeskContent
-            onQuickView={() => setQuickViewOpen(true)}
+            onQuickView={openQuickView}
             onNext={() => navigate(1)}
           />
         </PixelPanel>
@@ -175,7 +220,8 @@ export default function Portfolio() {
           }
         >
           <HomelabContent
-            onQuickView={() => setQuickViewOpen(true)}
+            onQuickView={openQuickView}
+            onOpenArchitecture={openArchitecture}
             onNext={() => navigate(2)}
           />
         </PixelPanel>
@@ -193,7 +239,10 @@ export default function Portfolio() {
             </span>
           }
         >
-          <WorkshopContent idPrefix="cinematic" />
+          <WorkshopContent
+            idPrefix="cinematic"
+            onOpenCaseStudy={openCaseStudy}
+          />
         </PixelPanel>
 
         <PixelPanel
@@ -230,7 +279,15 @@ export default function Portfolio() {
         open={paletteOpen}
         onClose={() => setPaletteOpen(false)}
         onNavigate={navigate}
-        onQuickView={() => setQuickViewOpen(true)}
+        onQuickView={openQuickView}
+      />
+      <CaseStudyDialog
+        study={activeCaseStudy}
+        onClose={() => setActiveCaseStudy(null)}
+      />
+      <HomelabDialog
+        open={architectureOpen}
+        onClose={() => setArchitectureOpen(false)}
       />
     </div>
   );

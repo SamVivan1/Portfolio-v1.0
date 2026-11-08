@@ -96,7 +96,7 @@ export default function DeskContent({
             variant="quiet"
             icon={<ArrowRight size={15} aria-hidden="true" />}
           >
-            The rack
+            The homelab
           </PixelButton>
         ) : null}
       </div>

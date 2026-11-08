@@ -185,11 +185,11 @@ export const homelab = {
     },
     {
       name: "Network & security",
-      detail: "Pi-hole · Samba · Cloudflared · Tailscale · Vaultwarden",
+      detail: "Pi-hole · Samba · reverse proxy · remote access",
     },
     {
       name: "Ops",
-      detail: "Portainer · Watchtower · Dashdot · Cowrie honeypot",
+      detail: "Portainer · Watchtower · Dashdot · monitoring",
     },
   ],
   notes: [
@@ -199,6 +199,8 @@ export const homelab = {
   ],
   containers: "66 containers",
   highlights: "Jellyfin · Immich · Nextcloud · n8n · Paperless",
+  verifiedAt: "Nov 2026",
+  verifiedNote: "Container count is a snapshot from the live server.",
 };
 
 export const skillGroups = [

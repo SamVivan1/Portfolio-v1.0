@@ -1,8 +1,9 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useRef } from "react";
 import clsx from "clsx";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useMobileSheet } from "../../../hooks/useMobileSheet";
 
 interface PixelPanelProps {
   id: string;
@@ -25,11 +26,16 @@ export default function PixelPanel({
   footer,
   className,
 }: PixelPanelProps) {
-  const [collapsed, setCollapsed] = useState(false);
+  const panelRef = useRef<HTMLElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
+  const { sheet, setSheet } = useMobileSheet(panelRef, barRef);
+  const collapsed = sheet === "collapsed";
 
   return (
     <article
+      ref={panelRef}
       id={id}
+      data-sheet={sheet}
       className={clsx(
         "chapter-panel",
         `chapter-panel--${side}`,
@@ -40,7 +46,7 @@ export default function PixelPanel({
       aria-hidden={!active}
       inert={!active}
     >
-      <div className="pixel-panel__bar">
+      <div className="pixel-panel__bar" ref={barRef}>
         <span className="pixel-panel__dots" aria-hidden="true">
           <i />
           <i />
@@ -51,7 +57,7 @@ export default function PixelPanel({
         <button
           type="button"
           className="pixel-panel__collapse"
-          onClick={() => setCollapsed((value) => !value)}
+          onClick={() => setSheet(collapsed ? "half" : "collapsed")}
           aria-expanded={!collapsed}
           aria-label={collapsed ? "Expand panel" : "Collapse panel"}
         >

@@ -32,8 +32,8 @@ jobs:
           # Deploy frontend dengan docker-compose production config
           echo "Building and deploying frontend..."
           cd frontend
-          docker compose up -d --build
+          docker compose -f docker-compose.prod.yaml up -d --build
           
           echo "✓ Frontend deployment completed"
           echo "Checking container status..."
-          docker ps --filter "name=portfolio-prod"
+          docker ps --filter "name=portfolio-prod" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"

@@ -1,4 +1,4 @@
-const CACHE = "bsp-homelab-v3";
+const CACHE = "bsp-homelab-v4";
 const PRECACHE = [
   "/",
   "/manifest.json",
@@ -43,7 +43,7 @@ self.addEventListener("fetch", (event) => {
 
   const cacheable =
     url.pathname.startsWith("/_next/static/") ||
-    /\.(?:png|jpe?g|webp|svg|woff2?|css|js)$/i.test(url.pathname);
+    /\.(?:png|jpe?g|webp|svg|woff2?|css|js|mp3)$/i.test(url.pathname);
 
   if (!cacheable) return;
 

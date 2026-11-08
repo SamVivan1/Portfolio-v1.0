@@ -9,10 +9,14 @@ A recruiter-first portfolio you walk through. Four pixel-art rooms, one continuo
 - **A continuous pixel world** drawn on a single Canvas 2D surface. Four chapters: Desk, Homelab, Workshop, Roof.
 - **A game-style HUD** with availability, Banda Aceh time, chapter navigation, CV, Quick view, and scroll progress.
 - **A Quick view resume** (native `<dialog>`) with summary, education, homelab, experience, skills, projects, certifications, languages, and ProtoPrime3D.
+- **Case studies** for Lyra, OctoPad, the n8n backup workflow, the GNOME widget suite, and this portfolio, available as in-world overlays and as shareable routes (`/projects/[slug]`) built from the real READMEs.
 - **A terminal command palette** (`Ctrl/Cmd + K`) for jumping chapters, opening the resume, downloading the CV, copying email, and opening links.
 - **Live GitHub projects** with a curated, truthful fallback when the API is unavailable.
-- **A Homelab chapter that reflects the real server**: Ubuntu 26.04 LTS on an allocated desktop PC (Ryzen 5 4600G, 14 GB RAM, ~3.7 TB), 66 containers, Jellyfin/*arr, Immich, Nextcloud, Paperless, Home Assistant, n8n, Pi-hole, and more.
+- **A Homelab chapter that reflects the real server**: Ubuntu 26.04 LTS on an allocated desktop PC (Ryzen 5 4600G, 14 GB RAM, ~3.7 TB), 66 containers, Jellyfin/*arr, Immich, Nextcloud, Paperless, Home Assistant, n8n, Pi-hole, and more. The `/homelab` page adds a hardware block, a service-group diagram, and a verification date.
+- **A web resume** at `/resume` with print styles for a clean light PDF, sharing the same document as Quick view.
 - **A ProtoPrime3D workshop chapter** with real part photos, Bambu Lab A1 mini specs, materials, lead time, and links to `protoprime3d.my.id`.
+- **A draggable mobile sheet** with collapsed, half, and full snap points, plus a keyboard-accessible chevron.
+- **Ambient sound** that defaults on for first-time visitors, starts on the first user gesture (browser autoplay policy), pauses when the tab is hidden, and can be muted from the HUD or mobile menu. The preference persists.
 - **A reduced-motion document** with the same content in a normal vertical page and static scene posters.
 - **PWA + service worker** and a Dockerized build.
 
@@ -46,14 +50,18 @@ npm start
 
 ## Environment variables
 
-Both are optional.
+All are optional.
 
 | Variable | Purpose |
 | --- | --- |
 | `GITHUB_TOKEN` | Server-side GitHub token for live project data (recommended). Public repos only. |
-| `NEXT_PUBLIC_SITE_URL` | Canonical site URL for metadata/OG images in production. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL for metadata/OG images in production. Set it at build time for Docker. |
+| `NEXT_PUBLIC_UMAMI_SRC` | Umami-compatible analytics script URL. No script loads when empty. |
+| `NEXT_PUBLIC_UMAMI_WEBSITE_ID` | Analytics website ID paired with the script URL. |
 
 `NEXT_PUBLIC_GITHUB_TOKEN` is still read as a legacy fallback. Without a token, the GitHub API still works within the public rate limit; on failure the workshop shows a "Curated snapshot" note and the real repository links.
+
+Analytics is a no-op unless both Umami variables are set. Events cover CV downloads, email copies and clicks, Quick view, the command palette, case-study and homelab views, ProtoPrime3D clicks, and sound toggles. No PII, cookies, or custom identifiers are sent.
 
 ## Content and truth
 
@@ -75,7 +83,9 @@ The portfolio does not invent testimonials, clients, hardware specs, uptime, ben
 - The canvas is decorative (`aria-hidden`); chapter content is real DOM.
 - Quick view is a native dialog with focus containment and Escape to close.
 - Command palette supports arrow keys, Enter, and Escape.
-- Mobile panels can be collapsed to reveal the world; touch targets are at least 44px.
+- Mobile panels can be dragged between collapsed, half, and full heights from the title bar; the chevron provides the same states for keyboard and assistive technology.
+- The ambient-sound toggle is a visible HUD control (and a labeled mobile-menu item) with `aria-pressed` and a persistent opt-out. Audio only starts after a user gesture and pauses when the tab is hidden.
+- Touch targets are at least 44px.
 - Skip link opens the resume as the first focusable element.
 
 ## Project structure
@@ -84,14 +94,19 @@ The portfolio does not invent testimonials, clients, hardware specs, uptime, ben
 frontend/src/
   app/
     page.tsx                  # cinematic shell + reduced-motion document
-    layout.tsx                # fonts, metadata, JSON-LD, service worker
-    globals.css               # tokens, HUD, panels, dialogs, responsive rules
+    homelab/page.tsx          # public homelab architecture
+    resume/page.tsx           # indexable, printable web resume
+    projects/[slug]/page.tsx  # case studies
+    sitemap.ts / robots.ts    # SEO
+    layout.tsx                # fonts, metadata, JSON-LD, analytics script, service worker
+    globals.css               # tokens, HUD, panels, sheets, dialogs, print CSS
   components/pixel/
     Portfolio.tsx             # scroll, chapters, deep links, keyboard
     PixelStage.tsx            # canvas sizing, camera, dynamic frame
     Hud.tsx                   # top bar, desktop nav, mobile nav
-    QuickView.tsx             # resume dialog
+    QuickView.tsx             # resume dialog (shared ResumeDocument)
     CommandPalette.tsx        # terminal jump menu
+    pages/                    # PageShell, case studies, homelab, resume, dialogs
     ReducedMotionDocument.tsx # accessible document
     ScenePoster.tsx           # static scene slice
     chapters/                 # Desk, Homelab, Workshop, Roof content
@@ -101,9 +116,13 @@ frontend/src/
   app/api/github/route.ts     # cached GitHub API + curated fallback
   hooks/useLiveProjects.ts    # client hook for /api/github
   hooks/useMotionPreference.ts
+  hooks/useMobileSheet.ts     # drag/snap mobile panel
+  hooks/useAmbientSound.ts    # looping audio + persistent mute
   lib/chapters.ts             # world/camera/scroll math
+  lib/analytics.ts            # provider-agnostic event facade (Umami-compatible)
+  data/caseStudies.ts         # case-study content from real READMEs
 frontend/public/
-  assets/                     # portrait, ProtoPrime3D photos, brand assets
+  assets/                     # portrait, ProtoPrime3D photos, brand assets, ambient loop
   Sertifikat/                 # CV and certificate PDFs
   manifest.json
   sw.js
@@ -121,13 +140,15 @@ The production image uses the Next.js standalone output. The development compose
 
 ## Deployment notes
 
-- Set `NEXT_PUBLIC_SITE_URL` to the production origin so Open Graph image URLs resolve absolutely.
+- Set `NEXT_PUBLIC_SITE_URL` to the production origin so Open Graph image URLs resolve absolutely. In Docker it must be passed as a build arg, because metadata and the sitemap are generated at build time.
 - The service worker is registered only in production; in development it unregisters existing registrations to avoid stale caches.
 - The GitHub API is called through the server route `/api/github`, cached for 10 minutes. Add `GITHUB_TOKEN` so deployments do not hit the anonymous rate limit.
+- The deploy workflow uses `docker compose -f docker-compose.prod.yaml`; the container is named `portfolio-prod` and listens on port 3003 on the host.
+- Security headers (`nosniff`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options`, COOP, HSTS) are set in `next.config.ts`. A stricter CSP is deferred until asset/nonce auditing is done.
 
 ## Asset provenance
 
-- Portrait, CV, certificates, and ProtoPrime3D part photos are the owner's own assets.
+- Portrait, CV, certificates, ProtoPrime3D part photos, and the ambient loop are the owner's own assets.
 - The HUD mark and app icons are the existing SamVivan logo from `public/assets/logo.svg`, rasterized to a 64 × 64 pixel grid (`logo-pixel.svg` / `logo-pixel-icon.svg`).
 - The 3DBenchy image is a render from the ProtoPrime3D site and is labeled as a benchmark render.
 - Fonts: Silkscreen, Geist, and Geist Mono via Google Fonts / `next/font`.
