@@ -203,6 +203,11 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 - At ≤389px the wordmark and status hide; the logo, sound, and menu remain.
 - Progress: bottom-left segment bar on desktop, thin top line on the mobile bottom nav.
 
+### Ambient Sound
+- Original 64-second loop, synthesized by `scripts/generate-ambient.py`: four 16-second chord beds (one per chapter), warm minor-ninth pads, soft rain, a distant server hum, sparse music-box notes, and tape crackle.
+- Mastered to about -21 LUFS; the audio element runs at 0.28 volume, so it sits under conversation.
+- Default on for first visits, starts only on a user gesture, loops sample-aligned, pauses when the tab is hidden, and persists an explicit mute.
+
 ### Buttons
 - **Primary:** teal fill, void text, 2px teal border, 3px hard shadow. Hover to cream fill; active presses in.
 - **Ghost:** night fill, line border, cream text.

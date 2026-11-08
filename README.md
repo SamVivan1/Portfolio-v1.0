@@ -16,7 +16,7 @@ A recruiter-first portfolio you walk through. Four pixel-art rooms, one continuo
 - **A web resume** at `/resume` with print styles for a clean light PDF, sharing the same document as Quick view.
 - **A ProtoPrime3D workshop chapter** with real part photos, Bambu Lab A1 mini specs, materials, lead time, and links to `protoprime3d.my.id`.
 - **A draggable mobile sheet** with collapsed, half, and full snap points, plus a keyboard-accessible chevron.
-- **Ambient sound** that defaults on for first-time visitors, starts on the first user gesture (browser autoplay policy), pauses when the tab is hidden, and can be muted from the HUD or mobile menu. The preference persists.
+- **Ambient sound** that defaults on for first-time visitors, starts on the first user gesture (browser autoplay policy), pauses when the tab is hidden, and can be muted from the HUD or mobile menu. The preference persists. The loop is an original 64-second piece built for the site: four 16-second chord beds (one per chapter), warm minor-ninth pads, soft rain, a distant server hum, sparse music-box notes, and tape crackle.
 - **A reduced-motion document** with the same content in a normal vertical page and static scene posters.
 - **PWA + service worker** and a Dockerized build.
 
@@ -121,6 +121,8 @@ frontend/src/
   lib/chapters.ts             # world/camera/scroll math
   lib/analytics.ts            # provider-agnostic event facade (Umami-compatible)
   data/caseStudies.ts         # case-study content from real READMEs
+frontend/scripts/
+  generate-ambient.py         # numpy generator for the original 64s ambient loop
 frontend/public/
   assets/                     # portrait, ProtoPrime3D photos, brand assets, ambient loop
   Sertifikat/                 # CV and certificate PDFs
@@ -148,7 +150,7 @@ The production image uses the Next.js standalone output. The development compose
 
 ## Asset provenance
 
-- Portrait, CV, certificates, ProtoPrime3D part photos, and the ambient loop are the owner's own assets.
+- Portrait, CV, certificates, ProtoPrime3D part photos, and the ambient loop are the owner's own assets. The loop is synthesized by `frontend/scripts/generate-ambient.py` (numpy) and intentionally has no third-party sample or license.
 - The HUD mark and app icons are the existing SamVivan logo from `public/assets/logo.svg`, rasterized to a 64 × 64 pixel grid (`logo-pixel.svg` / `logo-pixel-icon.svg`).
 - The 3DBenchy image is a render from the ProtoPrime3D site and is labeled as a benchmark render.
 - Fonts: Silkscreen, Geist, and Geist Mono via Google Fonts / `next/font`.

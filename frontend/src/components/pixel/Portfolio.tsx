@@ -160,7 +160,7 @@ export default function Portfolio() {
 
       <audio
         ref={audioRef}
-        src="/assets/audio/background.mp3"
+        src="/assets/audio/homelab-night.mp3"
         loop
         preload="metadata"
         aria-hidden="true"
