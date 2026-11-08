@@ -224,7 +224,7 @@ html.js:not(.reduced) .reduced-document {
 
 .hud__wordmark {
   font-family: var(--font-silkscreen), monospace;
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   white-space: nowrap;
 }
@@ -238,7 +238,7 @@ html.js:not(.reduced) .reduced-document {
   align-items: center;
   gap: 7px;
   margin-top: 3px;
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 0.14em;
   color: var(--muted);
   white-space: nowrap;
@@ -283,7 +283,7 @@ html.js:not(.reduced) .reduced-document {
   background: transparent;
   color: var(--muted);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: color 140ms, background 140ms, border-color 140ms;
@@ -303,7 +303,7 @@ html.js:not(.reduced) .reduced-document {
 .hud__nav-index {
   color: var(--violet-soft);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .hud__nav-item.is-active .hud__nav-index {
@@ -329,7 +329,7 @@ html.js:not(.reduced) .reduced-document {
   background: rgba(8, 7, 15, 0.76);
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 12px;
   cursor: pointer;
   text-decoration: none;
   transition: color 140ms, border-color 140ms;
@@ -365,7 +365,7 @@ html.js:not(.reduced) .reduced-document {
   align-items: center;
   gap: 9px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   pointer-events: none;
 }
@@ -420,7 +420,7 @@ html.js:not(.reduced) .reduced-document {
   background: transparent;
   color: var(--muted);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 10px;
+  font-size: 12px;
   text-align: left;
   cursor: pointer;
 }
@@ -428,7 +428,7 @@ html.js:not(.reduced) .reduced-document {
 .hud__mobile-item span {
   color: var(--violet-soft);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .hud__mobile-item.is-active {
@@ -507,7 +507,7 @@ html.js:not(.reduced) .reduced-document {
     rgba(26, 17, 40, 0.78)
   );
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 0.08em;
 }
 
@@ -539,7 +539,7 @@ html.js:not(.reduced) .reduced-document {
   margin-left: auto;
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .pixel-panel__collapse {
@@ -561,7 +561,7 @@ html.js:not(.reduced) .reduced-document {
 }
 
 .pixel-panel__body {
-  max-height: 66vh;
+  max-height: 70vh;
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 20px 22px 18px;
@@ -583,7 +583,7 @@ html.js:not(.reduced) .reduced-document {
   padding: 7px 12px;
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.08em;
 }
 
@@ -602,7 +602,7 @@ html.js:not(.reduced) .reduced-document {
   margin: 0;
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: clamp(1.45rem, 2.5vw, 2rem);
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: -0.01em;
@@ -613,7 +613,7 @@ html.js:not(.reduced) .reduced-document {
   margin: 0;
   max-width: 44ch;
   color: var(--muted);
-  font-size: 0.98rem;
+  font-size: 1.0625rem;
   line-height: 1.5;
 }
 
@@ -621,7 +621,7 @@ html.js:not(.reduced) .reduced-document {
   margin: 0;
   max-width: 64ch;
   color: #d9cfe6;
-  font-size: 0.86rem;
+  font-size: 1rem;
   line-height: 1.65;
 }
 
@@ -652,7 +652,7 @@ html.js:not(.reduced) .reduced-document {
   margin: 0;
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.06em;
 }
@@ -660,7 +660,7 @@ html.js:not(.reduced) .reduced-document {
 .chapter-subhead__count {
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .fact-grid {
@@ -683,7 +683,7 @@ html.js:not(.reduced) .reduced-document {
   gap: 4px;
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -692,7 +692,7 @@ html.js:not(.reduced) .reduced-document {
   margin: 3px 0 0;
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.3;
 }
 
@@ -705,7 +705,7 @@ html.js:not(.reduced) .reduced-document {
   background: #07120f;
   color: var(--green);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .terminal-prompt {
@@ -750,14 +750,14 @@ html.js:not(.reduced) .reduced-document {
   display: block;
   color: var(--teal);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 13px;
 }
 
 .service-grid small {
   display: block;
   margin-top: 2px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 13px;
   line-height: 1.35;
 }
 
@@ -803,14 +803,14 @@ html.js:not(.reduced) .reduced-document {
   margin: 0;
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 13px;
   font-weight: 400;
 }
 
 .timeline__date {
   color: var(--amber);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   white-space: nowrap;
 }
 
@@ -818,19 +818,19 @@ html.js:not(.reduced) .reduced-document {
   margin: 1px 0 0;
   color: var(--violet-soft);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .timeline__desc {
   margin: 3px 0 0;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 14px;
   line-height: 1.45;
 }
 
 .timeline__link {
   margin-top: 3px;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 /* Tabs */
@@ -854,7 +854,7 @@ html.js:not(.reduced) .reduced-document {
   background: transparent;
   color: var(--muted);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 12px;
   cursor: pointer;
   transition: color 140ms, background 140ms, border-color 140ms;
 }
@@ -882,7 +882,7 @@ html.js:not(.reduced) .reduced-document {
   gap: 7px;
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .live-row__muted {
@@ -891,7 +891,7 @@ html.js:not(.reduced) .reduced-document {
 
 .live-row__link {
   margin-left: auto;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .data-note {
@@ -900,7 +900,7 @@ html.js:not(.reduced) .reduced-document {
   border: 1px solid rgba(255, 180, 94, 0.3);
   background: rgba(255, 180, 94, 0.06);
   color: var(--amber);
-  font-size: 9px;
+  font-size: 13px;
   line-height: 1.45;
 }
 
@@ -921,7 +921,7 @@ html.js:not(.reduced) .reduced-document {
 .stat-row dt {
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 7px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -930,7 +930,7 @@ html.js:not(.reduced) .reduced-document {
   margin: 2px 0 0;
   color: var(--teal);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 13px;
+  font-size: 18px;
 }
 
 .project-list {
@@ -978,7 +978,7 @@ html.js:not(.reduced) .reduced-document {
 .project-row__name {
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 13px;
 }
 
 .project-row__stars {
@@ -987,12 +987,12 @@ html.js:not(.reduced) .reduced-document {
   gap: 2px;
   color: var(--amber);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .project-row__desc {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 14px;
   line-height: 1.45;
 }
 
@@ -1012,7 +1012,7 @@ html.js:not(.reduced) .reduced-document {
 .project-topic {
   color: var(--violet-soft);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 7px;
+  font-size: 12px;
 }
 
 .prints-intro__head {
@@ -1026,14 +1026,14 @@ html.js:not(.reduced) .reduced-document {
   margin: 0;
   color: var(--amber);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 400;
 }
 
 .prints-intro p {
   margin: 5px 0 4px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.5;
 }
 
@@ -1054,7 +1054,7 @@ html.js:not(.reduced) .reduced-document {
 .spec-grid dt {
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 7px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -1062,7 +1062,7 @@ html.js:not(.reduced) .reduced-document {
 .spec-grid dd {
   margin: 2px 0 0;
   color: var(--cream);
-  font-size: 9px;
+  font-size: 13px;
   line-height: 1.35;
 }
 
@@ -1104,21 +1104,21 @@ html.js:not(.reduced) .reduced-document {
 .print-card strong {
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 400;
 }
 
 .print-card span {
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 7px;
+  font-size: 12px;
 }
 
 .process-block h4 {
   margin: 0 0 5px;
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 13px;
   font-weight: 400;
 }
 
@@ -1135,7 +1135,7 @@ html.js:not(.reduced) .reduced-document {
   display: flex;
   gap: 7px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 14px;
 }
 
 .process-list li span {
@@ -1194,14 +1194,14 @@ html.js:not(.reduced) .reduced-document {
 .contact-row__label {
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .contact-row__value {
   overflow: hidden;
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 13px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1218,7 +1218,7 @@ html.js:not(.reduced) .reduced-document {
   gap: 5px;
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .roof-note__sep {
@@ -1234,7 +1234,7 @@ html.js:not(.reduced) .reduced-document {
   background: transparent;
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   cursor: pointer;
 }
 
@@ -1255,7 +1255,7 @@ html.js:not(.reduced) .reduced-document {
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.42);
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 0.04em;
   text-align: center;
   text-decoration: none;
@@ -1308,7 +1308,7 @@ html.js:not(.reduced) .reduced-document {
 .pixel-button--sm {
   min-height: 36px;
   padding: 0 9px;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .pixel-button:disabled {
@@ -1330,7 +1330,7 @@ html.js:not(.reduced) .reduced-document {
   background: rgba(139, 92, 246, 0.08);
   color: var(--violet-soft);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.03em;
   white-space: nowrap;
 }
@@ -1372,7 +1372,7 @@ html.js:not(.reduced) .reduced-document {
   border-bottom: 1px solid rgba(94, 234, 212, 0.35);
   color: var(--teal);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 13px;
   text-decoration: none;
   transition: color 140ms, border-color 140ms;
 }
@@ -1395,7 +1395,7 @@ html.js:not(.reduced) .reduced-document {
   pointer-events: none;
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   transform: translateX(-50%);
@@ -1423,7 +1423,7 @@ html.js:not(.reduced) .reduced-document {
   background: var(--cream);
   color: var(--void);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 12px;
   text-align: left;
   cursor: pointer;
   transform: translateY(-180%);
@@ -1447,7 +1447,7 @@ dialog::backdrop {
 .quickview {
   position: fixed;
   inset: 0;
-  width: min(1080px, 94vw);
+  width: min(1160px, 94vw);
   max-height: 92dvh;
   margin: auto;
   padding: 0;
@@ -1475,7 +1475,7 @@ dialog::backdrop {
     rgba(26, 17, 40, 0.85)
   );
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .quickview__bar-title {
@@ -1536,7 +1536,7 @@ dialog::backdrop {
   margin: 0;
   color: var(--amber);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.18em;
 }
 
@@ -1552,7 +1552,7 @@ dialog::backdrop {
 .quickview__role {
   margin: 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .quickview__contact {
@@ -1563,7 +1563,7 @@ dialog::backdrop {
 
 .quickview__grid {
   display: grid;
-  grid-template-columns: 290px minmax(0, 1fr);
+  grid-template-columns: 320px minmax(0, 1fr);
   gap: 24px;
   padding-top: 18px;
 }
@@ -1589,7 +1589,7 @@ dialog::backdrop {
   margin: 0 0 7px;
   color: var(--teal);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.06em;
 }
@@ -1598,16 +1598,17 @@ dialog::backdrop {
   margin: 7px 0 3px;
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .resume-summary {
+  max-width: 75ch;
   margin: 0;
   color: #d9cfe6;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.6;
 }
 
@@ -1615,14 +1616,14 @@ dialog::backdrop {
   display: flex;
   gap: 7px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .resume-edu strong {
   display: block;
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 400;
 }
 
@@ -1638,7 +1639,7 @@ dialog::backdrop {
   margin: 0;
   padding: 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
   list-style: none;
 }
 
@@ -1671,7 +1672,7 @@ dialog::backdrop {
   border: 1px solid var(--line);
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .resume-languages {
@@ -1680,7 +1681,7 @@ dialog::backdrop {
   gap: 3px;
   margin: 0;
   padding: 0;
-  font-size: 10px;
+  font-size: 13px;
   list-style: none;
 }
 
@@ -1700,14 +1701,14 @@ dialog::backdrop {
   display: flex;
   gap: 7px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .resume-business strong {
   display: block;
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 400;
 }
 
@@ -1740,14 +1741,14 @@ dialog::backdrop {
 .resume-experience__head strong {
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 400;
 }
 
 .resume-experience__head span {
   color: var(--amber);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   white-space: nowrap;
 }
 
@@ -1755,13 +1756,14 @@ dialog::backdrop {
   margin: 1px 0;
   color: var(--violet-soft);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .resume-experience p {
+  max-width: 75ch;
   margin: 2px 0;
   color: var(--muted);
-  font-size: 11.5px;
+  font-size: 14px;
   line-height: 1.5;
 }
 
@@ -1769,7 +1771,7 @@ dialog::backdrop {
   margin-left: auto;
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 400;
 }
 
@@ -1800,20 +1802,21 @@ dialog::backdrop {
 .resume-projects strong {
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 400;
 }
 
 .resume-projects span {
+  max-width: 75ch;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.4;
 }
 
 .resume-projects em {
   color: var(--amber);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   font-style: normal;
 }
 
@@ -1824,7 +1827,7 @@ dialog::backdrop {
   margin: 0;
   padding: 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
   list-style: none;
 }
 
@@ -1838,14 +1841,14 @@ dialog::backdrop {
   display: block;
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 400;
 }
 
 .resume-certs span {
   display: block;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .resume-certs a {
@@ -1865,7 +1868,7 @@ dialog::backdrop {
   margin: 0;
   padding: 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
   list-style: none;
 }
 
@@ -1873,6 +1876,7 @@ dialog::backdrop {
   display: flex;
   align-items: flex-start;
   gap: 6px;
+  max-width: 75ch;
 }
 
 .resume-looking svg {
@@ -1894,7 +1898,7 @@ dialog::backdrop {
 .quickview__footer-note {
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .quickview__footer-actions {
@@ -1929,7 +1933,7 @@ dialog::backdrop {
   border-bottom: 2px solid var(--line);
   background: #07120f;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .command-palette__prompt {
@@ -1947,7 +1951,7 @@ dialog::backdrop {
   background: transparent;
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 7px;
+  font-size: 12px;
   cursor: pointer;
 }
 
@@ -1967,7 +1971,7 @@ dialog::backdrop {
   background: transparent;
   color: var(--cream);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 13px;
+  font-size: 15px;
   outline: 0;
 }
 
@@ -1992,7 +1996,7 @@ dialog::backdrop {
   border: 1px solid transparent;
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
+  font-size: 13px;
   cursor: pointer;
 }
 
@@ -2014,7 +2018,7 @@ dialog::backdrop {
 .command-palette__group {
   margin-left: auto;
   color: var(--muted);
-  font-size: 7px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -2023,7 +2027,7 @@ dialog::backdrop {
   max-width: 140px;
   overflow: hidden;
   color: var(--violet-soft);
-  font-size: 7px;
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -2035,7 +2039,7 @@ dialog::backdrop {
 .command-palette__empty {
   padding: 14px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .command-palette__footer {
@@ -2045,7 +2049,7 @@ dialog::backdrop {
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 7px;
+  font-size: 12px;
 }
 
 .command-palette__footer kbd {
@@ -2077,7 +2081,7 @@ dialog::backdrop {
   margin: 0;
   color: var(--amber);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 0.18em;
 }
 
@@ -2095,7 +2099,7 @@ dialog::backdrop {
   max-width: 65ch;
   margin: 0 0 14px;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
 }
 
@@ -2123,7 +2127,7 @@ dialog::backdrop {
   border: 1px solid var(--line);
   color: var(--muted);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 12px;
   text-decoration: none;
 }
 
@@ -2168,7 +2172,7 @@ dialog::backdrop {
   );
   color: var(--cream);
   font-family: var(--font-silkscreen), monospace;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .doc-chapter__body {
@@ -2192,7 +2196,7 @@ dialog::backdrop {
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .doc-footer p {
@@ -2248,11 +2252,11 @@ dialog::backdrop {
   }
 
   .hud__wordmark {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .hud__status {
-    font-size: 7px;
+    font-size: 12px;
     letter-spacing: 0.1em;
   }
 
@@ -2287,7 +2291,7 @@ dialog::backdrop {
     background: transparent;
     color: var(--muted);
     font-family: var(--font-geist-mono), monospace;
-    font-size: 7px;
+    font-size: 12px;
     cursor: pointer;
   }
 
@@ -2346,7 +2350,7 @@ dialog::backdrop {
   }
 
   .chapter-title {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
   }
 
   .chapter-lede {

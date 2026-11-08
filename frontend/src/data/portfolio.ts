@@ -197,6 +197,8 @@ export const homelab = {
     "homelab-composes: a public collection of Docker Compose configurations.",
     "n8n-Workflows-Backup: automated backups of n8n workflows to GitHub.",
   ],
+  containers: "66 containers",
+  highlights: "Jellyfin · Immich · Nextcloud · n8n · Paperless",
 };
 
 export const skillGroups = [

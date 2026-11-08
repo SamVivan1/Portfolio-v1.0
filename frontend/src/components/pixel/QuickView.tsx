@@ -231,15 +231,10 @@ export default function QuickView({ open, onClose }: QuickViewProps) {
                   <Server size={16} aria-hidden="true" />
                   <div>
                     <strong>
-                      {homelab.services[0].name} · {homelab.services[1].detail}
+                      {homelab.services[0].name} · {homelab.containers}
                     </strong>
                     <span>{homelab.services[0].detail}</span>
-                    <span>
-                      {homelab.services
-                        .slice(2, 6)
-                        .map((service) => service.name)
-                        .join(" · ")}
-                    </span>
+                    <span>{homelab.highlights}</span>
                   </div>
                 </div>
               </section>

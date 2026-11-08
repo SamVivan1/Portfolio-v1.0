@@ -23,17 +23,17 @@ colors:
 typography:
   display:
     fontFamily: "Silkscreen, monospace"
-    fontSize: "2rem"
+    fontSize: "2.2rem"
     fontWeight: 400
     lineHeight: 1.08
   body:
     fontFamily: "Geist, system-ui, sans-serif"
-    fontSize: "0.86rem"
+    fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.65
   label:
     fontFamily: "Geist Mono, ui-monospace, monospace"
-    fontSize: "0.5rem"
+    fontSize: "0.75rem"
     fontWeight: 400
     lineHeight: 1.4
     letterSpacing: "0.1em"
@@ -136,12 +136,14 @@ The palette is a night interior: near-black violet walls, warm practical lights,
 
 ### Hierarchy
 - **Display** (Silkscreen 400, clamp 1.45–2rem, 1.08): chapter titles, Quick view name, document hero.
-- **Body** (Geist 400, 0.86rem/1.65): chapter copy. Max 64ch.
-- **Lede** (Geist 400, 0.98rem/1.5): opening sentence under a chapter title. Max 44ch.
-- **Label** (Geist Mono 400, 0.5–0.6rem, 0.1em tracking, uppercase): HUD status, panel meta, dates, tags.
-- **Pixel label** (Silkscreen 400, 0.55–0.7rem): buttons, nav, chips, panel titles.
+- **Body** (Geist 400, 1rem/1.65): chapter copy. Max 64ch; never below 16px.
+- **Lede** (Geist 400, 1.0625rem/1.5): opening sentence under a chapter title. Max 44ch.
+- **Label** (Geist Mono 400, 0.75rem, 0.08em tracking, uppercase): HUD status, panel meta, dates, tags.
+- **Pixel label** (Silkscreen 400, 0.75–0.8rem): buttons, nav, chips, panel titles.
 
 ### Named Rules
+**The Readable Scale Rule.** No visible text under 12px. Body copy is 16px minimum; Quick view reading text is 13–15px; metadata is 12px. Pixel fonts are allowed for labels, never for paragraphs.
+
 **The Display-Only Pixel Rule.** Silkscreen is for headings, HUD, buttons, and short labels. Body paragraphs stay in Geist. A pixel font in a paragraph is a failure, not a style.
 
 **The Two-Voice Rule.** Pixel voice = identity and chrome. Sans voice = information. Do not blur them.
@@ -153,10 +155,10 @@ The palette is a night interior: near-black violet walls, warm practical lights,
 The site is a fixed stage plus a tall scroll track. The canvas and HUD are `position: fixed`; the document height comes from `.scroll-track` (540svh desktop, 480svh at ≤900px). The camera reads scroll progress and pans horizontally.
 
 - **Stage:** full viewport, fixed, z-index 0. Canvas fills it; vignette and scanlines sit above the canvas at low opacity.
-- **HUD:** fixed, full viewport, pointer-events none; only controls receive pointer events. Top bar + bottom progress on desktop; top bar + bottom chapter nav on mobile.
+- **HUD:** fixed, full viewport, pointer-events none; only controls receive pointer events. Top bar + bottom progress on desktop; top bar + bottom chapter nav on mobile. Wordmark 13px desktop / 12px mobile; status 12px; nav 12px.
 - **Chapter panels:** fixed, vertically centered on desktop; left/right of the stage depending on the room. Width `min(520px, 40vw)`; wide workshop panel `min(680px, 46vw)`. At ≤1100px, width narrows to 46vw / 52vw. At ≤900px, panels become bottom sheets above the mobile nav. Chapter 2 is **The Homelab** (`#homelab`).
 - **Panel body:** max-height 66vh desktop, 56svh mobile; internal scroll with an inset bottom shadow. The mobile panel has a collapse chevron that shrinks it to the title bar so the world is visible.
-- **Quick view:** native dialog, max-width 1080px, max-height 92dvh; full-screen on mobile.
+- **Quick view:** native dialog, max-width 1160px, max-height 92dvh; full-screen on mobile.
 - **Command palette:** native dialog, max-width 640px, centered.
 - **Reduced-motion document:** max-width 1200px, normal vertical flow, scene poster above each chapter.
 - **Breakpoints:** 1100px (panel narrowing), 900px (mobile shell: bottom sheet, bottom nav, full-screen dialogs), 480px (single-column facts/specs, full-width actions).
@@ -208,27 +210,27 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 - **Focus:** 2px teal outline, 3px offset, visible on both dark and teal surfaces.
 
 ### Chips
-- 1px border, 2px × 6px padding, Geist Mono 8px, sentence case in the DOM but visually small caps via content.
+- 1px border, 3px × 8px padding, Geist Mono 12px, sentence case in the DOM but visually small caps via content.
 - Tones: violet (default), teal, amber, green, pink, muted.
 - Used for availability, focus areas, languages, materials, counts.
 
 ### Chapter Panel
 - 2px line border, night ground 0.94 alpha, 8px hard shadow.
 - Title bar: three 6px colored dots, Silkscreen title, mono meta, mobile collapse chevron.
-- Body: 22px padding, max 66vh, inset bottom shadow, thin scrollbar.
-- Footer: 1px top border, mono 8px, one line of context.
+- Body: 22px padding, max 70vh, inset bottom shadow, thin scrollbar.
+- Footer: 1px top border, mono 12px, one line of context.
 - Active state: opacity 1, visible, translateY(-50%) scale(1). Inactive: opacity 0, hidden, translateY(-46%) scale(0.985). 260–320ms.
 - Mobile: bottom sheet above the nav; collapse to title bar on demand.
 
 ### Tabs
-- Underlined row, Silkscreen 9px. Active tab is amber fill with void text. Inactive is muted with a line-border hover.
+- Underlined row, Silkscreen 12px. Active tab is amber fill with void text. Inactive is muted with a line-border hover.
 - ARIA tablist/tab/tabpanel; arrow keys, Home, End. No timed tabs.
 
 ### Quick View
 - Native `<dialog>` with `showModal()`; Escape and backdrop click close.
 - Title bar `RESUME.EXE — QUICK VIEW` with three dots and a 40px close button.
 - Hero: 150px portrait in a pixel frame, name in Silkscreen, role, availability chips, contact links.
-- Two-column body: sidebar (education, contact, homelab, skills, languages, workshop) and main (profile, experience, projects, certifications, what I'm looking for).
+- Two-column body: 320px sidebar (education, contact, homelab, skills, languages, workshop) and main (profile, experience, projects, certifications, what I'm looking for).
 - Footer: source note + Copy email + Download CV.
 - Mobile: full-screen, single column, footer actions in a 2-column grid.
 
