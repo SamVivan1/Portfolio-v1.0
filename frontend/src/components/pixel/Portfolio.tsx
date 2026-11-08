@@ -17,7 +17,7 @@ import {
 import { useReducedMotion } from "../../hooks/useMotionPreference";
 import CommandPalette from "./CommandPalette";
 import DeskContent from "./chapters/DeskContent";
-import RackContent from "./chapters/RackContent";
+import HomelabContent from "./chapters/HomelabContent";
 import RoofContent from "./chapters/RoofContent";
 import WorkshopContent from "./chapters/WorkshopContent";
 import Hud from "./Hud";
@@ -163,18 +163,18 @@ export default function Portfolio() {
         </PixelPanel>
 
         <PixelPanel
-          id="rack"
-          title="THE RACK"
+          id="homelab"
+          title="THE HOMELAB"
           meta="02 / 04"
           side="right"
           active={activePanel === 1}
           footer={
             <span className="panel-footnote">
-              Self-hosted · Docker · CasaOS · n8n
+              Ubuntu 26.04 LTS · Docker · Jellyfin · n8n
             </span>
           }
         >
-          <RackContent
+          <HomelabContent
             onQuickView={() => setQuickViewOpen(true)}
             onNext={() => navigate(2)}
           />

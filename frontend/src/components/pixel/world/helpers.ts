@@ -307,23 +307,58 @@ export const drawRack = (
   y: number,
   w: number,
   h: number,
-  label: string
+  label: string,
+  units = 12
 ) => {
   rect(ctx, x - 3, y - 3, w + 6, h + 6, P.line);
   rect(ctx, x, y, w, h, P.black);
   rect(ctx, x + 2, y + 2, w - 4, h - 4, P.deep);
-  rect(ctx, x + 2, y + 2, w - 4, 12, P.wallDark);
+  rect(ctx, x + 2, y + 2, w - 4, 15, P.wallDark);
   drawPixelText(ctx, label, x + 6, y + 5, P.teal, 1);
+  drawPixelText(ctx, "12U", x + w - 24, y + 5, P.amber, 1);
 
-  for (let row = 0; row < Math.floor((h - 22) / 14); row += 1) {
-    const ry = y + 20 + row * 14;
-    rect(ctx, x + 4, ry, w - 8, 11, P.plum);
+  const top = 21;
+  const bottom = 12;
+  const unitHeight = Math.floor((h - top - bottom) / units);
+
+  for (let row = 0; row < units; row += 1) {
+    const ry = y + top + row * unitHeight;
+    const uh = unitHeight - 3;
+    rect(ctx, x + 4, ry, w - 8, uh, P.plum);
     rect(ctx, x + 6, ry + 2, w - 12, 2, P.wallLight);
-    rect(ctx, x + 6, ry + 6, 3, 2, row % 3 === 0 ? P.teal : P.green);
-    rect(ctx, x + 11, ry + 6, 3, 2, row % 4 === 0 ? P.amber : P.tealDark);
-    rect(ctx, x + 16, ry + 6, 3, 2, row % 5 === 0 ? P.pink : P.wallLight);
-    for (let vent = 0; vent < 5; vent += 1) {
-      rect(ctx, x + w - 30 + vent * 4, ry + 4, 2, 4, P.black);
+
+    if (row === 0) {
+      for (let port = 0; port < 8; port += 1) {
+        rect(ctx, x + 9 + port * 9, ry + 9, 5, 5, P.black);
+        rect(
+          ctx,
+          x + 10 + port * 9,
+          ry + 10,
+          3,
+          3,
+          port % 3 === 0 ? P.tealDark : P.wallLight
+        );
+      }
+      rect(ctx, x + w - 22, ry + 8, 3, 3, P.green);
+      rect(ctx, x + w - 15, ry + 8, 3, 3, P.teal);
+      drawPixelText(ctx, "SW", x + w - 32, ry + 5, P.teal, 1);
+    } else if (row === units - 1) {
+      rect(ctx, x + 8, ry + 6, 30, uh - 10, P.wallDark);
+      rect(ctx, x + 10, ry + 8, 26, 10, P.deep);
+      drawPixelText(ctx, "UPS", x + 12, ry + 11, P.green, 1);
+      rect(ctx, x + w - 20, ry + 8, 4, 4, P.green);
+      rect(ctx, x + w - 12, ry + 8, 4, 4, P.amber);
+    } else {
+      rect(ctx, x + 6, ry + 6, 3, 3, row % 3 === 0 ? P.teal : P.green);
+      rect(ctx, x + 11, ry + 6, 3, 3, row % 4 === 0 ? P.amber : P.tealDark);
+      rect(ctx, x + 16, ry + 6, 3, 3, row % 5 === 0 ? P.pink : P.wallLight);
+      for (let bay = 0; bay < 3; bay += 1) {
+        rect(ctx, x + 24 + bay * 7, ry + 5, 5, uh - 10, P.wallDark);
+        rect(ctx, x + 25 + bay * 7, ry + 7, 3, uh - 14, P.deep);
+      }
+      for (let vent = 0; vent < 5; vent += 1) {
+        rect(ctx, x + w - 30 + vent * 4, ry + 5, 2, uh - 10, P.black);
+      }
     }
   }
 
@@ -332,6 +367,84 @@ export const drawRack = (
   line(ctx, x + 8, y + h - 8, x + 18, y + h + 4, P.red);
   line(ctx, x + 14, y + h - 8, x + 24, y + h + 4, P.teal);
   line(ctx, x + 20, y + h - 8, x + 30, y + h + 4, P.amber);
+};
+
+export const drawDesktopTower = (
+  ctx: Ctx,
+  x: number,
+  y: number,
+  w: number,
+  h: number
+) => {
+  rect(ctx, x - 2, y + h - 2, w + 4, 4, "rgba(0,0,0,0.35)");
+  rect(ctx, x, y, w, h, P.black);
+  rect(ctx, x + 2, y + 2, w - 4, h - 4, P.wallDark);
+
+  // front panel
+  rect(ctx, x + 2, y + 2, 16, h - 4, P.plum);
+  rect(ctx, x + 4, y + 6, 12, 8, P.deep);
+  rect(ctx, x + 7, y + 9, 6, 3, P.green);
+  rect(ctx, x + 4, y + 20, 12, 2, P.line);
+  rect(ctx, x + 4, y + 26, 12, 2, P.line);
+  for (let vy = y + 40; vy < y + h - 30; vy += 6) {
+    rect(ctx, x + 4, vy, 12, 2, P.wallDark);
+  }
+
+  // glass side panel
+  rect(ctx, x + 20, y + 4, w - 24, h - 8, "#120d1d");
+  rect(ctx, x + 22, y + 6, w - 28, h - 12, "#1a1330");
+
+  // motherboard + CPU + RAM
+  rect(ctx, x + 26, y + 60, w - 34, 170, P.deep);
+  rect(ctx, x + 36, y + 90, 38, 38, P.wallDark);
+  rect(ctx, x + 38, y + 92, 34, 34, P.line);
+  pixelCircle(ctx, x + 55, y + 109, 14, P.tealDark);
+  pixelCircle(ctx, x + 55, y + 109, 10, P.teal);
+  pixelCircle(ctx, x + 55, y + 109, 4, P.deep);
+  rect(ctx, x + 80, y + 86, 5, 50, P.violet);
+  rect(ctx, x + 88, y + 86, 5, 50, P.violetDark);
+
+  // PCIe card + PSU shroud + drive bays
+  rect(ctx, x + 30, y + 190, w - 40, 12, P.plum);
+  rect(ctx, x + 34, y + 194, w - 48, 4, P.line);
+  rect(ctx, x + 22, y + h - 64, w - 24, 44, P.wallDark);
+  rect(ctx, x + 26, y + h - 56, w - 32, 10, P.black);
+  rect(ctx, x + 26, y + h - 42, w - 32, 10, P.black);
+  rect(ctx, x + 30, y + h - 54, w - 40, 2, P.tealDark);
+
+  // labels on the glass
+  drawPixelText(ctx, "UBUNTU", x + 24, y + 14, P.cream, 1);
+  drawPixelText(ctx, "26.04 LTS", x + 24, y + 22, P.teal, 1);
+  drawPixelText(ctx, "RYZEN 5", x + 64, y + 22, P.amber, 1);
+  drawPixelText(ctx, "66 CT", x + 24, y + 34, P.teal, 1);
+
+  glow(ctx, x + 55, y + 109, 56, P.teal, 0.12);
+};
+
+export const drawDriveShelf = (
+  ctx: Ctx,
+  x: number,
+  y: number,
+  w: number,
+  h: number
+) => {
+  rect(ctx, x - 2, y + h - 2, w + 4, 3, "rgba(0,0,0,0.35)");
+  rect(ctx, x, y, w, h, P.wallDark);
+  rect(ctx, x + 2, y + 2, w - 4, h - 4, P.deep);
+
+  for (let drive = 0; drive < 3; drive += 1) {
+    const dy = y + 7 + drive * 22;
+    rect(ctx, x + 4, dy, w - 8, 18, P.plum);
+    rect(ctx, x + 6, dy + 2, w - 12, 14, P.wallDark);
+    rect(ctx, x + 8, dy + 6, w - 20, 2, P.line);
+    rect(ctx, x + 8, dy + 11, 4, 2, P.teal);
+    rect(ctx, x + w - 12, dy + 3, 3, 3, P.green);
+  }
+
+  pixelCircle(ctx, x + w / 2, y + 88, 8, P.wallDark);
+  pixelCircle(ctx, x + w / 2, y + 88, 4, P.line);
+  drawPixelText(ctx, "3.7 TB", x + 8, y + h - 14, P.amber, 1);
+  rect(ctx, x + w - 10, y + 4, 3, 3, P.teal);
 };
 
 export const drawCertFrame = (

@@ -2,15 +2,16 @@
 
 A recruiter-first portfolio you walk through. Four pixel-art rooms, one continuous camera, live GitHub data, verified credentials, a downloadable CV, and a 3D printing workshop — all reachable in under a minute.
 
-**Live concept:** _A Night in the Homelab._ You scroll; the camera walks from a rainy desk to a server rack, a workshop with a 3D printer, and a rooftop with a campfire.
+**Live concept:** _A Night in the Homelab._ You scroll; the camera walks from a rainy desk to a homelab, a workshop with a 3D printer, and a rooftop with a campfire.
 
 ## What's inside
 
-- **A continuous pixel world** drawn on a single Canvas 2D surface. Four chapters: Desk, Rack, Workshop, Roof.
+- **A continuous pixel world** drawn on a single Canvas 2D surface. Four chapters: Desk, Homelab, Workshop, Roof.
 - **A game-style HUD** with availability, Banda Aceh time, chapter navigation, CV, Quick view, and scroll progress.
-- **A Quick view resume** (native `<dialog>`) with summary, education, experience, skills, projects, certifications, languages, and ProtoPrime3D.
+- **A Quick view resume** (native `<dialog>`) with summary, education, homelab, experience, skills, projects, certifications, languages, and ProtoPrime3D.
 - **A terminal command palette** (`Ctrl/Cmd + K`) for jumping chapters, opening the resume, downloading the CV, copying email, and opening links.
 - **Live GitHub projects** with a curated, truthful fallback when the API is unavailable.
+- **A Homelab chapter that reflects the real server**: Ubuntu 26.04 LTS on an allocated desktop PC (Ryzen 5 4600G, 14 GB RAM, ~3.7 TB), 66 containers, Jellyfin/*arr, Immich, Nextcloud, Paperless, Home Assistant, n8n, Pi-hole, and more.
 - **A ProtoPrime3D workshop chapter** with real part photos, Bambu Lab A1 mini specs, materials, lead time, and links to `protoprime3d.my.id`.
 - **A reduced-motion document** with the same content in a normal vertical page and static scene posters.
 - **PWA + service worker** and a Dockerized build.
@@ -49,10 +50,10 @@ Both are optional.
 
 | Variable | Purpose |
 | --- | --- |
-| `NEXT_PUBLIC_GITHUB_TOKEN` | Raises the GitHub API rate limit for live project data. Public repos only. |
+| `GITHUB_TOKEN` | Server-side GitHub token for live project data (recommended). Public repos only. |
 | `NEXT_PUBLIC_SITE_URL` | Canonical site URL for metadata/OG images in production. |
 
-Without a token, the GitHub API still works within the public rate limit; on failure the workshop shows a "Curated snapshot" note and the real repository links.
+`NEXT_PUBLIC_GITHUB_TOKEN` is still read as a legacy fallback. Without a token, the GitHub API still works within the public rate limit; on failure the workshop shows a "Curated snapshot" note and the real repository links.
 
 ## Content and truth
 
@@ -93,11 +94,12 @@ frontend/src/
     CommandPalette.tsx        # terminal jump menu
     ReducedMotionDocument.tsx # accessible document
     ScenePoster.tsx           # static scene slice
-    chapters/                 # Desk, Rack, Workshop, Roof content
+    chapters/                 # Desk, Homelab, Workshop, Roof content
     ui/                       # PixelButton, PixelChip, PixelPanel, Tabs
     world/                    # palette, props, scenes, dynamic frame
-  data/portfolio.ts           # single source of truth
-  hooks/useLiveProjects.ts    # GitHub API + curated fallback
+  data/portfolio.ts           # single source of truth (profile, homelab, services, projects)
+  app/api/github/route.ts     # cached GitHub API + curated fallback
+  hooks/useLiveProjects.ts    # client hook for /api/github
   hooks/useMotionPreference.ts
   lib/chapters.ts             # world/camera/scroll math
 frontend/public/
@@ -121,7 +123,7 @@ The production image uses the Next.js standalone output. The development compose
 
 - Set `NEXT_PUBLIC_SITE_URL` to the production origin so Open Graph image URLs resolve absolutely.
 - The service worker is registered only in production; in development it unregisters existing registrations to avoid stale caches.
-- The GitHub API is called client-side. Add `NEXT_PUBLIC_GITHUB_TOKEN` if the site gets enough traffic to hit the anonymous rate limit.
+- The GitHub API is called through the server route `/api/github`, cached for 10 minutes. Add `GITHUB_TOKEN` so deployments do not hit the anonymous rate limit.
 
 ## Asset provenance
 

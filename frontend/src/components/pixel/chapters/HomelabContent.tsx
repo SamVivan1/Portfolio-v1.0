@@ -15,17 +15,17 @@ import {
 import PixelButton from "../ui/PixelButton";
 import PixelChip from "../ui/PixelChip";
 
-interface RackContentProps {
+interface HomelabContentProps {
   onQuickView?: () => void;
   onNext?: () => void;
   compact?: boolean;
 }
 
-export default function RackContent({
+export default function HomelabContent({
   onQuickView,
   onNext,
   compact = false,
-}: RackContentProps) {
+}: HomelabContentProps) {
   return (
     <div className="chapter-content">
       <h2 className="chapter-title">I run my own infrastructure.</h2>
@@ -41,7 +41,7 @@ export default function RackContent({
         <PixelChip tone="amber">
           {certifications.length} verified credentials
         </PixelChip>
-        <PixelChip tone="violet">Self-hosted</PixelChip>
+        <PixelChip tone="violet">66 containers</PixelChip>
       </div>
 
       <ul className="service-grid" aria-label="Homelab stack">

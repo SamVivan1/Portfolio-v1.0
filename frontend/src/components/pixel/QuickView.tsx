@@ -12,6 +12,7 @@ import {
   Mail,
   MapPin,
   Printer,
+  Server,
   Sparkles,
   X,
 } from "lucide-react";
@@ -20,6 +21,7 @@ import {
   business,
   certifications,
   experience,
+  homelab,
   languages,
   profile,
   skillGroups,
@@ -221,6 +223,25 @@ export default function QuickView({ open, onClose }: QuickViewProps) {
                     </a>
                   </li>
                 </ul>
+              </section>
+
+              <section>
+                <h3>Homelab</h3>
+                <div className="resume-business">
+                  <Server size={16} aria-hidden="true" />
+                  <div>
+                    <strong>
+                      {homelab.services[0].name} · {homelab.services[1].detail}
+                    </strong>
+                    <span>{homelab.services[0].detail}</span>
+                    <span>
+                      {homelab.services
+                        .slice(2, 6)
+                        .map((service) => service.name)
+                        .join(" · ")}
+                    </span>
+                  </div>
+                </div>
               </section>
 
               <section>

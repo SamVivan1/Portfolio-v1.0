@@ -119,8 +119,7 @@ export default function PixelStage({
 
       const moving = Math.abs(target - camera) > 0.35;
       const chapter = chapterRef.current;
-      const showAvatar =
-        !reduced && metrics.viewW >= 520 && chapter !== 3;
+      const showAvatar = !reduced && chapter !== 3;
       const avatarX =
         metrics.viewW * (AVATAR_POSITIONS[chapter] ?? 0.24);
 

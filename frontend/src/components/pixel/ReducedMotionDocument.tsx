@@ -3,7 +3,7 @@
 import { Download, ExternalLink, FileText } from "lucide-react";
 import { CHAPTERS, profile } from "../../data/portfolio";
 import DeskContent from "./chapters/DeskContent";
-import RackContent from "./chapters/RackContent";
+import HomelabContent from "./chapters/HomelabContent";
 import RoofContent from "./chapters/RoofContent";
 import WorkshopContent from "./chapters/WorkshopContent";
 import ScenePoster from "./ScenePoster";
@@ -33,7 +33,7 @@ function StaticChapter({
 
 const sceneAlts = [
   "Pixel art of a cozy bedroom desk at night, with a CRT monitor, rain outside, a sleeping cat, and a warm lamp.",
-  "Pixel art of a homelab server room with two glowing racks, a terminal desk, and a wall of framed certificates.",
+  "Pixel art of a homelab room with a desktop tower, a compact 12U rack, a terminal desk, and a wall of framed certificates.",
   "Pixel art of a workshop with a pegboard, a 3D printer, filament spools, and printed parts on a shelf.",
   "Pixel art of a rooftop at night with a campfire, string lights, a city skyline, and a full moon.",
 ];
@@ -106,8 +106,8 @@ export default function ReducedMotionDocument() {
       <div className="doc-scene">
         <ScenePoster worldX={CHAPTERS[1].worldX} alt={sceneAlts[1]} />
       </div>
-      <StaticChapter id="rack" title="THE RACK" meta="02 / 04">
-        <RackContent />
+      <StaticChapter id="homelab" title="THE HOMELAB" meta="02 / 04">
+        <HomelabContent />
       </StaticChapter>
 
       <div className="doc-scene">

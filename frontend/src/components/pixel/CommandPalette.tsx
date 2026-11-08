@@ -58,12 +58,12 @@ export default function CommandPalette({
       },
       {
         id: "rack",
-        label: "Go to The Rack",
+        label: "Go to The Homelab",
         hint: "02",
         group: "Chapters",
         icon: <Server size={15} aria-hidden="true" />,
         run: () => onNavigate(1),
-        keywords: "homelab server experience credentials",
+        keywords: "homelab server experience credentials containers ubuntu",
       },
       {
         id: "workshop",

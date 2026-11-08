@@ -11,6 +11,8 @@ import {
   drawCertFrame,
   drawChair,
   drawCity,
+  drawDesktopTower,
+  drawDriveShelf,
   drawMug,
   drawPixelText,
   drawPlant,
@@ -195,12 +197,6 @@ const drawDeskRoom = (ctx: Ctx) => {
     rect(ctx, x, 634, 12, 2, P.violet);
   }
 
-  // room sign
-  rect(ctx, 812, 104, 74, 26, P.wallDark);
-  rect(ctx, 814, 106, 70, 22, P.deep);
-  drawPixelText(ctx, "RACK", 820, 113, P.teal, 1);
-  drawPixelText(ctx, ">", 866, 113, P.amber, 1);
-
   // wall clock
   rect(ctx, 520, 96, 34, 34, P.line);
   rect(ctx, 524, 100, 26, 26, P.paper);
@@ -208,68 +204,71 @@ const drawDeskRoom = (ctx: Ctx) => {
   rect(ctx, 536, 113, 8, 2, P.black);
 };
 
-const drawRackRoom = (ctx: Ctx) => {
-  rect(ctx, 1040, 124, 720, 4, P.line);
-  line(ctx, 1040, 124, 1080, 180, P.red);
-  line(ctx, 1120, 124, 1160, 200, P.teal);
-  line(ctx, 1200, 124, 1240, 170, P.amber);
-  line(ctx, 1360, 124, 1400, 190, P.pink);
-  line(ctx, 1440, 124, 1480, 170, P.blue);
-  line(ctx, 1600, 124, 1640, 190, P.teal);
+const drawHomelabRoom = (ctx: Ctx) => {
+  // cable tray
+  rect(ctx, 1080, 124, 740, 4, P.line);
+  line(ctx, 1100, 124, 1130, 180, P.red);
+  line(ctx, 1180, 124, 1200, 190, P.teal);
+  line(ctx, 1260, 124, 1290, 170, P.amber);
+  line(ctx, 1380, 124, 1410, 190, P.pink);
+  line(ctx, 1500, 124, 1530, 170, P.blue);
+  line(ctx, 1640, 124, 1660, 190, P.teal);
 
-  drawRack(ctx, 1040, 250, 190, 370, "DOCKER");
-  drawRack(ctx, 1280, 250, 190, 370, "CASAOS");
+  // the actual homelab hardware: one allocated desktop PC
+  drawDesktopTower(ctx, 1090, 300, 110, 320);
+  // one compact 12U rack with larger units
+  drawRack(ctx, 1230, 250, 200, 370, "DOCKER", 12);
+  // the 1.8 TB + 2 x 931 GB drives
+  drawDriveShelf(ctx, 1450, 500, 70, 120);
 
   const frames = [
-    [1510, 190, P.amber],
-    [1570, 190, P.teal],
-    [1630, 190, P.pink],
-    [1690, 190, P.violetLight],
-    [1750, 190, P.green],
+    [1550, 190, P.amber],
+    [1610, 190, P.teal],
+    [1670, 190, P.pink],
+    [1730, 190, P.violetLight],
+    [1790, 190, P.green],
   ] as const;
   frames.forEach(([x, y, color]) => {
     drawCertFrame(ctx, x, y, 46, 58, color);
   });
-  drawPixelText(ctx, "VERIFIED", 1530, 256, P.amber, 1);
+  drawPixelText(ctx, "VERIFIED", 1550, 256, P.amber, 1);
 
-  // terminal desk
-  rect(ctx, 1500, 466, 220, 16, P.amberDark);
-  rect(ctx, 1500, 466, 220, 4, P.amber);
-  rect(ctx, 1508, 482, 10, 138, P.line);
-  rect(ctx, 1702, 482, 10, 138, P.line);
-  rect(ctx, 1532, 348, 156, 118, P.black);
-  rect(ctx, 1536, 352, 148, 108, P.wallDark);
-  rect(ctx, 1544, 360, 132, 92, "#08121e");
-  drawPixelText(ctx, "N8N", 1550, 368, P.teal, 1);
+  // N8N terminal desk
+  rect(ctx, 1540, 466, 220, 16, P.amberDark);
+  rect(ctx, 1540, 466, 220, 4, P.amber);
+  rect(ctx, 1548, 482, 10, 138, P.line);
+  rect(ctx, 1742, 482, 10, 138, P.line);
+  rect(ctx, 1572, 348, 156, 118, P.black);
+  rect(ctx, 1576, 352, 148, 108, P.wallDark);
+  rect(ctx, 1584, 360, 132, 92, "#08121e");
+  drawPixelText(ctx, "N8N", 1590, 368, P.teal, 1);
   const n8nCode: Array<[number, number, number, string]> = [
-    [1550, 380, 54, P.teal],
-    [1550, 388, 88, P.violetLight],
-    [1556, 396, 62, P.amber],
-    [1550, 404, 76, P.green],
-    [1556, 412, 44, P.pink],
-    [1550, 420, 68, P.blue],
-    [1556, 428, 30, P.cream],
+    [1590, 380, 54, P.teal],
+    [1590, 388, 88, P.violetLight],
+    [1596, 396, 62, P.amber],
+    [1590, 404, 76, P.green],
+    [1596, 412, 44, P.pink],
+    [1590, 420, 68, P.blue],
+    [1596, 428, 30, P.cream],
   ];
   n8nCode.forEach(([x, y, w, color]) => rect(ctx, x, y, w, 3, color));
-  rect(ctx, 1544, 440, 6, 3, P.green);
-  glow(ctx, 1610, 400, 86, P.teal, 0.13);
-  rect(ctx, 1570, 454, 10, 12, P.wallDark);
+  rect(ctx, 1584, 440, 6, 3, P.green);
+  glow(ctx, 1650, 400, 86, P.teal, 0.13);
+  rect(ctx, 1610, 454, 10, 12, P.wallDark);
 
-  rect(ctx, 1538, 500, 132, 20, P.wallDark);
-  rect(ctx, 1541, 503, 126, 14, P.plum);
-  for (let kx = 1544; kx < 1664; kx += 8) {
+  rect(ctx, 1578, 500, 132, 20, P.wallDark);
+  rect(ctx, 1581, 503, 126, 14, P.plum);
+  for (let kx = 1584; kx < 1704; kx += 8) {
     rect(ctx, kx, 506, 5, 4, P.line);
   }
 
-  drawChair(ctx, 1432, 620);
-
-  // ups + vent
-  rect(ctx, 1730, 536, 34, 84, P.wallDark);
-  rect(ctx, 1734, 540, 26, 10, P.deep);
-  rect(ctx, 1736, 544, 22, 2, P.green);
-  rect(ctx, 1734, 554, 26, 40, P.plum);
+  // UPS + vent
+  rect(ctx, 1772, 536, 34, 84, P.wallDark);
+  rect(ctx, 1776, 540, 26, 10, P.deep);
+  rect(ctx, 1778, 544, 22, 2, P.green);
+  rect(ctx, 1776, 554, 26, 40, P.plum);
   for (let vy = 558; vy < 590; vy += 5) {
-    rect(ctx, 1738, vy, 18, 2, P.deep);
+    rect(ctx, 1780, vy, 18, 2, P.deep);
   }
   rect(ctx, 1836, 250, 40, 56, P.wallDark);
   for (let vy = 256; vy < 300; vy += 6) {
@@ -281,9 +280,9 @@ const drawRackRoom = (ctx: Ctx) => {
   drawPixelText(ctx, ">", 1864, 104, P.amber, 1);
 
   // floor cable bundles
-  line(ctx, 1200, 620, 1440, 650, P.red, 2);
-  line(ctx, 1240, 620, 1480, 660, P.teal, 2);
-  line(ctx, 1280, 620, 1520, 640, P.amber, 2);
+  line(ctx, 1150, 620, 1240, 650, P.red, 2);
+  line(ctx, 1200, 620, 1350, 660, P.teal, 2);
+  line(ctx, 1300, 620, 1540, 640, P.amber, 2);
 };
 
 const drawWorkshopRoom = (ctx: Ctx) => {
@@ -406,7 +405,11 @@ const drawRooftop = (ctx: Ctx) => {
 
   drawCampfire(ctx, 3170, 616);
   drawStool(ctx, 3080, 620);
-  drawAvatar(ctx, 3270, 592, 0, true);
+  ctx.save();
+  ctx.translate(3270, 592);
+  ctx.scale(1.8, 1.8);
+  drawAvatar(ctx, 0, 0, 0, true);
+  ctx.restore();
   drawCat(ctx, 3090, 616, true);
 
   // string lights
@@ -476,16 +479,16 @@ export const drawWorldBase = (ctx: Ctx) => {
     rect(ctx, room.x + room.w - 4, 70, 4, FLOOR_Y - 78, P.plum);
   });
 
-  drawCorridor(ctx, 900, "RACK >");
+  drawCorridor(ctx, 900, "LAB >");
   drawCorridor(ctx, 1900, "MAKE >");
   drawCorridor(ctx, 2900, "ROOF >");
 
   drawDeskRoom(ctx);
-  drawRackRoom(ctx);
+  drawHomelabRoom(ctx);
   drawWorkshopRoom(ctx);
   drawRooftop(ctx);
 
-  drawDoorSign(ctx, 812, 104, "RACK >", P.teal);
+  drawDoorSign(ctx, 812, 104, "LAB >", P.teal);
   drawDoorSign(ctx, 1788, 104, "MAKE >", P.teal);
   drawDoorSign(ctx, 2830, 104, "ROOF >", P.teal);
 };

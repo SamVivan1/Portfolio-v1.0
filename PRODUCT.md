@@ -18,7 +18,7 @@ A recruiter-first personal portfolio for Muhammad Bintang Panji Kusuma — a Com
 
 ## Positioning
 
-A scroll-driven pixel-art homelab, not a template portfolio. The visitor walks through four rooms — desk, server rack, workshop, rooftop — while live GitHub data, verified credentials, a real 3D printing business, and a downloadable CV sit one layer below the surface. The memorable experience earns attention; the Quick view and reduced-motion document make the evidence scannable in under a minute.
+A scroll-driven pixel-art homelab, not a template portfolio. The visitor walks through four rooms — desk, homelab, workshop, rooftop — while live GitHub data, verified credentials, a real 3D printing business, and a downloadable CV sit one layer below the surface. The memorable experience earns attention; the Quick view and reduced-motion document make the evidence scannable in under a minute.
 
 ## Operating Context
 
@@ -35,7 +35,7 @@ Capabilities:
 - One continuous Canvas 2D pixel world (3900 × 800 logical pixels) behind four chapter panels.
 - Scroll-driven camera with desktop and portrait keyframes; ambient rain, LEDs, monitor cursor, steam, fire, stars, string lights, and a walking avatar.
 - Persistent HUD: wordmark, availability, local Banda Aceh time, chapter navigation, CV, Quick view, progress.
-- Quick view dialog: a complete, conventional resume with summary, education, experience, skills, projects, certifications, languages, and ProtoPrime3D.
+- Quick view dialog: a complete, conventional resume with summary, education, homelab, experience, skills, projects, certifications, languages, and ProtoPrime3D.
 - Command palette (`Ctrl/Cmd + K`) for chapter jumps, links, CV, and copy-email.
 - Live GitHub project data with a curated, truthful fallback based on real repositories.
 - ProtoPrime3D workshop chapter with real part photos, machine specs, materials, lead time, and links.
@@ -44,7 +44,7 @@ Capabilities:
 
 Constraints:
 - No testimonials, client logos, case studies, or press exist; do not fabricate them.
-- ProtoPrime3D facts must stay traceable to protoprime3d.my.id. The business is a side path, not the portfolio's main funnel.
+- ProtoPrime3D facts must stay traceable to protoprime3d.my.id. The business is a side path, not the portfolio's main funnel. The homelab chapter reflects the live server: Ubuntu 26.04 LTS on an allocated desktop PC (Ryzen 5 4600G, 14 GB RAM, ~3.7 TB), 66 running containers, and the services listed in `data/portfolio.ts`.
 - All credentials and project links must resolve to real sources.
 - Core information must be reachable without animation, via Quick view or the reduced-motion document.
 - Baseline WCAG 2.2 AA. The canvas is decorative (`aria-hidden`); content lives in real DOM.
@@ -67,7 +67,8 @@ Real, verifiable assets (paths relative to `frontend/public` unless noted):
 - CV: `Sertifikat/Muhammad_Bintang_Panji_Kusuma_CV.pdf`
 - Certificate: `Sertifikat/Sertifikat_MUHAMMAD BINTANG PANJI KUSUMA_Junior Network Administrator.pdf`
 - SOI Asia credentials with verification URLs: Understanding the Internet, APIE Camp, Service Design, APIE Advanced Camp.
-- Live GitHub repositories pulled from the GitHub API for `SamVivan1`, with a curated real fallback.
+- Live GitHub repositories pulled from the GitHub API for `SamVivan1` through the server route `/api/github`, with a curated real fallback.
+- Homelab evidence: Ubuntu 26.04 LTS on an allocated desktop PC (Ryzen 5 4600G, 14 GB RAM, ~3.7 TB), 66 running containers, and the service list in `data/portfolio.ts`.
 - Profile portrait: `assets/profile.png`.
 - ProtoPrime3D part photos: `assets/protoprime/casing-iot.webp`, `assets/protoprime/kapal.webp`; render: `assets/protoprime/benchy.webp`.
 - Business facts: `https://protoprime3d.my.id`.

@@ -37,7 +37,7 @@ const rainDrops = Array.from({ length: 34 }, (_, index) => ({
   length: 2 + (index % 3),
 }));
 
-const rackRows = Array.from({ length: 24 }, (_, index) => index);
+const rackRows = Array.from({ length: 10 }, (_, index) => index + 1);
 
 const starSeeds = Array.from({ length: 26 }, (_, index) => ({
   x: 3010 + ((index * 137 + 43) % 880),
@@ -59,35 +59,40 @@ const drawRain = (ctx: Ctx, time: number) => {
 };
 
 const drawRackLeds = (ctx: Ctx, time: number) => {
-  const racks = [
-    { x: 1040, phase: 0 },
-    { x: 1280, phase: 1.7 },
-  ];
-  racks.forEach((rack) => {
-    rackRows.forEach((row) => {
-      const y = 250 + 20 + row * 14 + 6;
-      if (y > 250 + 370 - 12) return;
-      const pulse = Math.sin(time * 2.4 + row * 0.9 + rack.phase);
-      const bright = pulse > 0.2;
-      rect(ctx, rack.x + 6, y, 3, 2, bright ? P.teal : P.tealDark);
-      rect(
-        ctx,
-        rack.x + 11,
-        y,
-        3,
-        2,
-        Math.sin(time * 1.7 + row * 1.3 + rack.phase) > 0.55 ? P.amber : P.amberDark
-      );
-      rect(
-        ctx,
-        rack.x + 16,
-        y,
-        3,
-        2,
-        Math.sin(time * 3.1 + row * 0.6 + rack.phase) > 0.7 ? P.pink : P.violetDark
-      );
-    });
+  const rackX = 1230;
+  rackRows.forEach((row) => {
+    const y = 250 + 21 + row * 28 + 6;
+    if (y > 250 + 370 - 12) return;
+    const pulse = Math.sin(time * 2.4 + row * 0.9);
+    rect(ctx, rackX + 6, y, 3, 3, pulse > 0.2 ? P.teal : P.tealDark);
+    rect(
+      ctx,
+      rackX + 11,
+      y,
+      3,
+      3,
+      Math.sin(time * 1.7 + row * 1.3) > 0.55 ? P.amber : P.amberDark
+    );
+    rect(
+      ctx,
+      rackX + 16,
+      y,
+      3,
+      3,
+      Math.sin(time * 3.1 + row * 0.6) > 0.7 ? P.pink : P.violetDark
+    );
   });
+
+  // desktop tower CPU fan + power LED
+  glow(
+    ctx,
+    1145,
+    409,
+    26,
+    P.teal,
+    0.1 + 0.08 * Math.max(0, Math.sin(time * 2))
+  );
+  rect(ctx, 1097, 309, 6, 3, Math.sin(time * 2.2) > 0 ? P.green : P.tealDark);
 };
 
 const drawMonitor = (ctx: Ctx, time: number) => {
@@ -176,10 +181,22 @@ export const drawDynamicFrame = (ctx: Ctx, options: DynamicOptions) => {
   if (showAvatar) {
     const floorScreen = FLOOR_Y - viewY;
     const frame = moving && !reduced ? Math.floor(time * 8) % 4 : 0;
-    drawAvatar(ctx, avatarX, floorScreen + 1, frame, false);
+    const avatarScale = 2;
+    ctx.save();
+    ctx.translate(avatarX, floorScreen + 1);
+    ctx.scale(avatarScale, avatarScale);
+    drawAvatar(ctx, 0, 0, frame, false);
+    ctx.restore();
     if (!reduced && moving) {
       const dust = Math.floor(time * 10) % 3;
-      rect(ctx, avatarX - 4 - dust * 2, floorScreen - 1, 2, 1, "rgba(244,230,200,0.18)");
+      rect(
+        ctx,
+        avatarX - 8 - dust * 3,
+        floorScreen - 1,
+        2,
+        1,
+        "rgba(244,230,200,0.18)"
+      );
     }
   }
 };

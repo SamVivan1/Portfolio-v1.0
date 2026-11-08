@@ -1,4 +1,4 @@
-export type ChapterId = "desk" | "rack" | "workshop" | "roof";
+export type ChapterId = "desk" | "homelab" | "workshop" | "roof";
 
 export interface Chapter {
   id: ChapterId;
@@ -23,12 +23,12 @@ export const CHAPTERS: Chapter[] = [
     panelSide: "left",
   },
   {
-    id: "rack",
+    id: "homelab",
     index: 1,
-    label: "The Rack",
-    shortLabel: "Rack",
+    label: "The Homelab",
+    shortLabel: "Lab",
     title: "Infrastructure",
-    worldX: 1120,
+    worldX: 1080,
     scroll: [0.3, 0.54],
     panelSide: "right",
   },
@@ -166,14 +166,31 @@ export const certifications: Certification[] = experience
 
 export const homelab = {
   summary:
-    "A self-hosted stack that runs at home: Docker for orchestration, CasaOS as the dashboard, the *arr suite for media automation, and n8n for workflows. It is where I test ideas before they touch anything production-shaped.",
+    "One allocated desktop PC runs Ubuntu 26.04 LTS and a 66-container Docker stack. Media, photos, files, documents, home automation, and network services all live here — it is where I test ideas before they touch anything production-shaped.",
   services: [
-    { name: "Docker", detail: "Containers, compose stacks, persistent volumes" },
-    { name: "CasaOS", detail: "Self-hosted app dashboard" },
-    { name: "*arr stack", detail: "Media automation pipeline" },
-    { name: "n8n", detail: "Workflow and backup automation" },
-    { name: "Ubuntu · Fedora · Arch", detail: "Daily Linux environments" },
-    { name: "Networking", detail: "BNSP-certified network administration" },
+    {
+      name: "Ubuntu 26.04 LTS",
+      detail: "Ryzen 5 4600G · 14 GB RAM · ~3.7 TB storage",
+    },
+    { name: "Docker", detail: "66 running containers" },
+    {
+      name: "Media",
+      detail: "Jellyfin · *arr · qBittorrent · Navidrome · Seerr",
+    },
+    { name: "Photos & files", detail: "Immich · Nextcloud" },
+    { name: "Documents", detail: "Paperless-ngx" },
+    {
+      name: "Automation",
+      detail: "n8n · Home Assistant · ESPHome · Mosquitto",
+    },
+    {
+      name: "Network & security",
+      detail: "Pi-hole · Samba · Cloudflared · Tailscale · Vaultwarden",
+    },
+    {
+      name: "Ops",
+      detail: "Portainer · Watchtower · Dashdot · Cowrie honeypot",
+    },
   ],
   notes: [
     "Lyra: a modular music acquisition service that runs in the homelab.",
@@ -186,12 +203,12 @@ export const skillGroups = [
   {
     label: "Systems & DevOps",
     items: [
-      "Docker",
-      "Linux (Ubuntu, Fedora, Arch)",
-      "CasaOS",
-      "*arr stack",
-      "n8n",
+      "Ubuntu 26.10 / 26.04 LTS",
+      "Docker (66 containers)",
       "Self-hosting",
+      "Jellyfin / *arr",
+      "Immich / Nextcloud",
+      "Home Assistant / n8n",
     ],
   },
   {
@@ -200,6 +217,7 @@ export const skillGroups = [
       "Network configuration",
       "BNSP Junior Network Administrator",
       "SOI Asia APIE Camp",
+      "Pi-hole / Samba",
     ],
   },
   {

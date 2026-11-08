@@ -36,7 +36,7 @@ const desktopCameraKeyframes = buildCameraKeyframes(
 );
 
 // A portrait viewport is narrower; keep the same focal points centered.
-const mobileCameraKeyframes = buildCameraKeyframes([340, 1340, 2340, 3020]);
+const mobileCameraKeyframes = buildCameraKeyframes([340, 1100, 2340, 3020]);
 
 export function cameraForProgress(
   progress: number,

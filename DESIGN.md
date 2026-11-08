@@ -79,13 +79,13 @@ components:
 
 **Creative North Star: "A Night in the Homelab."**
 
-A continuous 16-bit pixel world: a desk under rain, a humming server rack, a workshop where a 3D printer is mid-job, and a rooftop with a campfire. The visitor scrolls; the camera walks. The interface is the game chrome around that world — a compact HUD, chapter panels that feel like in-world terminals, and a resume that opens like a menu.
+A continuous 16-bit pixel world: a desk under rain, a humming homelab, a workshop where a 3D printer is mid-job, and a rooftop with a campfire. The visitor scrolls; the camera walks. The interface is the game chrome around that world — a compact HUD, chapter panels that feel like in-world terminals, and a resume that opens like a menu.
 
 The old glassmorphic world is the anti-reference. This system has no blurred glass cards, no pill buttons, no neon-violet gradient text. It is built from sharp pixel edges, a warm/cool night palette, and two type voices: a pixel display face for headings and HUD labels, and a readable sans for the content recruiters actually need to scan.
 
 **Key Characteristics:**
 - One continuous Canvas 2D world (3900 × 800 logical pixels) behind four chapter panels.
-- Four rooms: Desk, Rack, Workshop, Roof. The camera moves horizontally as the page scrolls vertically.
+- Four rooms: Desk, Homelab, Workshop, Roof. The camera moves horizontally as the page scrolls vertically.
 - HUD as game chrome: wordmark, availability, Banda Aceh time, chapter nav, CV, Quick view, progress.
 - Palette: deep night ground, warm amber lamps, teal signal, violet atmosphere, pink accents.
 - Sharp corners (0px), 2px borders, hard offset shadows, inset scroll fades. No glass, no pills.
@@ -154,7 +154,7 @@ The site is a fixed stage plus a tall scroll track. The canvas and HUD are `posi
 
 - **Stage:** full viewport, fixed, z-index 0. Canvas fills it; vignette and scanlines sit above the canvas at low opacity.
 - **HUD:** fixed, full viewport, pointer-events none; only controls receive pointer events. Top bar + bottom progress on desktop; top bar + bottom chapter nav on mobile.
-- **Chapter panels:** fixed, vertically centered on desktop; left/right of the stage depending on the room. Width `min(520px, 40vw)`; wide workshop panel `min(680px, 46vw)`. At ≤1100px, width narrows to 46vw / 52vw. At ≤900px, panels become bottom sheets above the mobile nav.
+- **Chapter panels:** fixed, vertically centered on desktop; left/right of the stage depending on the room. Width `min(520px, 40vw)`; wide workshop panel `min(680px, 46vw)`. At ≤1100px, width narrows to 46vw / 52vw. At ≤900px, panels become bottom sheets above the mobile nav. Chapter 2 is **The Homelab** (`#homelab`).
 - **Panel body:** max-height 66vh desktop, 56svh mobile; internal scroll with an inset bottom shadow. The mobile panel has a collapse chevron that shrinks it to the title bar so the world is visible.
 - **Quick view:** native dialog, max-width 1080px, max-height 92dvh; full-screen on mobile.
 - **Command palette:** native dialog, max-width 640px, centered.
@@ -203,7 +203,7 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 ### Buttons
 - **Primary:** teal fill, void text, 2px teal border, 3px hard shadow. Hover to cream fill; active presses in.
 - **Ghost:** night fill, line border, cream text.
-- **Quiet:** transparent, no shadow, muted text; used for "The Rack" / "Back to the desk".
+- **Quiet:** transparent, no shadow, muted text; used for "The Lab" / "Back to the desk".
 - **Sizes:** 44px minimum height; 36px for compact HUD actions.
 - **Focus:** 2px teal outline, 3px offset, visible on both dark and teal surfaces.
 
@@ -228,7 +228,7 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 - Native `<dialog>` with `showModal()`; Escape and backdrop click close.
 - Title bar `RESUME.EXE — QUICK VIEW` with three dots and a 40px close button.
 - Hero: 150px portrait in a pixel frame, name in Silkscreen, role, availability chips, contact links.
-- Two-column body: sidebar (education, contact, skills, languages, workshop) and main (profile, experience, projects, certifications, what I'm looking for).
+- Two-column body: sidebar (education, contact, homelab, skills, languages, workshop) and main (profile, experience, projects, certifications, what I'm looking for).
 - Footer: source note + Copy email + Download CV.
 - Mobile: full-screen, single column, footer actions in a 2-column grid.
 
@@ -247,9 +247,9 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 
 A single prerendered Canvas 2D world, 3900 × 800 logical pixels, floor at y=620, four 900px rooms separated by 100px corridors. The camera shows a 480px-tall slice; landscape view width follows the aspect ratio (720–1120px), portrait view is 360px wide with a 560–880px height. The world is drawn with a limited palette and a 3×5 pixel font for signs.
 
-- **Rooms:** Desk (window, CRT, shelf, cat, lamp), Rack (two server racks, N8N terminal, certificate wall), Workshop (pegboard, blueprints, 3D printer, filament spools, printed parts), Roof (sky, moon, city, railing, campfire, string lights, antenna).
+- **Rooms:** Desk (window, CRT, shelf, cat, lamp), Homelab (desktop tower, compact 12U rack, drive shelf, N8N terminal, certificate wall), Workshop (pegboard, blueprints, 3D printer, filament spools, printed parts), Roof (sky, moon, city, railing, campfire, string lights, antenna).
 - **Dynamic layer:** rain in the desk window, rack LEDs, monitor cursor and scanline, mug steam, fire flicker and embers, star twinkle, string-light pulse, and the avatar's walk cycle.
-- **Avatar:** 14 × 24 pixel character with a violet hoodie, teal backpack, and two-frame walk. It appears on desktop only; on mobile the scene itself carries the life.
+- **Avatar:** 14 × 24 pixel character with a violet hoodie, teal backpack, and two-frame walk. Rendered at 2× on desktop and 1.5× on mobile; on mobile it sits behind the bottom sheet and is revealed when the panel is collapsed.
 - **Camera:** piecewise mapping from scroll progress to world x. Each chapter has a hold range and a fast transition corridor. Desktop and portrait use different keyframe stops so the focal object stays centered on narrow screens.
 - **Rendering:** one offscreen world canvas, one viewport frame canvas, nearest-neighbour upscale to the display canvas. `image-rendering: pixelated`; no smoothing. Pause drawing when the document is hidden.
 - **Accessibility:** the canvas is `aria-hidden` and decorative. All content is real DOM; the Quick view and reduced-motion document are the accessible complete documents.
@@ -314,7 +314,7 @@ A single prerendered Canvas 2D world, 3900 × 800 logical pixels, floor at y=620
 - **Stage:** `PixelStage.tsx` owns the canvas, viewport metrics, camera smoothing, and dynamic frame composition.
 - **Shell:** `Portfolio.tsx` owns scroll progress, chapter state, deep links, keyboard shortcuts, and the dialogs.
 - **Layout mapping:** `lib/chapters.ts` owns the world dimensions, chapter scroll ranges, camera keyframes (desktop + portrait), and scroll helpers.
-- **Live data:** `hooks/useLiveProjects.ts` fetches GitHub repositories and user stats, with a curated real fallback and a 9s timeout.
+- **Live data:** `app/api/github/route.ts` fetches and caches GitHub repositories and user stats server-side (10-minute TTL), returning a curated real fallback on failure. `hooks/useLiveProjects.ts` is the client hook that calls it.
 - **Reduced motion:** `ReducedMotionDocument.tsx` + `ScenePoster.tsx`; the cinematic shell returns `null` when reduced motion is active.
 - **Progressive enhancement:** an inline script adds `.js` to `<html>` and `.reduced` when the media query matches. Without JS, the reduced-motion document is the page; with JS + no reduced motion, the cinematic shell is the page.
 - **PWA:** `public/manifest.json`, `public/sw.js`, `ServiceWorkerRegister.tsx` (production only; unregisters in dev).
