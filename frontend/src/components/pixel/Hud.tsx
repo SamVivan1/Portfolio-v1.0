@@ -68,13 +68,15 @@ export default function Hud({
             className="hud__logo"
             onClick={() => navigate(0)}
           >
-            <span className="hud__logo-mark" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-              <i />
-              <i />
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/logo-pixel.svg"
+              alt=""
+              width={64}
+              height={64}
+              className="hud__logo-image"
+              aria-hidden="true"
+            />
             <span className="hud__wordmark">
               BSP<span className="hud__wordmark-dim">://</span>HOMELAB
             </span>

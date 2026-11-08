@@ -186,14 +186,14 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 
 - **Radius:** 0px everywhere. No pill buttons, no rounded cards, no 24px nav surface.
 - **Borders:** 1px for tags/dividers, 2px for panels, buttons, dialogs, and the HUD nav.
-- **Pixel corners:** the HUD logo mark is a 3 × 3 grid of 5px squares; the panel dots are 6px squares.
+- **Pixel corners:** the HUD mark is the existing SamVivan logo, rasterized to a 64 × 64 pixel grid; the panel dots are 6px squares.
 - **Photo frames:** 2px line border, 3px dark inset, square corners.
 - **No clip-path masks, no glass shapes, no blob geometry.**
 
 ## Components
 
 ### HUD
-- Fixed top bar with a 3 × 3 pixel mark and `BSP://HOMELAB` wordmark in Silkscreen.
+- Fixed top bar with the SamVivan mark (pixelated from `assets/logo.svg` to a 64 × 64 grid) and `BSP://HOMELAB` wordmark in Silkscreen.
 - Status line: green live dot + `OPEN TO INTERNSHIP` + Banda Aceh time in amber. Time is real (`Asia/Jakarta`).
 - Desktop nav: four chapter buttons with two-digit indices; active state is teal fill with void text.
 - Actions: command palette key, CV download, Quick view primary button.
@@ -318,4 +318,5 @@ A single prerendered Canvas 2D world, 3900 × 800 logical pixels, floor at y=620
 - **Reduced motion:** `ReducedMotionDocument.tsx` + `ScenePoster.tsx`; the cinematic shell returns `null` when reduced motion is active.
 - **Progressive enhancement:** an inline script adds `.js` to `<html>` and `.reduced` when the media query matches. Without JS, the reduced-motion document is the page; with JS + no reduced motion, the cinematic shell is the page.
 - **PWA:** `public/manifest.json`, `public/sw.js`, `ServiceWorkerRegister.tsx` (production only; unregisters in dev).
+- **Logo:** `public/assets/logo.svg` is preserved as the source; `logo-pixel.svg` is the 64 × 64 pixel derivative used in the HUD, and `logo-pixel-icon.svg` is the dark-background version used for the favicon and PWA icons.
 - **Metadata:** title, description, Open Graph/Twitter (`/og.jpg`), Person JSON-LD, theme color `#08070f`.

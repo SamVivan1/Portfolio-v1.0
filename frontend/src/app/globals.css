@@ -214,34 +214,12 @@ html.js:not(.reduced) .reduced-document {
   cursor: pointer;
 }
 
-.hud__logo-mark {
-  display: grid;
-  grid-template-columns: repeat(3, 5px);
-  grid-template-rows: repeat(3, 5px);
-  gap: 2px;
-  width: 19px;
-  height: 19px;
-}
-
-.hud__logo-mark i {
+.hud__logo-image {
   display: block;
-  background: var(--teal);
-}
-
-.hud__logo-mark i:nth-child(2) {
-  background: var(--violet);
-}
-
-.hud__logo-mark i:nth-child(3) {
-  background: var(--amber);
-}
-
-.hud__logo-mark i:nth-child(4) {
-  background: var(--violet-soft);
-}
-
-.hud__logo-mark i:nth-child(5) {
-  background: var(--cream);
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  image-rendering: pixelated;
 }
 
 .hud__wordmark {
@@ -2262,6 +2240,11 @@ dialog::backdrop {
 
   .hud__menu {
     display: flex;
+  }
+
+  .hud__logo-image {
+    width: 26px;
+    height: 26px;
   }
 
   .hud__wordmark {

@@ -126,6 +126,7 @@ The production image uses the Next.js standalone output. The development compose
 ## Asset provenance
 
 - Portrait, CV, certificates, and ProtoPrime3D part photos are the owner's own assets.
+- The HUD mark and app icons are the existing SamVivan logo from `public/assets/logo.svg`, rasterized to a 64 × 64 pixel grid (`logo-pixel.svg` / `logo-pixel-icon.svg`).
 - The 3DBenchy image is a render from the ProtoPrime3D site and is labeled as a benchmark render.
 - Fonts: Silkscreen, Geist, and Geist Mono via Google Fonts / `next/font`.
 - Icons: Lucide and Simple Icons (via `react-icons`).

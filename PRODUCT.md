@@ -58,7 +58,7 @@ Constraints:
 - Contact: bintang10panji@gmail.com; GitHub SamVivan1; LinkedIn (muhammad-bintang-panji-kusuma); Instagram @bintang.panjii.
 - Languages: Bahasa Indonesia (native), English (advanced), Japanese (beginner).
 - Business: ProtoPrime 3D — FDM 3D printing in Banda Aceh; Bambu Lab A1 mini; PLA+/PETG/TPU; 180 × 180 × 180 mm; 0.1 mm layers; 2–5 working days.
-- Assets preserved: profile portrait, CV PDF, certificate PDFs and verification links, ProtoPrime3D part photos and render.
+- Assets preserved: profile portrait, CV PDF, certificate PDFs and verification links, ProtoPrime3D part photos and render, and the original SamVivan logo (`logo.svg`). The HUD and app icons use a 64 × 64 pixelated derivative of that logo.
 - Voice: professional yet personable; engineering-credible; first-person.
 
 ## Evidence on Hand
