@@ -14,7 +14,7 @@ A recruiter-first portfolio you walk through. Four pixel-art rooms, one continuo
 - **Live GitHub projects** with a curated, truthful fallback when the API is unavailable.
 - **A Homelab chapter that reflects the real server**: Ubuntu 26.04 LTS on an allocated desktop PC (Ryzen 5 4600G, 14 GB RAM, ~3.7 TB), 66 containers, Jellyfin/*arr, Immich, Nextcloud, Paperless, Home Assistant, n8n, Pi-hole, and more. The `/homelab` page adds a hardware block, a service-group diagram, and a verification date.
 - **A web resume** at `/resume` with print styles for a clean two-page A4 PDF, sharing the same document as Quick view.
-- **Technical notes** at `/notes`: deploy rollback, n8n backups, and the one-host homelab layout — linked from the site nav and command palette.
+- **Technical notes** at `/notes`: deploy rollback, n8n backups, and the one-host homelab layout — linked from the site nav and command palette, with a dedicated OG image per note.
 - **A ProtoPrime3D workshop chapter** with real part photos, Bambu Lab A1 mini specs, materials, lead time, and links to `protoprime3d.my.id`.
 - **A draggable mobile sheet** with collapsed, half, and full snap points, plus a keyboard-accessible chevron.
 - **Chapter-aware ambient sound** that defaults on for first-time visitors, starts on the first user gesture (browser autoplay policy), pauses when the tab is hidden, and can be muted from the HUD or mobile menu. The preference persists. Five 64-second layers are crossfaded by chapter: a warm harmonic base plus rain at the Desk, server hum at the Homelab, printer rhythm in the Workshop, and crickets/fire on the Roof. The base is 48 kHz / 160 kbps; textures are 112–128 kbps and load on demand.
