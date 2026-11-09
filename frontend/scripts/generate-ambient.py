@@ -4,15 +4,16 @@
 The track is synthesized from scratch so it can be shipped without a
 third-party license. It is built on a 64-second circular buffer: every
 tonal tail, delay, and reverb wraps to the start, which makes the loop
-seamless. The palette is intentionally quiet: warm minor-ninth pads,
-soft rain, a distant server hum, sparse music-box notes, and a little
-tape crackle.
+seamless. The palette is intentionally quiet but not muffled: warm seventh
+chords, soft rain, a distant server hum, sparse music-box notes, and a
+little tape crackle. The four 16-second beds move from F major 7 to
+C major 7, G6, and A minor 9, so the piece opens warm and ends reflective.
 
 Run with numpy available:
     python3 scripts/generate-ambient.py /tmp/homelab-night.wav
 Then encode:
-    ffmpeg -i /tmp/homelab-night.wav -af loudnorm=I=-21:TP=-3 \
-      -c:a libmp3lame -b:a 160k homelab-night.mp3
+    ffmpeg -i /tmp/homelab-night.wav -af loudnorm=I=-20:TP=-2 -ar 48000 \
+      -c:a libmp3lame -b:a 256k homelab-night.mp3
 """
 
 from __future__ import annotations
@@ -23,17 +24,17 @@ from pathlib import Path
 
 import numpy as np
 
-SR = 44_100
+SR = 48_000
 DURATION = 64.0
 N = int(SR * DURATION)
 RNG = np.random.default_rng(20261109)
 
 # A minor 9 / F major 7 / C major 7 / G6. Each chord owns 16 seconds.
 CHORDS = [
-    [45, 52, 55, 59, 60],  # A2 E3 G3 B3 C4
-    [41, 48, 52, 57, 60],  # F2 C3 E3 A3 C4
-    [48, 55, 59, 64, 67],  # C3 G3 B3 E4 G4
-    [43, 50, 54, 59, 64],  # G2 D3 F#3 B3 E4
+    [48, 52, 57, 60],      # F major 7: C3 E3 A3 C4
+    [48, 55, 59, 64, 67],  # C major 7: C3 G3 B3 E4 G4
+    [50, 54, 59, 64],      # G6: D3 F#3 B3 E4
+    [52, 55, 59, 60],      # A minor 9: E3 G3 B3 C4
 ]
 
 
@@ -82,8 +83,8 @@ def pad_note(freq: float, length: float, detune: float) -> np.ndarray:
     t = np.arange(int(length * SR), dtype=np.float64) / SR
     # Warm additive voice: fundamental plus a few rolled-off harmonics.
     voice = np.zeros_like(t)
-    for harmonic in range(1, 7):
-        amp = 1.0 / (harmonic ** 1.65)
+    for harmonic in range(1, 13):
+        amp = 1.0 / (harmonic ** 1.38)
         voice += amp * np.sin(
             2.0 * np.pi * freq * harmonic * (1.0 + detune) * t
             + harmonic * 0.7
@@ -109,18 +110,22 @@ def pad_bus() -> np.ndarray:
             signal = pad_note(freq, length, 0.0015 if voice_index % 2 == 0 else -0.0015)
             signal *= envelope
             pan = (-0.55 + 0.28 * voice_index) * (1.0 if voice_index % 2 == 0 else -1.0)
-            add_wrap(bus, start, signal, gain=0.048, pan=float(np.clip(pan, -0.8, 0.8)))
+            add_wrap(bus, start, signal, gain=0.043, pan=float(np.clip(pan, -0.8, 0.8)))
+            shimmer = pad_note(freq * 2.0, length, -0.001)
+            shimmer *= envelope
+            add_wrap(bus, start, shimmer, gain=0.013,
+                     pan=float(np.clip(-pan * 0.7, -0.8, 0.8)))
             if note < 52:
-                shimmer = pad_note(freq * 2.0, length, -0.001)
-                shimmer *= envelope
-                add_wrap(bus, start, shimmer, gain=0.016,
-                         pan=float(np.clip(-pan * 0.7, -0.8, 0.8)))
+                high_shimmer = pad_note(freq * 4.0, length, 0.001)
+                high_shimmer *= envelope
+                add_wrap(bus, start, high_shimmer, gain=0.004,
+                         pan=float(np.clip(pan * 0.5, -0.8, 0.8)))
     return bus
 
 
 def bass_bus() -> np.ndarray:
     bus = np.zeros((N, 2), dtype=np.float64)
-    roots = [45, 41, 48, 43]
+    roots = [41, 48, 43, 45]
     for index, note in enumerate(roots):
         start = int(index * 16.0 * SR)
         length = 18.0
@@ -155,13 +160,22 @@ def bells_bus(delay_bus: np.ndarray) -> np.ndarray:
         freq = midi_to_hz(note)
         length = 7.0
         t = np.arange(int(length * SR), dtype=np.float64) / SR
-        attack = smoothstep(t / 0.012)
-        decay = np.exp(-t / 1.55)
-        signal = (
-            np.sin(2.0 * np.pi * freq * t)
-            + 0.42 * np.sin(2.0 * np.pi * freq * 2.01 * t)
-            + 0.18 * np.sin(2.0 * np.pi * freq * 3.02 * t)
-        ) * attack * decay
+        attack = smoothstep(t / 0.008)
+        signal = np.zeros_like(t)
+        partials = (
+            (1.00, 1.00, 1.70),
+            (2.01, 0.52, 1.35),
+            (3.02, 0.30, 1.05),
+            (4.16, 0.17, 0.82),
+            (5.43, 0.10, 0.62),
+            (6.79, 0.06, 0.48),
+            (8.21, 0.04, 0.36),
+        )
+        for ratio, amplitude, decay_time in partials:
+            signal += amplitude * np.sin(
+                2.0 * np.pi * freq * ratio * t
+            ) * np.exp(-t / decay_time)
+        signal *= attack / 1.9
         add_wrap(bus, int(when * SR), signal, gain=gain, pan=pan)
         # Three soft echoes, falling away, wrapped into the loop.
         for echo in range(1, 4):
@@ -175,8 +189,8 @@ def bells_bus(delay_bus: np.ndarray) -> np.ndarray:
 def rain_bus() -> np.ndarray:
     def shape(freqs: np.ndarray) -> np.ndarray:
         safe = np.maximum(freqs, 1.0)
-        highpass = smoothstep((safe - 180.0) / 500.0)
-        lowpass = 1.0 / (1.0 + (safe / 7800.0) ** 3.2)
+        highpass = smoothstep((safe - 260.0) / 700.0)
+        lowpass = 1.0 / (1.0 + (safe / 12000.0) ** 3.0)
         pink = 1.0 / np.sqrt(safe / 1000.0)
         return highpass * lowpass * pink
 
@@ -196,7 +210,19 @@ def rain_bus() -> np.ndarray:
         add_wrap(drops, int(when * SR), signal,
                  gain=RNG.uniform(0.0015, 0.0045), pan=RNG.uniform(-0.8, 0.8))
 
-    return rain * 0.128 + drops * 2.2
+    return rain * 0.115 + drops * 2.2
+
+
+def air_bus() -> np.ndarray:
+    def shape(freqs: np.ndarray) -> np.ndarray:
+        safe = np.maximum(freqs, 1.0)
+        low = smoothstep((safe - 2800.0) / 2400.0)
+        high = 1.0 / (1.0 + (safe / 15000.0) ** 4.0)
+        return low * high
+
+    air = periodic_noise(shape)
+    slow = 0.75 + 0.25 * np.sin(2.0 * np.pi * np.arange(N) / N * 3.0 + 1.1)
+    return air * slow[:, None] * 0.012
 
 
 def hum_bus() -> np.ndarray:
@@ -222,12 +248,12 @@ def crackle_bus() -> np.ndarray:
 
 
 def reverb_impulse() -> np.ndarray:
-    length = int(2.6 * SR)
+    length = int(2.1 * SR)
     t = np.arange(length, dtype=np.float64) / SR
-    decay = np.exp(-t / 0.72)
+    decay = np.exp(-t / 0.55)
     out = np.zeros((length, 2), dtype=np.float64)
     freqs = np.fft.rfftfreq(length, 1.0 / SR)
-    shape = 1.0 / (1.0 + (freqs / 5200.0) ** 2.0)
+    shape = 1.0 / (1.0 + (freqs / 7200.0) ** 2.0)
     for channel in range(2):
         phase = RNG.uniform(0.0, 2.0 * np.pi, len(freqs))
         spectrum = np.exp(1j * phase) * shape
@@ -260,16 +286,17 @@ def main() -> None:
     echoes = np.zeros((N, 2), dtype=np.float64)
     bells = bells_bus(echoes)
     dry = pad + bass + bells + echoes
-    mixed = circular_reverb(dry, reverb_impulse(), wet=0.30)
+    mixed = circular_reverb(dry, reverb_impulse(), wet=0.22)
     mixed += rain_bus()
+    mixed += air_bus()
     mixed += hum_bus()
     mixed += crackle_bus()
 
     # Master tilt: clear the sub, tame the low-mid, lift the air.
     freqs = np.fft.rfftfreq(N, 1.0 / SR)
-    low_shelf = 0.70 + 0.30 * smoothstep((freqs - 180.0) / 360.0)
-    high_shelf = 1.0 + 0.62 * smoothstep((freqs - 1200.0) / 2800.0)
-    highpass = freqs ** 2 / (freqs ** 2 + 42.0 ** 2)
+    low_shelf = 0.66 + 0.34 * smoothstep((freqs - 140.0) / 320.0)
+    high_shelf = 1.0 + 1.55 * smoothstep((freqs - 1800.0) / 3200.0)
+    highpass = freqs ** 2 / (freqs ** 2 + 35.0 ** 2)
     eq = low_shelf * high_shelf * highpass
     for channel in range(2):
         spectrum = np.fft.rfft(mixed[:, channel])
@@ -277,7 +304,7 @@ def main() -> None:
 
     # Keep the image wide but rooted: too much side energy sounds phasey.
     mid = mixed.mean(axis=1)
-    side = (mixed[:, 0] - mixed[:, 1]) * 0.5 * 0.65
+    side = (mixed[:, 0] - mixed[:, 1]) * 0.5 * 0.70
     mixed[:, 0] = mid + side
     mixed[:, 1] = mid - side
 

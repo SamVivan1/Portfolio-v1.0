@@ -204,8 +204,8 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 - Progress: bottom-left segment bar on desktop, thin top line on the mobile bottom nav.
 
 ### Ambient Sound
-- Original 64-second loop, synthesized by `scripts/generate-ambient.py`: four 16-second chord beds (one per chapter), warm minor-ninth pads, soft rain, a distant server hum, sparse music-box notes, and tape crackle.
-- Mastered to about -21 LUFS; the audio element runs at 0.28 volume, so it sits under conversation.
+- Original 64-second loop, synthesized by `scripts/generate-ambient.py`: four 16-second chord beds (one per chapter) moving F major 7 → C major 7 → G6 → A minor 9, warm-but-present pads with upper harmonics, soft rain, a distant server hum, sparse music-box notes, and tape crackle.
+- Mastered to about -20 LUFS at 48 kHz / 256 kbps; the audio element runs at 0.28 volume, so it sits under conversation. `preload="none"` avoids downloading the 2 MB loop until the first gesture.
 - Default on for first visits, starts only on a user gesture, loops sample-aligned, pauses when the tab is hidden, and persists an explicit mute.
 
 ### Buttons

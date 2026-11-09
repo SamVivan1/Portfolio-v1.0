@@ -16,7 +16,7 @@ A recruiter-first portfolio you walk through. Four pixel-art rooms, one continuo
 - **A web resume** at `/resume` with print styles for a clean light PDF, sharing the same document as Quick view.
 - **A ProtoPrime3D workshop chapter** with real part photos, Bambu Lab A1 mini specs, materials, lead time, and links to `protoprime3d.my.id`.
 - **A draggable mobile sheet** with collapsed, half, and full snap points, plus a keyboard-accessible chevron.
-- **Ambient sound** that defaults on for first-time visitors, starts on the first user gesture (browser autoplay policy), pauses when the tab is hidden, and can be muted from the HUD or mobile menu. The preference persists. The loop is an original 64-second piece built for the site: four 16-second chord beds (one per chapter), warm minor-ninth pads, soft rain, a distant server hum, sparse music-box notes, and tape crackle.
+- **Ambient sound** that defaults on for first-time visitors, starts on the first user gesture (browser autoplay policy), pauses when the tab is hidden, and can be muted from the HUD or mobile menu. The preference persists. The loop is an original 64-second piece built for the site: four 16-second chord beds (one per chapter) moving from F major 7 to C major 7, G6, and A minor 9; warm pads, soft rain, a distant server hum, sparse music-box notes, and tape crackle. It is 48 kHz / 256 kbps and starts loading only after the first gesture.
 - **A reduced-motion document** with the same content in a normal vertical page and static scene posters.
 - **PWA + service worker** and a Dockerized build.
 

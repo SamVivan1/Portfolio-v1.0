@@ -162,7 +162,7 @@ export default function Portfolio() {
         ref={audioRef}
         src="/assets/audio/homelab-night.mp3"
         loop
-        preload="metadata"
+        preload="none"
         aria-hidden="true"
       />
 
