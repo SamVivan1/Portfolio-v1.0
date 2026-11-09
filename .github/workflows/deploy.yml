@@ -172,11 +172,17 @@ jobs:
         continue-on-error: true
         run: |
           set -eu
+          edge_ok=true
           curl -fsS --max-time 20 https://samvivan.my.id/sitemap.xml \
-            | grep -q "https://samvivan.my.id"
+            | grep -Fq "https://samvivan.my.id" || edge_ok=false
           curl -fsS --max-time 20 https://samvivan.my.id/ \
-            | grep -q 'rel="canonical" href="https://samvivan.my.id"'
-          echo "Public domain check passed."
+            | grep -Fq 'rel="canonical" href="https://samvivan.my.id"' || edge_ok=false
+
+          if [ "$edge_ok" = "true" ]; then
+            echo "Public domain check passed."
+          else
+            echo "::warning::Public edge check was blocked or stale; the origin smoke test already passed."
+          fi
 
       - name: Deployment summary
         if: always()
