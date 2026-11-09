@@ -142,7 +142,7 @@ The production image uses the Next.js standalone output. The development compose
 
 ## Deployment notes
 
-- Set `NEXT_PUBLIC_SITE_URL` to the production origin so Open Graph image URLs resolve absolutely. In Docker it must be passed as a build arg, because metadata and the sitemap are generated at build time.
+- The production origin is `https://samvivan.my.id`. The deploy workflow passes it as `NEXT_PUBLIC_SITE_URL` to the Docker build, because metadata, OG URLs, and the sitemap are generated at build time. For a different host, override that variable in the compose command.
 - The service worker is registered only in production; in development it unregisters existing registrations to avoid stale caches.
 - The GitHub API is called through the server route `/api/github`, cached for 10 minutes. Add `GITHUB_TOKEN` so deployments do not hit the anonymous rate limit.
 - The deploy workflow uses `docker compose -f docker-compose.prod.yaml`; the container is named `portfolio-prod` and listens on port 3003 on the host.

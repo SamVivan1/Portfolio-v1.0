@@ -47,6 +47,7 @@ export const metadata: Metadata = {
     "darkreader-lock": "",
   },
   openGraph: {
+    url: "/",
     title: "Muhammad Bintang Panji Kusuma — DevOps, Homelab & Web",
     description:
       "A pixel-art homelab portfolio: live GitHub projects, verified credentials, a 3D printing workshop, and a downloadable CV.",
@@ -72,6 +73,9 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  alternates: {
+    canonical: "/",
   },
 };
 
