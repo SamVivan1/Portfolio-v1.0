@@ -91,7 +91,7 @@ export const notes: Note[] = [
       },
       {
         type: "paragraph",
-        text: "Level 1 builds on the server and keeps the previous local image. Level 2 is to build once in CI, push an immutable image to GHCR, and have the server pull that digest. Rollback then becomes a digest swap, and the production host stops being a build machine.",
+        text: "The image is now built once in CI and pushed to GHCR as an immutable commit tag. The server pulls that exact image with the workflow's short-lived token, then tags it locally for Compose. Rollback still uses the previous local image, so a failed deploy does not need a registry round-trip. The next step would be a digest-pinned rollback or a zero-downtime blue-green swap.",
       },
     ],
     links: [

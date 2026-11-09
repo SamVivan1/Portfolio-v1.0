@@ -216,14 +216,15 @@ export const caseStudies: CaseStudy[] = [
       "Keep the information layer real DOM: chapter panels, a resume dialog, and a reduced-motion document.",
       "Serve GitHub data through a cached server route with a curated fallback.",
       "Raise the type scale until no visible text renders below 12px.",
-      "Gate production deploys on lint, type-check, and build, then verify the new container with health checks, route smoke tests, and an automatic rollback to the previous image.",
+      "Gate production deploys on lint, type-check, and build, then build the image once in CI and push it to GHCR.",
+      "Pull the exact commit image on the server with a short-lived token, verify it with health checks and route smoke tests, and roll back to the previous image on failure.",
     ],
     result: [
       "Lighthouse 100/100/100 for Accessibility, Best Practices, and SEO.",
       "60fps idle and scroll on desktop and mobile emulation.",
       "0 visible text nodes below 12px in the Nov 2026 audit.",
       "A complete reduced-motion document and a keyboard-friendly Quick view.",
-      "A deploy pipeline that never ships a failing build and restores the previous image when health or smoke checks fail.",
+      "A deploy pipeline that never ships a failing build, deploys the same CI-built image the server pulls, and restores the previous image when health or smoke checks fail.",
     ],
     stack: [
       "Next.js 15",
@@ -234,6 +235,7 @@ export const caseStudies: CaseStudy[] = [
       "Service worker",
       "Docker",
       "GitHub Actions",
+      "GHCR",
     ],
     links: [
       {
