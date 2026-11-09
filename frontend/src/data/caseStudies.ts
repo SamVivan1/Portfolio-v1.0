@@ -177,7 +177,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     visual: {
       kind: "image",
-      src: "/assets/case-studies/gnome-widget.png",
+      src: "/assets/case-studies/gnome-widget.webp",
       alt: "Screenshot of the GNOME desktop widget suite.",
       caption: "Widgets on the GNOME desktop layer.",
       width: 1600,

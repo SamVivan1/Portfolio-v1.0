@@ -25,6 +25,7 @@ interface HudProps {
   onQuickView: () => void;
   onCommand: () => void;
   soundEnabled: boolean;
+  soundStarted: boolean;
   onToggleSound: () => void;
 }
 
@@ -36,8 +37,19 @@ export default function Hud({
   onQuickView,
   onCommand,
   soundEnabled,
+  soundStarted,
   onToggleSound,
 }: HudProps) {
+  const soundLabel = !soundEnabled
+    ? "Muted"
+    : soundStarted
+      ? "Sound on"
+      : "Sound ready";
+  const soundAria = !soundEnabled
+    ? "Turn ambient sound on"
+    : soundStarted
+      ? "Mute ambient sound"
+      : "Start ambient sound";
   const [clock, setClock] = useState("--:--");
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -129,18 +141,20 @@ export default function Hud({
           </button>
           <button
             type="button"
-            className={clsx("hud__sound", soundEnabled && "is-on")}
+            className={clsx(
+              "hud__sound",
+              soundStarted && "is-on",
+              soundEnabled && !soundStarted && "is-ready"
+            )}
             onClick={onToggleSound}
-            aria-pressed={soundEnabled}
-            aria-label={
-              soundEnabled
-                ? "Mute ambient sound"
-                : "Turn ambient sound on"
-            }
+            aria-pressed={soundStarted}
+            aria-label={soundAria}
             title={
-              soundEnabled
+              soundStarted
                 ? "Ambient sound is on — click to mute"
-                : "Ambient sound is off — click to enable"
+                : soundEnabled
+                  ? "Ambient sound is ready — click to start"
+                  : "Ambient sound is off — click to enable"
             }
           >
             {soundEnabled ? (
@@ -148,9 +162,7 @@ export default function Hud({
             ) : (
               <VolumeX size={15} aria-hidden="true" />
             )}
-            <span className="hud__sound-label">
-              {soundEnabled ? "Sound on" : "Muted"}
-            </span>
+            <span className="hud__sound-label">{soundLabel}</span>
           </button>
           <a
             className="hud__key hud__key--icon"
@@ -242,7 +254,7 @@ export default function Hud({
             </PixelButton>
             <PixelButton
               onClick={onToggleSound}
-              variant={soundEnabled ? "primary" : "ghost"}
+              variant={soundStarted ? "primary" : "ghost"}
               size="sm"
               icon={
                 soundEnabled ? (
@@ -251,9 +263,13 @@ export default function Hud({
                   <VolumeX size={13} aria-hidden="true" />
                 )
               }
-              aria-pressed={soundEnabled}
+              aria-pressed={soundStarted}
             >
-              {soundEnabled ? "Sound: on" : "Sound: off"}
+              {soundStarted
+                ? "Sound: on"
+                : soundEnabled
+                  ? "Sound: ready"
+                  : "Sound: off"}
             </PixelButton>
           </div>
         </div>

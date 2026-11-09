@@ -92,22 +92,36 @@ export function useAmbientSound() {
   }, [enabled, started, play]);
 
   const toggle = useCallback(() => {
-    const next = !enabled;
-    setEnabled(next);
+    // Before the first successful playback, the button starts the sound
+    // instead of muting a track the visitor has not heard yet.
+    if (!enabled) {
+      setEnabled(true);
+      try {
+        window.localStorage.setItem(STORAGE_KEY, "on");
+      } catch {
+        // Ignore storage failures.
+      }
+      void play();
+      track("sound_on");
+      return;
+    }
+
+    if (!started) {
+      void play();
+      track("sound_start");
+      return;
+    }
+
+    setEnabled(false);
     try {
-      window.localStorage.setItem(STORAGE_KEY, next ? "on" : "off");
+      window.localStorage.setItem(STORAGE_KEY, "off");
     } catch {
       // Ignore storage failures.
     }
-    const audio = audioRef.current;
-    if (!next) {
-      audio?.pause();
-      setStarted(false);
-    } else {
-      void play();
-    }
-    track(next ? "sound_on" : "sound_off");
-  }, [enabled, play]);
+    audioRef.current?.pause();
+    setStarted(false);
+    track("sound_off");
+  }, [enabled, started, play]);
 
   return { audioRef, enabled, started, blocked, toggle };
 }

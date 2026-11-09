@@ -1,9 +1,9 @@
-const CACHE = "bsp-homelab-v6";
+const CACHE = "bsp-homelab-v7";
 const PRECACHE = [
   "/",
   "/manifest.json",
   "/favicon.svg",
-  "/assets/profile.png",
+  "/assets/profile.webp",
 ];
 
 self.addEventListener("install", (event) => {

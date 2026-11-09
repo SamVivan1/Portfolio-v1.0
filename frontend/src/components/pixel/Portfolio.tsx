@@ -41,8 +41,12 @@ export default function Portfolio() {
     null
   );
   const [architectureOpen, setArchitectureOpen] = useState(false);
-  const { audioRef, enabled: soundEnabled, toggle: toggleSound } =
-    useAmbientSound();
+  const {
+    audioRef,
+    enabled: soundEnabled,
+    started: soundStarted,
+    toggle: toggleSound,
+  } = useAmbientSound();
 
   const openQuickView = useCallback(() => {
     track("quickview_open");
@@ -189,6 +193,7 @@ export default function Portfolio() {
         onQuickView={openQuickView}
         onCommand={openPalette}
         soundEnabled={soundEnabled}
+        soundStarted={soundStarted}
         onToggleSound={toggleSound}
       />
 

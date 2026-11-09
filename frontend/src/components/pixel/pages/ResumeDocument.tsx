@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   Award,
   ExternalLink,
@@ -25,23 +24,28 @@ import PixelChip from "../ui/PixelChip";
 interface ResumeDocumentProps {
   projects: Project[];
   stats: { publicRepos: number };
+  priorityPortrait?: boolean;
 }
 
 export default function ResumeDocument({
   projects,
   stats,
+  priorityPortrait = false,
 }: ResumeDocumentProps) {
   return (
     <>
       <header className="quickview__hero">
         <div className="quickview__photo pixel-photo-frame">
-          <Image
+          {/* A static WebP avoids the image optimizer on the LCP path. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src={profile.avatar}
             alt={`${profile.name} portrait`}
-            width={180}
-            height={240}
-            sizes="180px"
-            priority={false}
+            width={408}
+            height={611}
+            loading={priorityPortrait ? "eager" : "lazy"}
+            fetchPriority={priorityPortrait ? "high" : "auto"}
+            decoding={priorityPortrait ? "sync" : "async"}
           />
         </div>
         <div className="quickview__identity">

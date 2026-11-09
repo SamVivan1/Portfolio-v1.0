@@ -13,7 +13,7 @@ A recruiter-first portfolio you walk through. Four pixel-art rooms, one continuo
 - **A terminal command palette** (`Ctrl/Cmd + K`) for jumping chapters, opening the resume, downloading the CV, copying email, and opening links.
 - **Live GitHub projects** with a curated, truthful fallback when the API is unavailable.
 - **A Homelab chapter that reflects the real server**: Ubuntu 26.04 LTS on an allocated desktop PC (Ryzen 5 4600G, 14 GB RAM, ~3.7 TB), 66 containers, Jellyfin/*arr, Immich, Nextcloud, Paperless, Home Assistant, n8n, Pi-hole, and more. The `/homelab` page adds a hardware block, a service-group diagram, and a verification date.
-- **A web resume** at `/resume` with print styles for a clean light PDF, sharing the same document as Quick view.
+- **A web resume** at `/resume` with print styles for a clean two-page A4 PDF, sharing the same document as Quick view.
 - **A ProtoPrime3D workshop chapter** with real part photos, Bambu Lab A1 mini specs, materials, lead time, and links to `protoprime3d.my.id`.
 - **A draggable mobile sheet** with collapsed, half, and full snap points, plus a keyboard-accessible chevron.
 - **Ambient sound** that defaults on for first-time visitors, starts on the first user gesture (browser autoplay policy), pauses when the tab is hidden, and can be muted from the HUD or mobile menu. The preference persists. The loop is an original 64-second piece built for the site: four 16-second chord beds (one per chapter) moving from F major 7 to C major 7, G6, and A minor 9; warm pads, soft rain, a distant server hum, sparse music-box notes, and tape crackle. It is 48 kHz / 256 kbps and starts loading only after the first gesture.

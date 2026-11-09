@@ -75,7 +75,7 @@ Real, verifiable assets (paths relative to `frontend/public` unless noted):
 - Live GitHub repositories pulled from the GitHub API for `SamVivan1` through the server route `/api/github`, with a curated real fallback.
 - Case-study source material: the owner's repository READMEs (`Lyra`, `octopad`, `n8n-Workflows-Backup`, `samvivan-gnome-widget`, `Portfolio-v1.0`, `homelab-composes`), linked from each study. Real screenshots are used where the repository provides them.
 - Homelab evidence: Ubuntu 26.04 LTS on an allocated desktop PC (Ryzen 5 4600G, 14 GB RAM, ~3.7 TB), 66 running containers, and the service list in `data/portfolio.ts`.
-- Profile portrait: `assets/profile.png`.
+- Profile portrait: `assets/profile.webp`.
 - ProtoPrime3D part photos: `assets/protoprime/casing-iot.webp`, `assets/protoprime/kapal.webp`; render: `assets/protoprime/benchy.webp`.
 - Business facts: `https://protoprime3d.my.id`.
 

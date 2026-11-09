@@ -66,7 +66,7 @@ export const profile = {
   availability: "Open to internship & entry-level roles",
   email: "bintang10panji@gmail.com",
   cv: "/Sertifikat/Muhammad_Bintang_Panji_Kusuma_CV.pdf",
-  avatar: "/assets/profile.png",
+  avatar: "/assets/profile.webp",
   github: "https://github.com/SamVivan1",
   linkedin:
     "https://www.linkedin.com/in/muhammad-bintang-panji-kusuma-a558b821b/",

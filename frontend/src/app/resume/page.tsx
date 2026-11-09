@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { preload } from "react-dom";
 import { Download, FileText } from "lucide-react";
 import PageShell from "../../components/pixel/pages/PageShell";
 import ResumeDocument from "../../components/pixel/pages/ResumeDocument";
@@ -7,7 +8,6 @@ import CopyEmailButton from "../../components/pixel/pages/CopyEmailButton";
 import PrintButton from "../../components/pixel/pages/PrintButton";
 import TrackView from "../../components/pixel/pages/TrackView";
 import {
-  CHAPTERS,
   fallbackProjects,
   profile,
   stats,
@@ -27,11 +27,13 @@ export const metadata: Metadata = {
 };
 
 export default function ResumePage() {
+  preload("/assets/profile.webp", {
+    as: "image",
+    fetchPriority: "high",
+  });
+
   return (
-    <PageShell
-      posterWorldX={CHAPTERS[0].worldX}
-      posterAlt="Pixel-art desk with a CRT monitor, rain, and a sleeping cat."
-    >
+    <PageShell>
       <TrackView event="resume_view" />
       <h1 className="sr-only">Resume — {profile.name}</h1>
 
@@ -57,7 +59,11 @@ export default function ResumePage() {
         </div>
       </div>
 
-      <ResumeDocument projects={fallbackProjects} stats={stats} />
+      <ResumeDocument
+        projects={fallbackProjects}
+        stats={stats}
+        priorityPortrait
+      />
     </PageShell>
   );
 }

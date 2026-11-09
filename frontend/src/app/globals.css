@@ -367,6 +367,11 @@ html.js:not(.reduced) .reduced-document {
   color: var(--teal);
 }
 
+.hud__sound.is-ready {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
 .hud__sound:hover {
   border-color: var(--teal);
   color: var(--cream);
@@ -2857,6 +2862,130 @@ dialog::backdrop {
   color: var(--cream);
 }
 
+/* Error and 404 pages */
+.error-page {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  background:
+    radial-gradient(
+      circle at 50% 28%,
+      rgba(139, 92, 246, 0.16),
+      transparent 54%
+    ),
+    var(--void);
+  overflow: hidden;
+}
+
+.error-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(196, 181, 253, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(196, 181, 253, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(circle at 50% 40%, black, transparent 72%);
+  pointer-events: none;
+}
+
+.error-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+.error-page__panel {
+  position: relative;
+  z-index: 1;
+  width: min(620px, 100%);
+  padding: 30px;
+  border: 2px solid var(--line);
+  background: var(--panel);
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.45);
+}
+
+.error-page__brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--cream);
+  font-family: var(--font-silkscreen), monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.error-page__logo {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.error-page__eyebrow {
+  margin: 26px 0 8px;
+  color: var(--amber);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.error-page__title {
+  margin: 0 0 12px;
+  color: var(--cream);
+  font-family: var(--font-silkscreen), monospace;
+  font-size: clamp(1.75rem, 5vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.error-page__copy {
+  max-width: 56ch;
+  margin: 0;
+  color: #d9cfe6;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.error-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.error-page__meta {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .error-page {
+    padding: 14px;
+  }
+
+  .error-page__panel {
+    padding: 22px 18px;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.45);
+  }
+}
+
 /* Responsive */
 @media (max-width: 1100px) {
   .chapter-panel {
@@ -3402,10 +3531,117 @@ dialog::backdrop {
   .quickview__grid section h3 {
     break-after: avoid;
   }
+
+  /* Compact print layout: a resume should fit two A4 pages. */
+  .quickview__hero {
+    gap: 14px !important;
+    padding-bottom: 10px !important;
+  }
+
+  .quickview__photo {
+    width: 90px !important;
+  }
+
+  .quickview__identity {
+    gap: 4px !important;
+  }
+
+  .quickview__identity h2 {
+    font-size: 18px !important;
+  }
+
+  .quickview__toon {
+    display: none !important;
+  }
+
+  .quickview__role {
+    font-size: 12px !important;
+  }
+
+  .quickview__contact {
+    gap: 4px 9px !important;
+    font-size: 12px !important;
+  }
+
+  .quickview__grid {
+    grid-template-columns: 190px minmax(0, 1fr) !important;
+    gap: 14px !important;
+    padding-top: 10px !important;
+  }
+
+  .quickview__aside {
+    gap: 10px !important;
+    padding-right: 12px !important;
+  }
+
+  .quickview__main {
+    gap: 10px !important;
+    padding-right: 8px !important;
+  }
+
+  .quickview__grid section h3 {
+    margin-bottom: 4px !important;
+    font-size: 12px !important;
+  }
+
+  .quickview__grid section h4 {
+    margin: 4px 0 2px !important;
+  }
+
+  .resume-summary,
+  .resume-experience p {
+    font-size: 12.5px !important;
+    line-height: 1.38 !important;
+  }
+
+  .resume-experience {
+    gap: 6px !important;
+  }
+
+  .resume-experience li {
+    padding-left: 8px !important;
+  }
+
+  .resume-experience__head strong {
+    font-size: 12px !important;
+  }
+
+  .resume-experience__head span,
+  .resume-experience__org,
+  .resume-projects em,
+  .resume-certs span,
+  .resume-contact,
+  .resume-languages,
+  .resume-business,
+  .resume-edu {
+    font-size: 12px !important;
+  }
+
+  .resume-projects,
+  .resume-certs,
+  .resume-looking {
+    gap: 5px !important;
+  }
+
+  .resume-projects a {
+    padding: 6px 8px !important;
+  }
+
+  .resume-looking,
+  .resume-looking li {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  p,
+  li {
+    orphans: 2;
+    widows: 2;
+  }
 }
 
 @page {
-  margin: 14mm;
+  margin: 12mm;
 }
 
 @media (prefers-reduced-motion: reduce) {
