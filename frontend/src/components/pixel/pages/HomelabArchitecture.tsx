@@ -131,6 +131,10 @@ export default function HomelabArchitecture({
             Back to the world
           </Link>
         )}
+        <Link href="/notes/one-host-many-containers" className="pixel-link">
+          Read: One host, many containers
+          <ArrowUpRight size={13} aria-hidden="true" />
+        </Link>
         <Link href="/projects/portfolio" className="pixel-link">
           How this portfolio was built
           <ArrowUpRight size={13} aria-hidden="true" />

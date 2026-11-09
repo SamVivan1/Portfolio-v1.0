@@ -39,6 +39,7 @@ Capabilities:
 - `/resume`: the same resume as an indexable, printable page.
 - Case studies: Lyra, OctoPad, n8n Workflows Backup, GNOME Desktop Widget, and this portfolio, each with problem, approach, result, stack, and repository link. Available as in-world overlays and shareable `/projects/[slug]` routes.
 - `/homelab`: hardware, verification date, service groups, and a one-host Docker diagram.
+- `/notes`: technical notes on the deploy rollback pipeline, n8n workflow backups, and the one-host homelab layout.
 - Draggable mobile chapter sheets with collapsed, half, and full snap points.
 - Chapter-aware ambient sound, default on for first-time visitors, started on the first user gesture, with a visible mute control and persistent preference. Rain, server hum, printer, and roof textures crossfade with the active chapter.
 - Command palette (`Ctrl/Cmd + K`) for chapter jumps, links, CV, and copy-email.

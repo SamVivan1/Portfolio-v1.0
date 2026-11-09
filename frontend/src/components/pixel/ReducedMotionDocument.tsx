@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Download, ExternalLink, FileText } from "lucide-react";
 import { CHAPTERS, profile } from "../../data/portfolio";
 import DeskContent from "./chapters/DeskContent";
@@ -93,6 +94,7 @@ export default function ReducedMotionDocument() {
               {chapter.shortLabel}
             </a>
           ))}
+          <Link href="/notes">Notes</Link>
         </nav>
       </header>
 

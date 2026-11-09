@@ -247,6 +247,7 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 - Project OG images are generated at request time with `ImageResponse`, Silkscreen TTF, the project status, tagline, and top stack items.
 - Homelab uses a 3-column fact grid, a vertical host → Docker → service-group diagram, and a service list. Dates are labeled `Verified Nov 2026`; the container count is described as a snapshot.
 - Resume shares `ResumeDocument` with Quick view. The route uses an eager, preloaded 408 × 611 WebP portrait for LCP and omits the decorative poster. Print CSS hides the shell and buttons, switches to white/black, and fits two compact A4 pages while avoiding broken experience, project, and certification rows.
+- Notes use a 760px reading column: 16px body, 70ch measure, Silkscreen section headings, 13px code blocks, amber callouts, and a two-column card index that becomes one column on mobile. The notes index uses the homelab poster; note detail pages omit it for reading focus.
 - Dialogs reuse the same content components at full width on mobile.
 
 ### Command Palette

@@ -39,6 +39,9 @@ export default function PageShell({
           <Link href="/homelab" className="page-shell__link">
             Homelab
           </Link>
+          <Link href="/notes" className="page-shell__link">
+            Notes
+          </Link>
           <Link href="/resume" className="page-shell__link">
             Resume
           </Link>

@@ -1,4 +1,4 @@
-const CACHE = "bsp-homelab-v9";
+const CACHE = "bsp-homelab-v10";
 const PRECACHE = [
   "/",
   "/manifest.json",

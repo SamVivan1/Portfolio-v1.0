@@ -14,6 +14,7 @@ A recruiter-first portfolio you walk through. Four pixel-art rooms, one continuo
 - **Live GitHub projects** with a curated, truthful fallback when the API is unavailable.
 - **A Homelab chapter that reflects the real server**: Ubuntu 26.04 LTS on an allocated desktop PC (Ryzen 5 4600G, 14 GB RAM, ~3.7 TB), 66 containers, Jellyfin/*arr, Immich, Nextcloud, Paperless, Home Assistant, n8n, Pi-hole, and more. The `/homelab` page adds a hardware block, a service-group diagram, and a verification date.
 - **A web resume** at `/resume` with print styles for a clean two-page A4 PDF, sharing the same document as Quick view.
+- **Technical notes** at `/notes`: deploy rollback, n8n backups, and the one-host homelab layout — linked from the site nav and command palette.
 - **A ProtoPrime3D workshop chapter** with real part photos, Bambu Lab A1 mini specs, materials, lead time, and links to `protoprime3d.my.id`.
 - **A draggable mobile sheet** with collapsed, half, and full snap points, plus a keyboard-accessible chevron.
 - **Chapter-aware ambient sound** that defaults on for first-time visitors, starts on the first user gesture (browser autoplay policy), pauses when the tab is hidden, and can be muted from the HUD or mobile menu. The preference persists. Five 64-second layers are crossfaded by chapter: a warm harmonic base plus rain at the Desk, server hum at the Homelab, printer rhythm in the Workshop, and crickets/fire on the Roof. The base is 48 kHz / 160 kbps; textures are 112–128 kbps and load on demand.
@@ -96,6 +97,8 @@ frontend/src/
     page.tsx                  # cinematic shell + reduced-motion document
     homelab/page.tsx          # public homelab architecture
     resume/page.tsx           # indexable, printable web resume
+    notes/page.tsx            # technical writing index
+    notes/[slug]/page.tsx     # technical notes
     projects/[slug]/page.tsx  # case studies
     sitemap.ts / robots.ts    # SEO
     layout.tsx                # fonts, metadata, JSON-LD, analytics script, service worker
@@ -106,7 +109,7 @@ frontend/src/
     Hud.tsx                   # top bar, desktop nav, mobile nav
     QuickView.tsx             # resume dialog (shared ResumeDocument)
     CommandPalette.tsx        # terminal jump menu
-    pages/                    # PageShell, case studies, homelab, resume, dialogs
+    pages/                    # PageShell, case studies, homelab, resume, notes, dialogs
     ReducedMotionDocument.tsx # accessible document
     ScenePoster.tsx           # static scene slice
     chapters/                 # Desk, Homelab, Workshop, Roof content
@@ -121,6 +124,8 @@ frontend/src/
   lib/chapters.ts             # world/camera/scroll math
   lib/analytics.ts            # provider-agnostic event facade (Umami-compatible)
   data/caseStudies.ts         # case-study content from real READMEs
+  data/notes.ts               # technical note content
+  data/noteLinks.ts           # lightweight note titles for the command palette
 frontend/scripts/
   generate-ambient.py         # numpy generator for the five 64s ambient layers
   encode-ambient.sh           # loudness targets and MP3 encoding for the layers

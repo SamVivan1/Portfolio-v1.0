@@ -16,6 +16,7 @@ import {
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { business, profile } from "../../data/portfolio";
 import { routedCaseStudies } from "../../data/caseStudies";
+import { noteLinks } from "../../data/noteLinks";
 
 interface CommandPaletteProps {
   open: boolean;
@@ -119,6 +120,28 @@ export default function CommandPalette({
         },
         keywords: "homelab architecture hardware diagram ubuntu docker",
       },
+      {
+        id: "notes-page",
+        label: "Open technical notes",
+        hint: "writing",
+        group: "Pages",
+        icon: <FileText size={15} aria-hidden="true" />,
+        run: () => {
+          window.location.href = "/notes";
+        },
+        keywords: "notes articles writing deploy n8n homelab",
+      },
+      ...noteLinks.map((note) => ({
+        id: `note-${note.slug}`,
+        label: `Read note: ${note.title}`,
+        hint: "note",
+        group: "Notes",
+        icon: <FileText size={15} aria-hidden="true" />,
+        run: () => {
+          window.location.href = `/notes/${note.slug}`;
+        },
+        keywords: `notes ${note.title} deploy n8n homelab`,
+      })),
       ...routedCaseStudies.map((study) => ({
         id: `case-study-${study.slug}`,
         label: `Case study: ${study.title}`,
