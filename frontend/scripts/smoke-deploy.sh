@@ -39,12 +39,14 @@ curl -fsS --max-time 15 "$BASE_URL/" \
   || fail "home canonical does not contain $EXPECTED_ORIGIN"
 echo "ok canonical origin"
 
-audio_code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 \
-  -r 0-1023 "$BASE_URL/assets/audio/homelab-night.mp3") \
-  || fail "audio request failed"
-case "$audio_code" in
-  200|206) echo "ok audio asset" ;;
-  *) fail "audio asset returned $audio_code" ;;
-esac
+for audio in night-base night-rain night-hum night-workshop night-roof; do
+  audio_code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 \
+    -r 0-1023 "$BASE_URL/assets/audio/$audio.mp3") \
+    || fail "audio request failed for $audio"
+  case "$audio_code" in
+    200|206) echo "ok audio $audio" ;;
+    *) fail "audio $audio returned $audio_code" ;;
+  esac
+done
 
 echo "All smoke checks passed for $BASE_URL"

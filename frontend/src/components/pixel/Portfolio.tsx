@@ -42,11 +42,10 @@ export default function Portfolio() {
   );
   const [architectureOpen, setArchitectureOpen] = useState(false);
   const {
-    audioRef,
     enabled: soundEnabled,
     started: soundStarted,
     toggle: toggleSound,
-  } = useAmbientSound();
+  } = useAmbientSound(activeChapter);
 
   const openQuickView = useCallback(() => {
     track("quickview_open");
@@ -162,13 +161,6 @@ export default function Portfolio() {
     <div className="cinematic-shell">
       <div className="scroll-track" aria-hidden="true" />
 
-      <audio
-        ref={audioRef}
-        src="/assets/audio/homelab-night.mp3"
-        loop
-        preload="none"
-        aria-hidden="true"
-      />
 
       <div className="pixel-stage">
         <PixelStage

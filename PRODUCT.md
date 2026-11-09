@@ -40,7 +40,7 @@ Capabilities:
 - Case studies: Lyra, OctoPad, n8n Workflows Backup, GNOME Desktop Widget, and this portfolio, each with problem, approach, result, stack, and repository link. Available as in-world overlays and shareable `/projects/[slug]` routes.
 - `/homelab`: hardware, verification date, service groups, and a one-host Docker diagram.
 - Draggable mobile chapter sheets with collapsed, half, and full snap points.
-- Ambient sound, default on for first-time visitors, started on the first user gesture, with a visible mute control and persistent preference.
+- Chapter-aware ambient sound, default on for first-time visitors, started on the first user gesture, with a visible mute control and persistent preference. Rain, server hum, printer, and roof textures crossfade with the active chapter.
 - Command palette (`Ctrl/Cmd + K`) for chapter jumps, links, CV, and copy-email.
 - Live GitHub project data with a curated, truthful fallback based on real repositories.
 - ProtoPrime3D workshop chapter with real part photos, machine specs, materials, lead time, and links.

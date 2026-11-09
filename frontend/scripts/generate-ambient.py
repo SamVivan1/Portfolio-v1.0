@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
 """Generate the ambient loop for "A Night in the Homelab".
 
-The track is synthesized from scratch so it can be shipped without a
-third-party license. It is built on a 64-second circular buffer: every
-tonal tail, delay, and reverb wraps to the start, which makes the loop
-seamless. The palette is intentionally quiet but not muffled: warm seventh
-chords, soft rain, a distant server hum, sparse music-box notes, and a
-little tape crackle. The four 16-second beds move from F major 7 to
-C major 7, G6, and A minor 9, so the piece opens warm and ends reflective.
+The layers are synthesized from scratch so they can ship without a
+third-party license. Each one is a 64-second circular buffer: every tonal
+tail, delay, and reverb wraps to the start, so every loop is seamless. The
+base carries the warm seventh chords and sparse music-box notes; the four
+textures add rain, server hum, printer rhythm, and roof crickets/fire. The
+four 16-second beds move from F major 7 to C major 7, G6, and A minor 9,
+so the piece opens warm and ends reflective.
 
 Run with numpy available:
-    python3 scripts/generate-ambient.py /tmp/homelab-night.wav
-Then encode:
-    ffmpeg -i /tmp/homelab-night.wav -af loudnorm=I=-20:TP=-2 -ar 48000 \
-      -c:a libmp3lame -b:a 256k homelab-night.mp3
+    python3 scripts/generate-ambient.py /tmp/portfolio-stems
+Then encode all five layers:
+    bash scripts/encode-ambient.sh /tmp/portfolio-stems
 """
 
 from __future__ import annotations
@@ -247,6 +246,109 @@ def crackle_bus() -> np.ndarray:
     return bus
 
 
+def printer_bus() -> np.ndarray:
+    bus = np.zeros((N, 2), dtype=np.float64)
+
+    def fan_shape(freqs: np.ndarray) -> np.ndarray:
+        safe = np.maximum(freqs, 1.0)
+        low = smoothstep((safe - 50.0) / 120.0)
+        high = 1.0 / (1.0 + (safe / 1600.0) ** 2.0)
+        return low * high
+
+    fan = periodic_noise(fan_shape)
+    t = np.arange(N, dtype=np.float64) / SR
+    fan *= (0.80 + 0.20 * np.sin(2.0 * np.pi * t / 16.0 + 0.7))[:, None]
+    bus += fan * 0.012
+
+    # Stepper ticks: short motor thumps with a little noise.
+    when = 0.6
+    while when < DURATION:
+        length = RNG.uniform(0.035, 0.075)
+        tt = np.arange(int(length * SR), dtype=np.float64) / SR
+        envelope = smoothstep(tt / 0.004) * np.exp(-tt / (length * 0.3))
+        tone = (
+            0.7 * np.sin(2.0 * np.pi * RNG.uniform(180.0, 260.0) * tt)
+            + 0.3 * RNG.normal(0.0, 1.0, len(tt))
+        )
+        add_wrap(
+            bus,
+            int(when * SR),
+            tone * envelope,
+            gain=RNG.uniform(0.006, 0.012),
+            pan=RNG.uniform(-0.5, 0.5),
+        )
+        when += RNG.uniform(0.8, 1.8)
+
+    # Occasional servo sweeps.
+    for index in range(7):
+        start = 2.4 + index * 9.2
+        duration = 0.55
+        tt = np.arange(int(duration * SR), dtype=np.float64) / SR
+        f0 = RNG.uniform(520.0, 680.0)
+        f1 = RNG.uniform(980.0, 1250.0)
+        phase = 2.0 * np.pi * (f0 * tt + (f1 - f0) * tt * tt / (2.0 * duration))
+        envelope = smoothstep(tt / 0.06) * smoothstep((duration - tt) / 0.16)
+        add_wrap(
+            bus,
+            int(start * SR),
+            np.sin(phase) * envelope,
+            gain=0.006,
+            pan=RNG.uniform(-0.4, 0.4),
+        )
+
+    return bus
+
+
+def roof_bus() -> np.ndarray:
+    bus = np.zeros((N, 2), dtype=np.float64)
+
+    def night_shape(freqs: np.ndarray) -> np.ndarray:
+        safe = np.maximum(freqs, 1.0)
+        low = smoothstep((safe - 180.0) / 300.0)
+        high = 1.0 / (1.0 + (safe / 5200.0) ** 2.0)
+        return low * high / np.sqrt(safe / 1000.0)
+
+    bus += periodic_noise(night_shape) * 0.006
+
+    # Cricket chirps: small groups of high, dry pulses.
+    for _ in range(14):
+        when = RNG.uniform(0.0, DURATION)
+        freq = RNG.uniform(3600.0, 4800.0)
+        pan = RNG.uniform(-0.8, 0.8)
+        for pulse in range(3):
+            duration = 0.045
+            tt = np.arange(int(duration * SR), dtype=np.float64) / SR
+            envelope = smoothstep(tt / 0.004) * smoothstep((duration - tt) / 0.012)
+            add_wrap(
+                bus,
+                int((when + pulse * 0.075) * SR),
+                np.sin(2.0 * np.pi * freq * tt) * envelope,
+                gain=RNG.uniform(0.003, 0.007),
+                pan=pan,
+            )
+
+    # Fire crackle: short, dry pops over a low rumble.
+    for _ in range(70):
+        when = RNG.uniform(0.0, DURATION)
+        duration = RNG.uniform(0.002, 0.012)
+        tt = np.arange(max(2, int(duration * SR)), dtype=np.float64) / SR
+        signal = RNG.normal(0.0, 1.0, len(tt)) * np.exp(-tt / (duration * 0.22))
+        add_wrap(
+            bus,
+            int(when * SR),
+            signal,
+            gain=RNG.uniform(0.003, 0.008),
+            pan=RNG.uniform(-0.7, 0.7),
+        )
+
+    def rumble_shape(freqs: np.ndarray) -> np.ndarray:
+        safe = np.maximum(freqs, 1.0)
+        return 1.0 / (1.0 + (safe / 220.0) ** 2.0) / np.sqrt(safe / 100.0)
+
+    bus += periodic_noise(rumble_shape) * 0.004
+    return bus
+
+
 def reverb_impulse() -> np.ndarray:
     length = int(2.1 * SR)
     t = np.arange(length, dtype=np.float64) / SR
@@ -276,52 +378,67 @@ def circular_reverb(dry: np.ndarray, impulse: np.ndarray, wet: float) -> np.ndar
     return out
 
 
+def highpass(data: np.ndarray, cutoff: float) -> np.ndarray:
+    freqs = np.fft.rfftfreq(N, 1.0 / SR)
+    eq = freqs ** 2 / (freqs ** 2 + cutoff ** 2)
+    out = np.empty_like(data)
+    for channel in range(2):
+        out[:, channel] = np.fft.irfft(
+            np.fft.rfft(data[:, channel]) * eq, N
+        )
+    return out
+
+
+def write_wav(path: Path, data: np.ndarray, peak: float = 0.70) -> None:
+    data = highpass(data, 30.0)
+    scale = peak / max(np.max(np.abs(data)), 1e-9)
+    pcm = np.clip(data * scale, -1.0, 1.0)
+    pcm = (pcm * 32767.0).astype(np.int16)
+    with wave.open(str(path), "wb") as handle:
+        handle.setnchannels(2)
+        handle.setsampwidth(2)
+        handle.setframerate(SR)
+        handle.writeframes(pcm.tobytes())
+    print(f"wrote {path.name} ({DURATION:.0f}s, {SR} Hz stereo)")
+
+
 def main() -> None:
     if len(sys.argv) != 2:
-        raise SystemExit("usage: generate-ambient.py output.wav")
-    destination = Path(sys.argv[1])
+        raise SystemExit("usage: generate-ambient.py output-directory")
+    outdir = Path(sys.argv[1])
+    outdir.mkdir(parents=True, exist_ok=True)
 
     pad = pad_bus()
     bass = bass_bus()
     echoes = np.zeros((N, 2), dtype=np.float64)
     bells = bells_bus(echoes)
     dry = pad + bass + bells + echoes
-    mixed = circular_reverb(dry, reverb_impulse(), wet=0.22)
-    mixed += rain_bus()
-    mixed += air_bus()
-    mixed += hum_bus()
-    mixed += crackle_bus()
+    base = circular_reverb(dry, reverb_impulse(), wet=0.22)
+    base += air_bus()
+    base += crackle_bus() * 0.5
 
-    # Master tilt: clear the sub, tame the low-mid, lift the air.
+    # Master tilt for the harmonic bed.
     freqs = np.fft.rfftfreq(N, 1.0 / SR)
     low_shelf = 0.66 + 0.34 * smoothstep((freqs - 140.0) / 320.0)
     high_shelf = 1.0 + 1.55 * smoothstep((freqs - 1800.0) / 3200.0)
-    highpass = freqs ** 2 / (freqs ** 2 + 35.0 ** 2)
-    eq = low_shelf * high_shelf * highpass
+    hp = freqs ** 2 / (freqs ** 2 + 35.0 ** 2)
+    eq = low_shelf * high_shelf * hp
     for channel in range(2):
-        spectrum = np.fft.rfft(mixed[:, channel])
-        mixed[:, channel] = np.fft.irfft(spectrum * eq, N)
+        base[:, channel] = np.fft.irfft(
+            np.fft.rfft(base[:, channel]) * eq, N
+        )
 
-    # Keep the image wide but rooted: too much side energy sounds phasey.
-    mid = mixed.mean(axis=1)
-    side = (mixed[:, 0] - mixed[:, 1]) * 0.5 * 0.70
-    mixed[:, 0] = mid + side
-    mixed[:, 1] = mid - side
+    mid = base.mean(axis=1)
+    side = (base[:, 0] - base[:, 1]) * 0.5 * 0.70
+    base[:, 0] = mid + side
+    base[:, 1] = mid - side
+    base = np.tanh(base * 1.15) / 1.15
 
-    # Gentle bus glue, then normalize with headroom.
-    mixed = np.tanh(mixed * 1.15) / 1.15
-    peak = np.max(np.abs(mixed))
-    mixed = mixed / max(peak, 1e-9) * 0.72
-
-    pcm = np.clip(mixed, -1.0, 1.0)
-    pcm = (pcm * 32767.0).astype(np.int16)
-    with wave.open(str(destination), "wb") as handle:
-        handle.setnchannels(2)
-        handle.setsampwidth(2)
-        handle.setframerate(SR)
-        handle.writeframes(pcm.tobytes())
-
-    print(f"wrote {destination} ({DURATION:.0f}s, {SR} Hz stereo)")
+    write_wav(outdir / "night-base.wav", base, peak=0.72)
+    write_wav(outdir / "night-rain.wav", highpass(rain_bus(), 110.0))
+    write_wav(outdir / "night-hum.wav", highpass(hum_bus(), 20.0))
+    write_wav(outdir / "night-workshop.wav", highpass(printer_bus(), 30.0))
+    write_wav(outdir / "night-roof.wav", highpass(roof_bus(), 30.0))
 
 
 if __name__ == "__main__":

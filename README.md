@@ -16,7 +16,7 @@ A recruiter-first portfolio you walk through. Four pixel-art rooms, one continuo
 - **A web resume** at `/resume` with print styles for a clean two-page A4 PDF, sharing the same document as Quick view.
 - **A ProtoPrime3D workshop chapter** with real part photos, Bambu Lab A1 mini specs, materials, lead time, and links to `protoprime3d.my.id`.
 - **A draggable mobile sheet** with collapsed, half, and full snap points, plus a keyboard-accessible chevron.
-- **Ambient sound** that defaults on for first-time visitors, starts on the first user gesture (browser autoplay policy), pauses when the tab is hidden, and can be muted from the HUD or mobile menu. The preference persists. The loop is an original 64-second piece built for the site: four 16-second chord beds (one per chapter) moving from F major 7 to C major 7, G6, and A minor 9; warm pads, soft rain, a distant server hum, sparse music-box notes, and tape crackle. It is 48 kHz / 256 kbps and starts loading only after the first gesture.
+- **Chapter-aware ambient sound** that defaults on for first-time visitors, starts on the first user gesture (browser autoplay policy), pauses when the tab is hidden, and can be muted from the HUD or mobile menu. The preference persists. Five synchronized 64-second layers are crossfaded by chapter: a warm harmonic base plus rain at the Desk, server hum at the Homelab, printer rhythm in the Workshop, and crickets/fire on the Roof. The base is 48 kHz / 160 kbps; textures are 112–128 kbps and load on demand.
 - **A reduced-motion document** with the same content in a normal vertical page and static scene posters.
 - **PWA + service worker** and a Dockerized build.
 
@@ -117,15 +117,16 @@ frontend/src/
   hooks/useLiveProjects.ts    # client hook for /api/github
   hooks/useMotionPreference.ts
   hooks/useMobileSheet.ts     # drag/snap mobile panel
-  hooks/useAmbientSound.ts    # looping audio + persistent mute
+  hooks/useAmbientSound.ts    # layered chapter mix + persistent mute
   lib/chapters.ts             # world/camera/scroll math
   lib/analytics.ts            # provider-agnostic event facade (Umami-compatible)
   data/caseStudies.ts         # case-study content from real READMEs
 frontend/scripts/
-  generate-ambient.py         # numpy generator for the original 64s ambient loop
+  generate-ambient.py         # numpy generator for the five 64s ambient layers
+  encode-ambient.sh           # loudness targets and MP3 encoding for the layers
   generate-case-diagrams.py   # source for the case-study SVG architecture diagrams
 frontend/public/
-  assets/                     # portrait, ProtoPrime3D photos, brand assets, ambient loop, case-study diagrams
+  assets/                     # portrait, ProtoPrime3D photos, brand assets, five ambient layers, case-study diagrams
   fonts/                      # Silkscreen TTF + OFL license for generated OG images
   Sertifikat/                 # CV and certificate PDFs
   manifest.json
@@ -155,7 +156,7 @@ The production image uses the Next.js standalone output. The development compose
 
 ## Asset provenance
 
-- Portrait, CV, certificates, ProtoPrime3D part photos, and the ambient loop are the owner's own assets. The loop is synthesized by `frontend/scripts/generate-ambient.py` (numpy) and intentionally has no third-party sample or license.
+- Portrait, CV, certificates, ProtoPrime3D part photos, and the five ambient layers are the owner's own assets. The layers are synthesized by `frontend/scripts/generate-ambient.py` (numpy) and intentionally have no third-party sample or license.
 - The HUD mark and app icons are the existing SamVivan logo from `public/assets/logo.svg`, rasterized to a 64 × 64 pixel grid (`logo-pixel.svg` / `logo-pixel-icon.svg`).
 - The 3DBenchy image is a render from the ProtoPrime3D site and is labeled as a benchmark render.
 - Fonts: Silkscreen, Geist, and Geist Mono via Google Fonts / `next/font`. The OG image route bundles Silkscreen TTF under the SIL Open Font License (`public/fonts/OFL.txt`).

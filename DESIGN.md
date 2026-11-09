@@ -198,14 +198,15 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 - Fixed top bar with the SamVivan mark (pixelated from `assets/logo.svg` to a 64 × 64 grid) and `BSP://HOMELAB` wordmark in Silkscreen.
 - Status line: green live dot + `OPEN TO INTERNSHIP` + Banda Aceh time in amber. Time is real (`Asia/Jakarta`).
 - Desktop nav: four chapter buttons with two-digit indices; active state is teal fill with void text.
-- Actions: command palette key, ambient-sound pill (`Sound on` / `Muted`, speaker icon, `aria-pressed`), CV download, Quick view primary button. At 901–1100px the command key, CV key, and sound label collapse so the nav still fits.
-- Mobile: wordmark + status + sound icon + menu button; bottom nav with four chapter icons and Resume. The mobile menu has a labeled `Sound: on/off` action.
+- Actions: command palette key, ambient-sound pill (`Sound ready` / `Sound on` / `Muted`, speaker icon, `aria-pressed`), CV download, Quick view primary button. At 901–1100px the command key, CV key, and sound label collapse so the nav still fits.
+- Mobile: wordmark + status + sound icon + menu button; bottom nav with four chapter icons and Resume. The mobile menu has a labeled `Sound: ready/on/off` action.
 - At ≤389px the wordmark and status hide; the logo, sound, and menu remain.
 - Progress: bottom-left segment bar on desktop, thin top line on the mobile bottom nav.
 
 ### Ambient Sound
-- Original 64-second loop, synthesized by `scripts/generate-ambient.py`: four 16-second chord beds (one per chapter) moving F major 7 → C major 7 → G6 → A minor 9, warm-but-present pads with upper harmonics, soft rain, a distant server hum, sparse music-box notes, and tape crackle.
-- Mastered to about -20 LUFS at 48 kHz / 256 kbps; the audio element runs at 0.28 volume, so it sits under conversation. `preload="none"` avoids downloading the 2 MB loop until the first gesture.
+- Five 64-second layers synthesized by `scripts/generate-ambient.py`: a harmonic base (F major 7 → C major 7 → G6 → A minor 9), rain, server hum, printer rhythm, and roof crickets/fire.
+- The base is mastered around -20 LUFS at 48 kHz / 160 kbps; textures sit between -30 and -34 LUFS at 112–128 kbps. The base runs at 0.28 volume and the active texture at 0.26; chapter changes crossfade the texture over 900 ms.
+- Layers load on demand after the first gesture. Only the base and the current chapter texture play at once; the previous texture fades out and pauses.
 - Default on for first visits, starts only on a user gesture, loops sample-aligned, pauses when the tab is hidden, and persists an explicit mute.
 
 ### Buttons
@@ -329,7 +330,7 @@ A single prerendered Canvas 2D world, 3900 × 800 logical pixels, floor at y=620
 - **Content:** `frontend/src/data/portfolio.ts` is the single source of truth for profile, chapters, experience, certifications, homelab, skills, projects, business, and contact links. `data/caseStudies.ts` holds project narratives derived from the owner's READMEs.
 - **World:** `frontend/src/components/pixel/world/` (`palette.ts`, `helpers.ts`, `scenes.ts`, `index.ts`) draws the prerendered world and the dynamic frame.
 - **Stage:** `PixelStage.tsx` owns the canvas, viewport metrics, camera smoothing, and dynamic frame composition.
-- **Shell:** `Portfolio.tsx` owns scroll progress, chapter state, deep links, keyboard shortcuts, the dialogs, and the ambient audio element; `useAmbientSound.ts` handles gesture start, visibility pause, persistence, and `aria-pressed` state.
+- **Shell:** `Portfolio.tsx` owns scroll progress, chapter state, deep links, keyboard shortcuts, and the dialogs. `useAmbientSound.ts` creates the five audio layers, crossfades the active texture by chapter, handles gesture start, visibility pause, persistence, and `aria-pressed` state.
 - **Sheets:** `useMobileSheet.ts` handles pointer capture, velocity, clamping, and collapsed/half/full snapping; `PixelPanel.tsx` owns the `data-sheet` state and chevron.
 - **Analytics:** `lib/analytics.ts` is a no-op unless `NEXT_PUBLIC_UMAMI_SRC` and `NEXT_PUBLIC_UMAMI_WEBSITE_ID` are set. `TrackView` fires page-level events from server-rendered routes.
 - **Layout mapping:** `lib/chapters.ts` owns the world dimensions, chapter scroll ranges, camera keyframes (desktop + portrait), and scroll helpers.
