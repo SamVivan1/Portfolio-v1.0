@@ -94,21 +94,21 @@ jobs:
 
             wait_for_health() {
               attempt=1
-              status="missing"
+              health_state="missing"
               while [ "$attempt" -le 40 ]; do
-                status=$(docker inspect -f '{{.State.Health.Status}}' "$CONTAINER" 2>/dev/null || echo "missing")
-                if [ "$status" = "healthy" ]; then
+                health_state=$(docker inspect -f '{{.State.Health.Status}}' "$CONTAINER" 2>/dev/null || echo "missing")
+                if [ "$health_state" = "healthy" ]; then
                   echo "Container healthy after $attempt checks."
                   return 0
                 fi
-                if [ "$status" = "unhealthy" ]; then
+                if [ "$health_state" = "unhealthy" ]; then
                   echo "Container reported unhealthy after $attempt checks."
                   return 1
                 fi
                 attempt=$((attempt + 1))
                 sleep 3
               done
-              echo "Container did not become healthy in time (last status: $status)."
+              echo "Container did not become healthy in time (last state: $health_state)."
               return 1
             }
 
