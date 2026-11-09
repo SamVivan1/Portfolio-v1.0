@@ -84,6 +84,13 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Keep only the current and previous image versions
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: portfolio
+          package-type: container
+          min-versions-to-keep: 2
+
   deploy:
     name: Deploy
     needs: [verify, build-image]
