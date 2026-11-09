@@ -19,7 +19,7 @@ A recruiter-first portfolio you walk through. Four pixel-art rooms, one continuo
 - **A draggable mobile sheet** with collapsed, half, and full snap points, plus a keyboard-accessible chevron.
 - **Chapter-aware ambient sound** that defaults on for first-time visitors, starts on the first user gesture (browser autoplay policy), pauses when the tab is hidden, and can be muted from the HUD or mobile menu. The preference persists. Five 64-second layers are crossfaded by chapter: a warm harmonic base plus rain at the Desk, server hum at the Homelab, printer rhythm in the Workshop, and crickets/fire on the Roof. The base is 48 kHz / 160 kbps; textures are 112–128 kbps and load on demand.
 - **A reduced-motion document** with the same content in a normal vertical page and static scene posters.
-- **PWA + service worker** and a Dockerized build.
+- **PWA + service worker** with an offline fallback page, cached visits, install screenshots, and shortcuts to Resume, Homelab, and Notes. Dockerized build.
 
 ## Tech stack
 

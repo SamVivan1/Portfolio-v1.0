@@ -25,7 +25,7 @@ check_200() {
   echo "ok $path"
 }
 
-for path in / /homelab /resume /projects/lyra /projects/portfolio /robots.txt /sitemap.xml; do
+for path in / /homelab /resume /projects/lyra /projects/portfolio /robots.txt /sitemap.xml /offline.html; do
   check_200 "$path"
 done
 

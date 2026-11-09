@@ -1,6 +1,6 @@
 {
   "id": "/",
-  "name": "Bintang — Pixel Homelab Portfolio",
+  "name": "Bintang \u2014 Pixel Homelab Portfolio",
   "short_name": "Bintang",
   "description": "Computer Engineering student at Universitas Syiah Kuala. DevOps, homelab infrastructure, web development, and ProtoPrime3D.",
   "start_url": "/",
@@ -11,7 +11,10 @@
   "orientation": "any",
   "lang": "en",
   "dir": "ltr",
-  "categories": ["portfolio", "development"],
+  "categories": [
+    "portfolio",
+    "development"
+  ],
   "icons": [
     {
       "src": "/android-launchericon-192-192.png",
@@ -38,5 +41,62 @@
       "purpose": "maskable"
     }
   ],
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop.png",
+      "sizes": "1440x900",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "The desk chapter with the HUD, recruiter panel, and pixel homelab world."
+    },
+    {
+      "src": "/screenshots/mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "The mobile view with the bottom chapter navigation and open panel."
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Open resume",
+      "short_name": "Resume",
+      "description": "The printable web resume",
+      "url": "/resume",
+      "icons": [
+        {
+          "src": "/android-launchericon-192-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Open homelab",
+      "short_name": "Homelab",
+      "description": "Hardware, service groups, and the one-host architecture",
+      "url": "/homelab",
+      "icons": [
+        {
+          "src": "/android-launchericon-192-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Open notes",
+      "short_name": "Notes",
+      "description": "Technical notes on deploys, backups, and the homelab",
+      "url": "/notes",
+      "icons": [
+        {
+          "src": "/android-launchericon-192-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
 }

@@ -46,7 +46,7 @@ Capabilities:
 - Live GitHub project data with a curated, truthful fallback based on real repositories.
 - ProtoPrime3D workshop chapter with real part photos, machine specs, materials, lead time, and links.
 - Reduced-motion document: the same content in a normal vertical page, with static scene posters.
-- PWA manifest and service worker; Dockerized build.
+- PWA manifest and service worker with an offline fallback, install screenshots, and shortcuts to Resume, Homelab, and Notes; Dockerized build.
 
 Constraints:
 - No testimonials, client logos, press mentions, or external case studies exist; do not fabricate them. The case studies in this portfolio are derived from the owner's own repository READMEs and verified facts.

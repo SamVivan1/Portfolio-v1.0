@@ -338,6 +338,6 @@ A single prerendered Canvas 2D world, 3900 × 800 logical pixels, floor at y=620
 - **Live data:** `app/api/github/route.ts` fetches and caches GitHub repositories and user stats server-side (10-minute TTL), returning a curated real fallback on failure. `hooks/useLiveProjects.ts` is the client hook that calls it.
 - **Reduced motion:** `ReducedMotionDocument.tsx` + `ScenePoster.tsx`; the cinematic shell returns `null` when reduced motion is active.
 - **Progressive enhancement:** an inline script adds `.js` to `<html>` and `.reduced` when the media query matches. Without JS, the reduced-motion document is the page; with JS + no reduced motion, the cinematic shell is the page.
-- **PWA:** `public/manifest.json`, `public/sw.js`, `ServiceWorkerRegister.tsx` (production only; unregisters in dev).
+- **PWA:** `public/manifest.json` (screenshots + Resume/Homelab/Notes shortcuts), `public/sw.js` (precache, offline fallback, network-first navigations with visited-page caching), `public/offline.html`, `ServiceWorkerRegister.tsx` (production only; unregisters in dev).
 - **Logo:** `public/assets/logo.svg` is preserved as the source; `logo-pixel.svg` is the 64 × 64 pixel derivative used in the HUD, and `logo-pixel-icon.svg` is the dark-background version used for the favicon and PWA icons.
 - **Metadata:** title, description, Open Graph/Twitter (`/og.jpg`), Person JSON-LD, theme color `#08070f`.

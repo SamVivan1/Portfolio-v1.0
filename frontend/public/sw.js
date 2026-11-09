@@ -1,8 +1,10 @@
-const CACHE = "bsp-homelab-v11";
+const CACHE = "bsp-homelab-v12";
 const PRECACHE = [
   "/",
   "/manifest.json",
   "/favicon.svg",
+  "/offline.html",
+  "/assets/logo-pixel.svg",
   "/assets/profile.webp",
 ];
 
@@ -37,7 +39,21 @@ self.addEventListener("fetch", (event) => {
   if (url.pathname.startsWith("/api/")) return;
 
   if (request.mode === "navigate") {
-    event.respondWith(fetch(request).catch(() => caches.match("/")));
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE).then((cache) => cache.put(request, copy));
+          }
+          return response;
+        })
+        .catch(() =>
+          caches
+            .match(request)
+            .then((cached) => cached || caches.match("/offline.html"))
+        )
+    );
     return;
   }
 
