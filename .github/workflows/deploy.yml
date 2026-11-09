@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: ["main", "master"]
   workflow_dispatch:
+    inputs:
+      drill:
+        description: "Force a smoke-test failure to exercise rollback"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -79,6 +85,7 @@ jobs:
             COMPOSE_FILE="docker-compose.prod.yaml"
             CONTAINER="portfolio-prod"
             TARGET_SHA="${{ github.sha }}"
+            DRILL="${{ github.event.inputs.drill || 'false' }}"
 
             cd /home/samvivan/portfolio/Portfolio-v1.0
             git fetch origin main
@@ -123,7 +130,7 @@ jobs:
               NEXT_PUBLIC_SITE_URL="https://samvivan.my.id" \
                 docker compose -f "$COMPOSE_FILE" up -d --no-build
 
-              if wait_for_health && bash scripts/smoke-deploy.sh "$BASE_URL"; then
+              if wait_for_health && SMOKE_FORCE_FAIL=0 bash scripts/smoke-deploy.sh "$BASE_URL"; then
                 echo "Rollback passed health and smoke checks."
                 return 0
               fi
@@ -143,6 +150,11 @@ jobs:
               echo "::error::New container failed its health check."
               rollback || true
               exit 1
+            fi
+
+            if [ "$DRILL" = "true" ]; then
+              echo "::warning::Rollback drill requested: forcing a smoke-test failure."
+              export SMOKE_FORCE_FAIL=1
             fi
 
             if ! bash scripts/smoke-deploy.sh "$BASE_URL"; then
@@ -174,4 +186,5 @@ jobs:
             echo "- Commit: \`${{ github.sha }}\`"
             echo "- Target: https://samvivan.my.id"
             echo "- Result: ${{ job.status }}"
+            echo "- Mode: ${{ github.event.inputs.drill == 'true' && 'rollback drill' || 'normal deploy' }}"
           } >> "$GITHUB_STEP_SUMMARY"

@@ -148,6 +148,7 @@ The production image uses the Next.js standalone output. The development compose
 - The deploy workflow uses `docker compose -f docker-compose.prod.yaml`; the container is named `portfolio-prod` and listens on port 3003 on the host.
 - Every deploy is gated: lint, type-check, and build must pass before the server is touched. The server resets to the deployed commit, tags the current image as `portfolio:previous`, waits for the container health check, then runs `frontend/scripts/smoke-deploy.sh`. If health or smoke fails, it restores the previous image automatically.
 - Smoke checks can be run locally with `bash frontend/scripts/smoke-deploy.sh http://localhost:3003 https://samvivan.my.id`.
+- To exercise the rollback path deliberately, run `gh workflow run "CI/CD Pipeline - Frontend" -f drill=true`. The smoke test is forced to fail after health passes, the previous image is restored, and the run ends red by design. Run it again without `-f drill` to finish green.
 - Security headers (`nosniff`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options`, COOP, HSTS) are set in `next.config.ts`. A stricter CSP is deferred until asset/nonce auditing is done.
 
 ## Asset provenance

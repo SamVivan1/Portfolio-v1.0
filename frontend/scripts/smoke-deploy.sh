@@ -12,6 +12,10 @@ fail() {
   exit 1
 }
 
+if [ "${SMOKE_FORCE_FAIL:-0}" = "1" ]; then
+  fail "forced failure for the rollback drill"
+fi
+
 check_200() {
   local path="$1"
   local code
