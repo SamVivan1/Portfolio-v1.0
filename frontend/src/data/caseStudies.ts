@@ -19,6 +19,7 @@ export interface CaseStudy {
   stack: string[];
   links: { label: string; href: string }[];
   visual?: CaseStudyVisual;
+  extraVisuals?: CaseStudyVisual[];
   route?: boolean;
 }
 
@@ -58,9 +59,12 @@ export const caseStudies: CaseStudy[] = [
       { label: "Repository", href: "https://github.com/SamVivan1/Lyra" },
     ],
     visual: {
-      kind: "blueprint",
-      alt: "Blueprint-style card for Lyra, showing a ListenBrainz to Lidarr to yt-dlp pipeline.",
-      caption: "ListenBrainz → Lidarr → yt-dlp → tagged library",
+      kind: "image",
+      src: "/assets/case-studies/lyra-flow.svg",
+      alt: "Lyra architecture: ListenBrainz recommendations feed Lidarr, missing releases fall back to yt-dlp, MusicBrainz tags the audio, and the library lands in Navidrome or Jellyfin.",
+      caption: "Primary path via Lidarr; fallback to yt-dlp; SQLite keeps state.",
+      width: 1200,
+      height: 600,
     },
   },
   {
@@ -107,6 +111,16 @@ export const caseStudies: CaseStudy[] = [
       width: 512,
       height: 512,
     },
+    extraVisuals: [
+      {
+        kind: "image",
+        src: "/assets/case-studies/octopad-flow.svg",
+        alt: "OctoPad hardware and software flow: eight mechanical keys feed an ESP32-C3, which exposes BLE HID and USB Serial to desktop mode, Home Assistant, and the native GTK4 or Qt6 apps.",
+        caption: "Eight keys → ESP32-C3 → BLE HID or USB Serial → desktop, Home Assistant, native apps.",
+        width: 1200,
+        height: 600,
+      },
+    ],
   },
   {
     slug: "n8n-workflows-backup",
@@ -135,9 +149,12 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
     visual: {
-      kind: "blueprint",
-      alt: "Blueprint-style card for the n8n backup workflow, showing retrieve, compare, and commit steps.",
-      caption: "Retrieve → compare → update or upload → commit",
+      kind: "image",
+      src: "/assets/case-studies/n8n-flow.svg",
+      alt: "n8n backup workflow: a schedule retrieves active workflows, compares them with the GitHub repository, updates or uploads one JSON file per workflow, and commits each run.",
+      caption: "Scheduled retrieve → compare → update or upload → timestamped commit.",
+      width: 1200,
+      height: 600,
     },
   },
   {
@@ -230,6 +247,16 @@ export const caseStudies: CaseStudy[] = [
       alt: "Screenshot of the pixel-art homelab portfolio.",
       caption: "The desk chapter, with the HUD and recruiter-first panel.",
     },
+    extraVisuals: [
+      {
+        kind: "image",
+        src: "/assets/case-studies/portfolio-pipeline.svg",
+        alt: "Portfolio deploy pipeline: push to main, verify with lint and build, deploy the exact commit, wait for health, smoke-test routes and audio, then either go live or roll back to the previous image.",
+        caption: "CI gate → exact commit → health → smoke → live or rollback.",
+        width: 1200,
+        height: 600,
+      },
+    ],
   },
   {
     slug: "homelab-composes",

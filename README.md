@@ -9,7 +9,7 @@ A recruiter-first portfolio you walk through. Four pixel-art rooms, one continuo
 - **A continuous pixel world** drawn on a single Canvas 2D surface. Four chapters: Desk, Homelab, Workshop, Roof.
 - **A game-style HUD** with availability, Banda Aceh time, chapter navigation, CV, Quick view, and scroll progress.
 - **A Quick view resume** (native `<dialog>`) with summary, education, homelab, experience, skills, projects, certifications, languages, and ProtoPrime3D.
-- **Case studies** for Lyra, OctoPad, the n8n backup workflow, the GNOME widget suite, and this portfolio, available as in-world overlays and as shareable routes (`/projects/[slug]`) built from the real READMEs.
+- **Case studies** for Lyra, OctoPad, the n8n backup workflow, the GNOME widget suite, and this portfolio, available as in-world overlays and as shareable routes (`/projects/[slug]`) built from the real READMEs. Each has an architecture diagram, a live GitHub facts strip, and a project-specific OG image.
 - **A terminal command palette** (`Ctrl/Cmd + K`) for jumping chapters, opening the resume, downloading the CV, copying email, and opening links.
 - **Live GitHub projects** with a curated, truthful fallback when the API is unavailable.
 - **A Homelab chapter that reflects the real server**: Ubuntu 26.04 LTS on an allocated desktop PC (Ryzen 5 4600G, 14 GB RAM, ~3.7 TB), 66 containers, Jellyfin/*arr, Immich, Nextcloud, Paperless, Home Assistant, n8n, Pi-hole, and more. The `/homelab` page adds a hardware block, a service-group diagram, and a verification date.
@@ -123,8 +123,10 @@ frontend/src/
   data/caseStudies.ts         # case-study content from real READMEs
 frontend/scripts/
   generate-ambient.py         # numpy generator for the original 64s ambient loop
+  generate-case-diagrams.py   # source for the case-study SVG architecture diagrams
 frontend/public/
-  assets/                     # portrait, ProtoPrime3D photos, brand assets, ambient loop
+  assets/                     # portrait, ProtoPrime3D photos, brand assets, ambient loop, case-study diagrams
+  fonts/                      # Silkscreen TTF + OFL license for generated OG images
   Sertifikat/                 # CV and certificate PDFs
   manifest.json
   sw.js
@@ -156,7 +158,7 @@ The production image uses the Next.js standalone output. The development compose
 - Portrait, CV, certificates, ProtoPrime3D part photos, and the ambient loop are the owner's own assets. The loop is synthesized by `frontend/scripts/generate-ambient.py` (numpy) and intentionally has no third-party sample or license.
 - The HUD mark and app icons are the existing SamVivan logo from `public/assets/logo.svg`, rasterized to a 64 × 64 pixel grid (`logo-pixel.svg` / `logo-pixel-icon.svg`).
 - The 3DBenchy image is a render from the ProtoPrime3D site and is labeled as a benchmark render.
-- Fonts: Silkscreen, Geist, and Geist Mono via Google Fonts / `next/font`.
+- Fonts: Silkscreen, Geist, and Geist Mono via Google Fonts / `next/font`. The OG image route bundles Silkscreen TTF under the SIL Open Font License (`public/fonts/OFL.txt`).
 - Icons: Lucide and Simple Icons (via `react-icons`).
 
 ## Scripts

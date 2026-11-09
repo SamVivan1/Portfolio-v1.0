@@ -242,7 +242,8 @@ Everything is axis-aligned and sharp. The world is made of rectangles; the UI fo
 
 ### Pages (Case Study, Homelab, Resume)
 - `PageShell`: sticky 2px-line header with the pixel logo, wordmark, `World`, `Homelab`, `Resume`, `CV`, and `GitHub`; a static `ScenePoster`; a 1000px content column; and a quiet footer.
-- Case studies use a 2-column Problem/Approach/Result/Stack grid, a real image or blueprint card, and repository links. Body 16px, measure ≤75ch.
+- Case studies use a 2-column Problem/Approach/Result/Stack grid, a real image or architecture diagram, a live GitHub facts strip, and repository links. Diagram SVGs become horizontally scrollable below 900px with a visible scroll hint. Body 16px, measure ≤75ch.
+- Project OG images are generated at request time with `ImageResponse`, Silkscreen TTF, the project status, tagline, and top stack items.
 - Homelab uses a 3-column fact grid, a vertical host → Docker → service-group diagram, and a service list. Dates are labeled `Verified Nov 2026`; the container count is described as a snapshot.
 - Resume shares `ResumeDocument` with Quick view. The route uses an eager, preloaded 408 × 611 WebP portrait for LCP and omits the decorative poster. Print CSS hides the shell and buttons, switches to white/black, and fits two compact A4 pages while avoiding broken experience, project, and certification rows.
 - Dialogs reuse the same content components at full width on mobile.

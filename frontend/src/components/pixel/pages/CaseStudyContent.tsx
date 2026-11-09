@@ -2,13 +2,76 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
-import { CaseStudy } from "../../../data/caseStudies";
+import { CaseStudy, CaseStudyVisual } from "../../../data/caseStudies";
+import CaseStudyStats from "./CaseStudyStats";
 import PixelButton from "../ui/PixelButton";
 import PixelChip from "../ui/PixelChip";
 
 interface CaseStudyContentProps {
   study: CaseStudy;
   fullPage?: boolean;
+}
+
+function StudyVisual({
+  visual,
+  title,
+}: {
+  visual: CaseStudyVisual;
+  title: string;
+}) {
+  const isDiagram = Boolean(visual.src?.endsWith(".svg"));
+
+  return (
+    <figure className="case-study__visual">
+      {isDiagram ? (
+        <p className="case-study__scroll-hint">
+          Scroll horizontally to read the diagram →
+        </p>
+      ) : null}
+      {visual.kind === "image" && visual.src ? (
+        <div
+          className={`case-study__image${
+            isDiagram ? " case-study__image--diagram" : ""
+          }`}
+          tabIndex={isDiagram ? 0 : undefined}
+          role={isDiagram ? "region" : undefined}
+          aria-label={
+            isDiagram
+              ? `${title} architecture diagram. Scroll horizontally to read it.`
+              : undefined
+          }
+        >
+          <Image
+            src={visual.src}
+            alt={visual.alt}
+            width={visual.width ?? 1600}
+            height={visual.height ?? 900}
+            sizes="(max-width: 900px) 100vw, 900px"
+            className={`case-study__image-el${
+              isDiagram ? " case-study__image-el--diagram" : ""
+            }`}
+          />
+        </div>
+      ) : (
+        <div
+          className="case-study__blueprint"
+          role="img"
+          aria-label={visual.alt}
+        >
+          <span className="case-study__blueprint-mark" aria-hidden="true">
+            {title.slice(0, 2).toUpperCase()}
+          </span>
+          <span className="case-study__blueprint-lines" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+            <i />
+          </span>
+        </div>
+      )}
+      {visual.caption ? <figcaption>{visual.caption}</figcaption> : null}
+    </figure>
+  );
 }
 
 export default function CaseStudyContent({
@@ -28,41 +91,18 @@ export default function CaseStudyContent({
         <p className="page-lede">{study.tagline}</p>
       </header>
 
+      <CaseStudyStats repo={study.repo} />
+
       {study.visual ? (
-        <figure className="case-study__visual">
-          {study.visual.kind === "image" && study.visual.src ? (
-            <div className="case-study__image">
-              <Image
-                src={study.visual.src}
-                alt={study.visual.alt}
-                width={study.visual.width ?? 1600}
-                height={study.visual.height ?? 900}
-                sizes="(max-width: 900px) 100vw, 900px"
-                className="case-study__image-el"
-              />
-            </div>
-          ) : (
-            <div
-              className="case-study__blueprint"
-              role="img"
-              aria-label={study.visual.alt}
-            >
-              <span className="case-study__blueprint-mark" aria-hidden="true">
-                {study.title.slice(0, 2).toUpperCase()}
-              </span>
-              <span className="case-study__blueprint-lines" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-                <i />
-              </span>
-            </div>
-          )}
-          {study.visual.caption ? (
-            <figcaption>{study.visual.caption}</figcaption>
-          ) : null}
-        </figure>
+        <StudyVisual visual={study.visual} title={study.title} />
       ) : null}
+      {study.extraVisuals?.map((visual) => (
+        <StudyVisual
+          key={visual.src ?? visual.caption ?? visual.alt}
+          visual={visual}
+          title={study.title}
+        />
+      ))}
 
       <div className="case-study__grid">
         <section>
