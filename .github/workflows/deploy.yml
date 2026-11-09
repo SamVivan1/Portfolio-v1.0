@@ -1,39 +1,177 @@
-name: Deploy Frontend to Homelab
+name: CI/CD Pipeline - Frontend
 
 on:
   push:
-    branches: [ "master", "main" ]
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NEXT_PUBLIC_SITE_URL: https://samvivan.my.id
 
 jobs:
-  deploy:
+  verify:
+    name: Verify
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    # Setup Twingate untuk akses jaringan lokal
-    - name: Setup Twingate
-      uses: twingate/github-action@v1
-      with:
-        service-key: ${{ secrets.TWINGATE_SERVICE_KEY }}
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
 
-    # Deploy frontend via SSH
-    - name: Deploy Frontend to Server
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: 192.168.0.111
-        username: ${{ secrets.SERVER_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          cd /home/samvivan/portfolio/Portfolio-v1.0
-          git pull
-          
-          # Deploy frontend dengan docker-compose production config
-          echo "Building and deploying frontend..."
-          cd frontend
-          NEXT_PUBLIC_SITE_URL=https://samvivan.my.id docker compose -f docker-compose.prod.yaml up -d --build
-          
-          echo "✓ Frontend deployment completed"
-          echo "Checking container status..."
-          docker ps --filter "name=portfolio-prod" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Lint
+        working-directory: frontend
+        run: npm run lint
+
+      - name: Type-check
+        working-directory: frontend
+        run: npx tsc --noEmit
+
+      - name: Build
+        working-directory: frontend
+        run: npm run build
+
+  deploy:
+    name: Deploy
+    needs: verify
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://samvivan.my.id
+    concurrency:
+      group: production-deploy
+      cancel-in-progress: false
+    timeout-minutes: 20
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Twingate
+        uses: twingate/github-action@v1
+        with:
+          service-key: ${{ secrets.TWINGATE_SERVICE_KEY }}
+
+      - name: Deploy, health check, smoke test, rollback
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 192.168.0.111
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 15m
+          script: |
+            set -eu
+
+            BASE_URL="http://localhost:3003"
+            COMPOSE_FILE="docker-compose.prod.yaml"
+            CONTAINER="portfolio-prod"
+            TARGET_SHA="${{ github.sha }}"
+
+            cd /home/samvivan/portfolio/Portfolio-v1.0
+            git fetch origin main
+            git reset --hard "$TARGET_SHA"
+            cd frontend
+
+            if docker image inspect portfolio:latest >/dev/null 2>&1; then
+              docker tag portfolio:latest portfolio:previous
+              echo "Saved the current image as portfolio:previous."
+            else
+              echo "No previous image found; rollback is unavailable for this deploy."
+            fi
+
+            wait_for_health() {
+              attempt=1
+              status="missing"
+              while [ "$attempt" -le 40 ]; do
+                status=$(docker inspect -f '{{.State.Health.Status}}' "$CONTAINER" 2>/dev/null || echo "missing")
+                if [ "$status" = "healthy" ]; then
+                  echo "Container healthy after $attempt checks."
+                  return 0
+                fi
+                if [ "$status" = "unhealthy" ]; then
+                  echo "Container reported unhealthy after $attempt checks."
+                  return 1
+                fi
+                attempt=$((attempt + 1))
+                sleep 3
+              done
+              echo "Container did not become healthy in time (last status: $status)."
+              return 1
+            }
+
+            rollback() {
+              if ! docker image inspect portfolio:previous >/dev/null 2>&1; then
+                echo "::error::No previous image is available; manual intervention required."
+                return 1
+              fi
+
+              echo "Rolling back to portfolio:previous..."
+              docker tag portfolio:previous portfolio:latest
+              NEXT_PUBLIC_SITE_URL="https://samvivan.my.id" \
+                docker compose -f "$COMPOSE_FILE" up -d --no-build
+
+              if wait_for_health && bash scripts/smoke-deploy.sh "$BASE_URL"; then
+                echo "Rollback passed health and smoke checks."
+                return 0
+              fi
+
+              echo "::error::Rollback failed health or smoke checks."
+              return 1
+            }
+
+            if ! NEXT_PUBLIC_SITE_URL="https://samvivan.my.id" \
+              docker compose -f "$COMPOSE_FILE" up -d --build; then
+              echo "::error::Build or container start failed."
+              rollback || true
+              exit 1
+            fi
+
+            if ! wait_for_health; then
+              echo "::error::New container failed its health check."
+              rollback || true
+              exit 1
+            fi
+
+            if ! bash scripts/smoke-deploy.sh "$BASE_URL"; then
+              echo "::error::New container failed smoke tests."
+              rollback || true
+              exit 1
+            fi
+
+            docker ps --filter "name=$CONTAINER" \
+              --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+            docker image prune -f >/dev/null 2>&1 || true
+            echo "Deploy verified and live."
+
+      - name: Public edge check
+        continue-on-error: true
+        run: |
+          set -eu
+          curl -fsS --max-time 20 https://samvivan.my.id/sitemap.xml \
+            | grep -q "https://samvivan.my.id"
+          curl -fsS --max-time 20 https://samvivan.my.id/ \
+            | grep -q 'rel="canonical" href="https://samvivan.my.id"'
+          echo "Public domain check passed."
+
+      - name: Deployment summary
+        if: always()
+        run: |
+          {
+            echo "## Deploy summary"
+            echo "- Commit: \`${{ github.sha }}\`"
+            echo "- Target: https://samvivan.my.id"
+            echo "- Result: ${{ job.status }}"
+          } >> "$GITHUB_STEP_SUMMARY"

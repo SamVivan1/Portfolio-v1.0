@@ -146,6 +146,8 @@ The production image uses the Next.js standalone output. The development compose
 - The service worker is registered only in production; in development it unregisters existing registrations to avoid stale caches.
 - The GitHub API is called through the server route `/api/github`, cached for 10 minutes. Add `GITHUB_TOKEN` so deployments do not hit the anonymous rate limit.
 - The deploy workflow uses `docker compose -f docker-compose.prod.yaml`; the container is named `portfolio-prod` and listens on port 3003 on the host.
+- Every deploy is gated: lint, type-check, and build must pass before the server is touched. The server resets to the deployed commit, tags the current image as `portfolio:previous`, waits for the container health check, then runs `frontend/scripts/smoke-deploy.sh`. If health or smoke fails, it restores the previous image automatically.
+- Smoke checks can be run locally with `bash frontend/scripts/smoke-deploy.sh http://localhost:3003 https://samvivan.my.id`.
 - Security headers (`nosniff`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options`, COOP, HSTS) are set in `next.config.ts`. A stricter CSP is deferred until asset/nonce auditing is done.
 
 ## Asset provenance
@@ -165,6 +167,7 @@ The production image uses the Next.js standalone output. The development compose
 | `npm start` | Start the production server |
 | `npm run lint` | Run ESLint |
 | `npx tsc --noEmit` | Type-check without emitting |
+| `bash scripts/smoke-deploy.sh [url] [origin]` | Check routes, sitemap, canonical, and audio after a deploy |
 
 ---
 
