@@ -9,7 +9,7 @@ interface PixelPanelProps {
   id: string;
   title: string;
   meta?: string;
-  side: "left" | "right" | "center";
+  side: "left" | "right";
   active: boolean;
   children: ReactNode;
   footer?: ReactNode;

@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --color-void: var(--void);
   --color-night: var(--night);
@@ -52,14 +50,6 @@
   --accent-deep: var(--violet-dark);
   --background: transparent;
   --foreground: var(--cream);
-}
-
-.dark {
-  --background: transparent;
-  --foreground: var(--cream);
-  --accent: var(--violet);
-  --accent-soft: var(--violet-soft);
-  --accent-deep: var(--violet-dark);
 }
 
 * {
@@ -424,10 +414,6 @@ html.js:not(.reduced) .reduced-document {
   transform-origin: left;
 }
 
-.hud__progress-hint {
-  color: var(--line);
-}
-
 .hud__bottom {
   display: none;
 }
@@ -487,15 +473,6 @@ html.js:not(.reduced) .reduced-document {
 
 .chapter-panel--right {
   right: 4vw;
-}
-
-.chapter-panel--center {
-  left: 50%;
-  transform: translate(-50%, -46%) scale(0.985);
-}
-
-.chapter-panel--center.is-active {
-  transform: translate(-50%, -50%) scale(1);
 }
 
 .chapter-panel--wide {
@@ -3007,7 +2984,7 @@ dialog::backdrop {
   margin: 6px 0;
   padding: 14px 16px;
   border-left: 3px solid var(--amber);
-  background: rgba(251, 191, 36, 0.06);
+  background: rgba(255, 180, 94, 0.06);
   color: #e7dcc8;
   font-size: 16px;
   line-height: 1.65;
@@ -3541,17 +3518,6 @@ dialog::backdrop {
     padding: 16px;
   }
 
-  .case-study__image-el--diagram {
-    width: 900px;
-    max-width: none;
-    height: auto;
-    max-height: none;
-  }
-
-  .case-study__scroll-hint {
-    display: block;
-  }
-
   .homelab-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3838,14 +3804,6 @@ dialog::backdrop {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .chapter-panel {
-    transform: translateY(-50%) scale(1);
-  }
-
-  .chapter-panel:not(.is-active) {
-    transform: translateY(-48%) scale(1);
   }
 
   .scroll-cue {
