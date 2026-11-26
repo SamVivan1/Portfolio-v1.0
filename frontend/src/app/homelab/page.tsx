@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 export default function HomelabPage() {
   return (
     <PageShell
+      current="homelab"
       posterWorldX={CHAPTERS[1].worldX}
       posterAlt="Pixel-art homelab with a desktop tower, a compact 12U rack, and a drive shelf."
     >

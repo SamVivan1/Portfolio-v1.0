@@ -1,5 +1,5 @@
 export interface CaseStudyVisual {
-  kind: "image" | "blueprint";
+  kind: "image";
   src?: string;
   alt: string;
   caption?: string;
@@ -286,11 +286,6 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
     route: false,
-    visual: {
-      kind: "blueprint",
-      alt: "Blueprint-style card for the compose library.",
-      caption: "One service, one compose file, one README",
-    },
   },
 ];
 

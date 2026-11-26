@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
+  ArrowRight,
   ArrowUpRight,
   ExternalLink,
   GitBranch,
@@ -76,6 +77,10 @@ export default function WorkshopContent({
       <ul className="project-list" aria-label="Selected GitHub projects">
         {projects.map((project) => {
           const study = caseStudyByRepo.get(project.name);
+          const opensDialog = Boolean(study && onOpenCaseStudy);
+          const opensPage = Boolean(study && study.route !== false);
+          // ArrowUpRight is reserved for links that leave the site.
+          const Arrow = opensDialog || opensPage ? ArrowRight : ArrowUpRight;
           const content = (
             <>
               <span className="project-row__main">
@@ -103,7 +108,7 @@ export default function WorkshopContent({
                   ))}
                 </span>
               </span>
-              <ArrowUpRight
+              <Arrow
                 className="project-row__arrow"
                 size={16}
                 aria-hidden="true"
@@ -133,7 +138,7 @@ export default function WorkshopContent({
                     <ExternalLink size={16} aria-hidden="true" />
                   </a>
                 </div>
-              ) : study ? (
+              ) : study && opensPage ? (
                 <Link
                   href={`/projects/${study.slug}`}
                   className="project-row"

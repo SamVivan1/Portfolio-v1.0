@@ -217,6 +217,7 @@ function CinematicPortfolio() {
           }
         >
           <HomelabContent
+            compact
             onQuickView={openQuickView}
             onOpenArchitecture={openArchitecture}
             onNext={() => navigate(2)}

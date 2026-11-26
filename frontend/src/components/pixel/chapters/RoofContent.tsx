@@ -95,10 +95,6 @@ export default function RoofContent({ onTop }: RoofContentProps) {
       <div className="roof-note">
         <MapPin size={14} aria-hidden="true" />
         <span>{profile.location}</span>
-        <span className="roof-note__sep" aria-hidden="true">
-          /
-        </span>
-        <span>Banda Aceh is UTC+7.</span>
       </div>
 
       <div className="chapter-actions">
