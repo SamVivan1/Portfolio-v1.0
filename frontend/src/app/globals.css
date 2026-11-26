@@ -675,7 +675,8 @@ html.js:not(.reduced) .reduced-document {
 .fact-grid dd {
   margin: 3px 0 0;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--font-geist-mono), monospace;
+  font-weight: 600;
   font-size: 13px;
   line-height: 1.3;
 }
@@ -786,9 +787,9 @@ html.js:not(.reduced) .reduced-document {
 .timeline h4 {
   margin: 0;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--font-geist-mono), monospace;
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .timeline__date {
@@ -961,7 +962,8 @@ html.js:not(.reduced) .reduced-document {
 
 .project-row__name {
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--font-geist-mono), monospace;
+  font-weight: 600;
   font-size: 13px;
 }
 
@@ -1087,9 +1089,9 @@ html.js:not(.reduced) .reduced-document {
 
 .print-card strong {
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--font-geist-mono), monospace;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .print-card span {
@@ -1177,7 +1179,8 @@ html.js:not(.reduced) .reduced-document {
 
 .contact-row__label {
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--font-geist-mono), monospace;
+  font-weight: 600;
   font-size: 12px;
 }
 
@@ -1602,9 +1605,9 @@ dialog::backdrop {
 .resume-edu strong {
   display: block;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--font-geist-mono), monospace;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .resume-edu span {
@@ -1687,9 +1690,9 @@ dialog::backdrop {
 .resume-business strong {
   display: block;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--font-geist-mono), monospace;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .resume-business span {
@@ -1720,9 +1723,9 @@ dialog::backdrop {
 
 .resume-experience__head strong {
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--font-geist-mono), monospace;
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .resume-experience__head span {
@@ -1781,9 +1784,9 @@ dialog::backdrop {
 
 .resume-projects strong {
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--font-geist-mono), monospace;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .resume-projects span {
@@ -1820,9 +1823,9 @@ dialog::backdrop {
 .resume-certs strong {
   display: block;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--font-geist-mono), monospace;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .resume-certs span {
@@ -2673,9 +2676,9 @@ dialog::backdrop {
   display: block;
   margin-bottom: 3px;
   color: var(--amber);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--font-geist-mono), monospace;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .homelab-diagram__node span {
