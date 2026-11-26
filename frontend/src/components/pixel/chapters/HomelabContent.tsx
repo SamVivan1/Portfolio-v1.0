@@ -44,7 +44,7 @@ export default function HomelabContent({
         <PixelChip tone="amber">
           {certifications.length} verified credentials
         </PixelChip>
-        <PixelChip tone="violet">66 containers</PixelChip>
+        <PixelChip tone="violet">{homelab.containers}</PixelChip>
       </div>
 
       <ul className="service-grid" aria-label="Homelab stack">

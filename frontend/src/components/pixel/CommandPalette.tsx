@@ -19,6 +19,7 @@ import { business, profile } from "../../data/portfolio";
 import { routedCaseStudies } from "../../data/caseStudies";
 import { noteLinks } from "../../data/noteLinks";
 import { useModalDialog } from "../../hooks/useModalDialog";
+import { copyEmail } from "./pages/CopyEmailButton";
 
 interface CommandPaletteProps {
   open: boolean;
@@ -169,17 +170,16 @@ export default function CommandPalette({
         group: "Actions",
         icon: <Copy size={15} aria-hidden="true" />,
         run: async () => {
-          try {
-            await navigator.clipboard.writeText(profile.email);
-            setCopied(true);
-            window.setTimeout(() => {
-              onClose();
-              setCopied(false);
-            }, 900);
-          } catch {
+          if (!(await copyEmail())) {
             onClose();
             window.location.href = `mailto:${profile.email}`;
+            return;
           }
+          setCopied(true);
+          window.setTimeout(() => {
+            onClose();
+            setCopied(false);
+          }, 900);
         },
         keywords: "mail contact copy",
         keepOpen: true,
