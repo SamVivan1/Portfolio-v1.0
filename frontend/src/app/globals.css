@@ -50,6 +50,11 @@
   --accent-deep: var(--violet-dark);
   --background: transparent;
   --foreground: var(--cream);
+  --copy: #d9cfe6;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --mono: var(--font-geist-mono), monospace;
+  --pixel: var(--font-silkscreen), monospace;
 }
 
 * {
@@ -177,7 +182,7 @@ html.js:not(.reduced) .reduced-document {
   z-index: 50;
   padding: 14px 18px;
   pointer-events: none;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--mono);
 }
 
 .hud__bar {
@@ -213,8 +218,8 @@ html.js:not(.reduced) .reduced-document {
 }
 
 .hud__wordmark {
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 13px;
+  font-family: var(--pixel);
+  font-size: var(--text-sm);
   letter-spacing: 0.08em;
   white-space: nowrap;
 }
@@ -228,7 +233,7 @@ html.js:not(.reduced) .reduced-document {
   align-items: center;
   gap: 7px;
   margin-top: 3px;
-  font-size: 12px;
+  font-size: var(--text-xs);
   letter-spacing: 0.14em;
   color: var(--muted);
   white-space: nowrap;
@@ -272,8 +277,8 @@ html.js:not(.reduced) .reduced-document {
   border: 1px solid transparent;
   background: transparent;
   color: var(--muted);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 12px;
+  font-family: var(--pixel);
+  font-size: var(--text-xs);
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: color 140ms, background 140ms, border-color 140ms;
@@ -292,8 +297,8 @@ html.js:not(.reduced) .reduced-document {
 
 .hud__nav-index {
   color: var(--violet-soft);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .hud__nav-item.is-active .hud__nav-index {
@@ -318,8 +323,8 @@ html.js:not(.reduced) .reduced-document {
   border: 1px solid var(--line);
   background: rgba(8, 7, 15, 0.76);
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   cursor: pointer;
   text-decoration: none;
   transition: color 140ms, border-color 140ms;
@@ -344,8 +349,8 @@ html.js:not(.reduced) .reduced-document {
   border: 1px solid var(--line);
   background: rgba(8, 7, 15, 0.76);
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.03em;
   cursor: pointer;
   transition: color 140ms, border-color 140ms, background 140ms;
@@ -391,7 +396,7 @@ html.js:not(.reduced) .reduced-document {
   align-items: center;
   gap: 9px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--text-xs);
   letter-spacing: 0.08em;
   pointer-events: none;
 }
@@ -490,8 +495,8 @@ html.js:not(.reduced) .reduced-document {
     rgba(58, 40, 83, 0.72),
     rgba(26, 17, 40, 0.78)
   );
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 12px;
+  font-family: var(--pixel);
+  font-size: var(--text-xs);
   letter-spacing: 0.08em;
 }
 
@@ -522,8 +527,8 @@ html.js:not(.reduced) .reduced-document {
 .pixel-panel__meta {
   margin-left: auto;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .pixel-panel__collapse {
@@ -566,8 +571,8 @@ html.js:not(.reduced) .reduced-document {
   border-top: 1px solid var(--line);
   padding: 7px 12px;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.08em;
 }
 
@@ -585,7 +590,7 @@ html.js:not(.reduced) .reduced-document {
 .chapter-title {
   margin: 0;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--pixel);
   font-size: clamp(1.6rem, 2.6vw, 2.2rem);
   font-weight: 400;
   line-height: 1.08;
@@ -604,7 +609,7 @@ html.js:not(.reduced) .reduced-document {
 .chapter-copy {
   margin: 0;
   max-width: 600px;
-  color: #d9cfe6;
+  color: var(--copy);
   font-size: 1rem;
   line-height: 1.65;
 }
@@ -635,16 +640,16 @@ html.js:not(.reduced) .reduced-document {
 .chapter-subhead h3 {
   margin: 0;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 12px;
+  font-family: var(--pixel);
+  font-size: var(--text-xs);
   font-weight: 400;
   letter-spacing: 0.06em;
 }
 
 .chapter-subhead__count {
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .fact-grid {
@@ -666,8 +671,8 @@ html.js:not(.reduced) .reduced-document {
   align-items: center;
   gap: 4px;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -675,9 +680,9 @@ html.js:not(.reduced) .reduced-document {
 .fact-grid dd {
   margin: 3px 0 0;
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--mono);
   font-weight: 600;
-  font-size: 13px;
+  font-size: var(--text-sm);
   line-height: 1.3;
 }
 
@@ -689,8 +694,8 @@ html.js:not(.reduced) .reduced-document {
   border: 1px solid #1f4a3c;
   background: #07120f;
   color: var(--green);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: var(--text-sm);
 }
 
 .terminal-prompt {
@@ -734,15 +739,15 @@ html.js:not(.reduced) .reduced-document {
 .service-grid span {
   display: block;
   color: var(--teal);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 13px;
+  font-family: var(--pixel);
+  font-size: var(--text-sm);
 }
 
 .service-grid small {
   display: block;
   margin-top: 2px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--text-sm);
   line-height: 1.35;
 }
 
@@ -787,23 +792,23 @@ html.js:not(.reduced) .reduced-document {
 .timeline h4 {
   margin: 0;
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: var(--text-sm);
   font-weight: 600;
 }
 
 .timeline__date {
   color: var(--amber);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   white-space: nowrap;
 }
 
 .timeline__org {
   margin: 1px 0 0;
   color: var(--violet-soft);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .timeline__desc {
@@ -815,7 +820,7 @@ html.js:not(.reduced) .reduced-document {
 
 .timeline__link {
   margin-top: 3px;
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 /* Tabs */
@@ -838,8 +843,8 @@ html.js:not(.reduced) .reduced-document {
   border: 1px solid transparent;
   background: transparent;
   color: var(--muted);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 12px;
+  font-family: var(--pixel);
+  font-size: var(--text-xs);
   cursor: pointer;
   transition: color 140ms, background 140ms, border-color 140ms;
 }
@@ -866,8 +871,8 @@ html.js:not(.reduced) .reduced-document {
   align-items: center;
   gap: 7px;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .live-row__muted {
@@ -876,7 +881,7 @@ html.js:not(.reduced) .reduced-document {
 
 .live-row__link {
   margin-left: auto;
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 .data-note {
@@ -885,7 +890,7 @@ html.js:not(.reduced) .reduced-document {
   border: 1px solid rgba(255, 180, 94, 0.3);
   background: rgba(255, 180, 94, 0.06);
   color: var(--amber);
-  font-size: 13px;
+  font-size: var(--text-sm);
   line-height: 1.45;
 }
 
@@ -905,8 +910,8 @@ html.js:not(.reduced) .reduced-document {
 
 .stat-row dt {
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -914,7 +919,7 @@ html.js:not(.reduced) .reduced-document {
 .stat-row dd {
   margin: 2px 0 0;
   color: var(--teal);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--pixel);
   font-size: 18px;
 }
 
@@ -962,9 +967,9 @@ html.js:not(.reduced) .reduced-document {
 
 .project-row__name {
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--mono);
   font-weight: 600;
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 
 .project-row__stars {
@@ -972,8 +977,8 @@ html.js:not(.reduced) .reduced-document {
   align-items: center;
   gap: 2px;
   color: var(--amber);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .project-row__desc {
@@ -997,8 +1002,8 @@ html.js:not(.reduced) .reduced-document {
 
 .project-topic {
   color: var(--violet-soft);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .prints-intro__head {
@@ -1011,7 +1016,7 @@ html.js:not(.reduced) .reduced-document {
 .prints-intro h3 {
   margin: 0;
   color: var(--amber);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--pixel);
   font-size: 16px;
   font-weight: 400;
 }
@@ -1039,8 +1044,8 @@ html.js:not(.reduced) .reduced-document {
 
 .spec-grid dt {
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -1048,7 +1053,7 @@ html.js:not(.reduced) .reduced-document {
 .spec-grid dd {
   margin: 2px 0 0;
   color: var(--cream);
-  font-size: 13px;
+  font-size: var(--text-sm);
   line-height: 1.35;
 }
 
@@ -1089,22 +1094,22 @@ html.js:not(.reduced) .reduced-document {
 
 .print-card strong {
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   font-weight: 600;
 }
 
 .print-card span {
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .process-block h4 {
   margin: 0 0 5px;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 13px;
+  font-family: var(--pixel);
+  font-size: var(--text-sm);
   font-weight: 400;
 }
 
@@ -1126,7 +1131,7 @@ html.js:not(.reduced) .reduced-document {
 
 .process-list li span {
   color: var(--amber);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--mono);
 }
 
 /* Contact */
@@ -1179,16 +1184,16 @@ html.js:not(.reduced) .reduced-document {
 
 .contact-row__label {
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--mono);
   font-weight: 600;
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 .contact-row__value {
   overflow: hidden;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: var(--text-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1204,8 +1209,8 @@ html.js:not(.reduced) .reduced-document {
   align-items: center;
   gap: 5px;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .roof-top {
@@ -1216,8 +1221,8 @@ html.js:not(.reduced) .reduced-document {
   border: 0;
   background: transparent;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   cursor: pointer;
 }
 
@@ -1237,8 +1242,8 @@ html.js:not(.reduced) .reduced-document {
   background: var(--night);
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.42);
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 12px;
+  font-family: var(--pixel);
+  font-size: var(--text-xs);
   letter-spacing: 0.04em;
   text-align: center;
   text-decoration: none;
@@ -1291,7 +1296,7 @@ html.js:not(.reduced) .reduced-document {
 .pixel-button--sm {
   min-height: 36px;
   padding: 0 9px;
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 .pixel-button:disabled {
@@ -1312,8 +1317,8 @@ html.js:not(.reduced) .reduced-document {
   border: 1px solid var(--line);
   background: rgba(139, 92, 246, 0.08);
   color: var(--violet-soft);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.03em;
   white-space: nowrap;
 }
@@ -1354,8 +1359,8 @@ html.js:not(.reduced) .reduced-document {
   gap: 4px;
   border-bottom: 1px solid rgba(94, 234, 212, 0.35);
   color: var(--teal);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: var(--text-sm);
   text-decoration: none;
   transition: color 140ms, border-color 140ms;
 }
@@ -1377,8 +1382,8 @@ html.js:not(.reduced) .reduced-document {
   gap: 3px;
   pointer-events: none;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   transform: translateX(-50%);
@@ -1405,8 +1410,8 @@ html.js:not(.reduced) .reduced-document {
   border: 2px solid var(--teal);
   background: var(--cream);
   color: var(--void);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 12px;
+  font-family: var(--pixel);
+  font-size: var(--text-xs);
   text-align: left;
   cursor: pointer;
   transform: translateY(-180%);
@@ -1457,8 +1462,8 @@ dialog::backdrop {
     rgba(58, 40, 83, 0.8),
     rgba(26, 17, 40, 0.85)
   );
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 12px;
+  font-family: var(--pixel);
+  font-size: var(--text-xs);
 }
 
 .quickview__bar-title {
@@ -1518,15 +1523,15 @@ dialog::backdrop {
 .quickview__toon {
   margin: 0;
   color: var(--amber);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.18em;
 }
 
 .quickview__identity h2 {
   margin: 0;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--pixel);
   font-size: clamp(1.2rem, 2.4vw, 2rem);
   font-weight: 400;
   line-height: 1.1;
@@ -1571,8 +1576,8 @@ dialog::backdrop {
   gap: 7px;
   margin: 0 0 7px;
   color: var(--teal);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 13px;
+  font-family: var(--pixel);
+  font-size: var(--text-sm);
   font-weight: 400;
   letter-spacing: 0.06em;
 }
@@ -1580,8 +1585,8 @@ dialog::backdrop {
 .quickview__grid section h4 {
   margin: 7px 0 3px;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1590,7 +1595,7 @@ dialog::backdrop {
 .resume-summary {
   max-width: 600px;
   margin: 0;
-  color: #d9cfe6;
+  color: var(--copy);
   font-size: 15px;
   line-height: 1.6;
 }
@@ -1599,14 +1604,14 @@ dialog::backdrop {
   display: flex;
   gap: 7px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 
 .resume-edu strong {
   display: block;
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   font-weight: 600;
 }
 
@@ -1622,7 +1627,7 @@ dialog::backdrop {
   margin: 0;
   padding: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--text-sm);
   list-style: none;
 }
 
@@ -1654,8 +1659,8 @@ dialog::backdrop {
   padding: 2px 5px;
   border: 1px solid var(--line);
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .resume-languages {
@@ -1664,7 +1669,7 @@ dialog::backdrop {
   gap: 3px;
   margin: 0;
   padding: 0;
-  font-size: 13px;
+  font-size: var(--text-sm);
   list-style: none;
 }
 
@@ -1684,14 +1689,14 @@ dialog::backdrop {
   display: flex;
   gap: 7px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 
 .resume-business strong {
   display: block;
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   font-weight: 600;
 }
 
@@ -1723,23 +1728,23 @@ dialog::backdrop {
 
 .resume-experience__head strong {
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: var(--text-sm);
   font-weight: 600;
 }
 
 .resume-experience__head span {
   color: var(--amber);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   white-space: nowrap;
 }
 
 .resume-experience__org {
   margin: 1px 0;
   color: var(--violet-soft);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .resume-experience p {
@@ -1753,8 +1758,8 @@ dialog::backdrop {
 .resume-count {
   margin-left: auto;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   font-weight: 400;
 }
 
@@ -1784,8 +1789,8 @@ dialog::backdrop {
 
 .resume-projects strong {
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   font-weight: 600;
 }
 
@@ -1798,8 +1803,8 @@ dialog::backdrop {
 
 .resume-projects em {
   color: var(--amber);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   font-style: normal;
 }
 
@@ -1810,7 +1815,7 @@ dialog::backdrop {
   margin: 0;
   padding: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--text-sm);
   list-style: none;
 }
 
@@ -1823,15 +1828,15 @@ dialog::backdrop {
 .resume-certs strong {
   display: block;
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   font-weight: 600;
 }
 
 .resume-certs span {
   display: block;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .resume-certs a {
@@ -1851,7 +1856,7 @@ dialog::backdrop {
   margin: 0;
   padding: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--text-sm);
   list-style: none;
 }
 
@@ -1880,8 +1885,8 @@ dialog::backdrop {
 
 .quickview__footer-note {
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .quickview__footer-actions {
@@ -1915,8 +1920,8 @@ dialog::backdrop {
   padding: 7px 9px;
   border-bottom: 2px solid var(--line);
   background: #07120f;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .command-palette__prompt {
@@ -1933,8 +1938,8 @@ dialog::backdrop {
   border: 1px solid var(--line);
   background: transparent;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   cursor: pointer;
 }
 
@@ -1953,7 +1958,7 @@ dialog::backdrop {
   border: 0;
   background: transparent;
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--mono);
   font-size: 15px;
   outline: 0;
 }
@@ -1978,8 +1983,8 @@ dialog::backdrop {
   padding: 0 8px;
   border: 1px solid transparent;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: var(--text-sm);
   cursor: pointer;
 }
 
@@ -2001,7 +2006,7 @@ dialog::backdrop {
 .command-palette__group {
   margin-left: auto;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--text-xs);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -2010,7 +2015,7 @@ dialog::backdrop {
   max-width: 140px;
   overflow: hidden;
   color: var(--violet-soft);
-  font-size: 12px;
+  font-size: var(--text-xs);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -2022,7 +2027,7 @@ dialog::backdrop {
 .command-palette__empty {
   padding: 14px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 .command-palette__footer {
@@ -2031,8 +2036,8 @@ dialog::backdrop {
   padding: 6px 9px;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .command-palette__footer kbd {
@@ -2063,15 +2068,15 @@ dialog::backdrop {
 .doc-hero__eyebrow {
   margin: 0;
   color: var(--amber);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.18em;
 }
 
 .doc-hero h1 {
   margin: 10px 0;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--pixel);
   font-size: clamp(1.7rem, 4.4vw, 3.1rem);
   font-weight: 400;
   line-height: 1.08;
@@ -2109,8 +2114,8 @@ dialog::backdrop {
   padding: 0 13px;
   border: 1px solid var(--line);
   color: var(--muted);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 12px;
+  font-family: var(--pixel);
+  font-size: var(--text-xs);
   text-decoration: none;
 }
 
@@ -2154,8 +2159,8 @@ dialog::backdrop {
     rgba(26, 17, 40, 0.7)
   );
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 12px;
+  font-family: var(--pixel);
+  font-size: var(--text-xs);
 }
 
 .doc-chapter__body {
@@ -2178,8 +2183,8 @@ dialog::backdrop {
   padding: 18px 24px;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .doc-footer p {
@@ -2230,8 +2235,8 @@ dialog::backdrop {
 }
 
 .page-shell__wordmark {
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 13px;
+  font-family: var(--pixel);
+  font-size: var(--text-sm);
   letter-spacing: 0.08em;
 }
 
@@ -2254,8 +2259,8 @@ dialog::backdrop {
   padding: 0 10px;
   border: 1px solid transparent;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   text-decoration: none;
 }
 
@@ -2302,8 +2307,8 @@ dialog::backdrop {
   padding: 22px 24px;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .page-shell__footer a {
@@ -2326,8 +2331,8 @@ dialog::backdrop {
   align-items: center;
   gap: 6px;
   color: var(--amber);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.08em;
 }
 
@@ -2341,7 +2346,7 @@ dialog::backdrop {
 .page-title {
   margin: 0 0 10px;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--pixel);
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 400;
   line-height: 1.05;
@@ -2402,15 +2407,15 @@ dialog::backdrop {
   display: none;
   margin: 0 0 6px;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .case-study__visual figcaption {
   margin-top: 8px;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .case-study__stats-wrap {
@@ -2439,8 +2444,8 @@ dialog::backdrop {
 
 .case-study__stat dt {
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -2448,8 +2453,8 @@ dialog::backdrop {
 .case-study__stat dd {
   margin: 0;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 13px;
+  font-family: var(--pixel);
+  font-size: var(--text-sm);
   line-height: 1.3;
   overflow-wrap: anywhere;
 }
@@ -2459,8 +2464,8 @@ dialog::backdrop {
   align-items: center;
   gap: 4px;
   color: var(--teal);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   text-decoration: none;
 }
 
@@ -2474,8 +2479,8 @@ dialog::backdrop {
   gap: 6px;
   margin: 0;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .case-study__grid {
@@ -2494,7 +2499,7 @@ dialog::backdrop {
   padding-bottom: 5px;
   border-bottom: 1px solid var(--line);
   color: var(--teal);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--pixel);
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.04em;
@@ -2503,7 +2508,7 @@ dialog::backdrop {
 .case-study__grid p {
   max-width: 600px;
   margin: 0;
-  color: #d9cfe6;
+  color: var(--copy);
   font-size: 1rem;
   line-height: 1.65;
 }
@@ -2515,7 +2520,7 @@ dialog::backdrop {
   max-width: 600px;
   margin: 0;
   padding-left: 20px;
-  color: #d9cfe6;
+  color: var(--copy);
   font-size: 1rem;
   line-height: 1.55;
 }
@@ -2547,8 +2552,8 @@ dialog::backdrop {
 .homelab-architecture__note {
   margin: 0;
   color: var(--amber);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .homelab-facts {
@@ -2570,8 +2575,8 @@ dialog::backdrop {
   align-items: center;
   gap: 5px;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -2579,8 +2584,8 @@ dialog::backdrop {
 .homelab-facts dd {
   margin: 4px 0 0;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 13px;
+  font-family: var(--pixel);
+  font-size: var(--text-sm);
   line-height: 1.3;
 }
 
@@ -2613,8 +2618,8 @@ dialog::backdrop {
 .homelab-diagram__label {
   display: block;
   color: var(--violet-soft);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -2623,15 +2628,15 @@ dialog::backdrop {
   display: block;
   margin: 4px 0;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--pixel);
   font-size: 14px;
   font-weight: 400;
 }
 
 .homelab-diagram__host span:last-child {
   color: var(--teal);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .homelab-diagram__connector {
@@ -2650,15 +2655,15 @@ dialog::backdrop {
 
 .homelab-diagram__docker strong {
   color: var(--teal);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--pixel);
   font-size: 16px;
   font-weight: 400;
 }
 
 .homelab-diagram__docker span {
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: var(--text-sm);
 }
 
 .homelab-diagram__services {
@@ -2676,15 +2681,15 @@ dialog::backdrop {
   display: block;
   margin-bottom: 3px;
   color: var(--amber);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   font-weight: 600;
 }
 
 .homelab-diagram__node span {
   display: block;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--text-xs);
   line-height: 1.4;
 }
 
@@ -2697,15 +2702,15 @@ dialog::backdrop {
   padding: 10px 12px;
   border: 1px dashed var(--line);
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .homelab-diagram figcaption {
   max-width: 70ch;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   line-height: 1.5;
   text-align: center;
 }
@@ -2746,8 +2751,8 @@ dialog::backdrop {
     rgba(58, 40, 83, 0.8),
     rgba(26, 17, 40, 0.85)
   );
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 12px;
+  font-family: var(--pixel);
+  font-size: var(--text-xs);
 }
 
 .page-dialog__title {
@@ -2840,8 +2845,8 @@ dialog::backdrop {
 .notes-index__eyebrow {
   margin: 0 0 8px;
   color: var(--amber);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.14em;
 }
 
@@ -2867,13 +2872,13 @@ dialog::backdrop {
   justify-content: space-between;
   gap: 8px;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
 }
 
 .note-card__title {
   margin: 0;
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--pixel);
   font-size: 18px;
   font-weight: 400;
   line-height: 1.25;
@@ -2890,7 +2895,7 @@ dialog::backdrop {
 
 .note-card__summary {
   margin: 0;
-  color: #d9cfe6;
+  color: var(--copy);
   font-size: 16px;
   line-height: 1.6;
 }
@@ -2926,7 +2931,7 @@ dialog::backdrop {
   padding-bottom: 6px;
   border-bottom: 1px solid var(--line);
   color: var(--teal);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--pixel);
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -2935,7 +2940,7 @@ dialog::backdrop {
 .note-article__body p {
   max-width: 70ch;
   margin: 0;
-  color: #d9cfe6;
+  color: var(--copy);
   font-size: 16px;
   line-height: 1.75;
 }
@@ -2947,7 +2952,7 @@ dialog::backdrop {
   max-width: 70ch;
   margin: 0;
   padding-left: 22px;
-  color: #d9cfe6;
+  color: var(--copy);
   font-size: 16px;
   line-height: 1.6;
 }
@@ -2967,8 +2972,8 @@ dialog::backdrop {
   padding: 7px 12px;
   border-bottom: 1px solid var(--line);
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.06em;
 }
 
@@ -2978,8 +2983,8 @@ dialog::backdrop {
   padding: 14px 16px;
   overflow-x: auto;
   color: var(--cream);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: var(--text-sm);
   line-height: 1.55;
 }
 
@@ -3060,8 +3065,8 @@ dialog::backdrop {
   align-items: center;
   gap: 9px;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 12px;
+  font-family: var(--pixel);
+  font-size: var(--text-xs);
   letter-spacing: 0.08em;
 }
 
@@ -3076,15 +3081,15 @@ dialog::backdrop {
 .error-page__eyebrow {
   margin: 26px 0 8px;
   color: var(--amber);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   letter-spacing: 0.12em;
 }
 
 .error-page__title {
   margin: 0 0 12px;
   color: var(--cream);
-  font-family: var(--font-silkscreen), monospace;
+  font-family: var(--pixel);
   font-size: clamp(1.75rem, 5vw, 2.8rem);
   font-weight: 400;
   line-height: 1.08;
@@ -3094,7 +3099,7 @@ dialog::backdrop {
 .error-page__copy {
   max-width: 56ch;
   margin: 0;
-  color: #d9cfe6;
+  color: var(--copy);
   font-size: 1rem;
   line-height: 1.65;
 }
@@ -3109,8 +3114,8 @@ dialog::backdrop {
 .error-page__meta {
   margin: 18px 0 0;
   color: var(--muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
   line-height: 1.5;
 }
 
@@ -3206,11 +3211,11 @@ dialog::backdrop {
   }
 
   .hud__wordmark {
-    font-size: 12px;
+    font-size: var(--text-xs);
   }
 
   .hud__status {
-    font-size: 12px;
+    font-size: var(--text-xs);
     letter-spacing: 0.1em;
   }
 
@@ -3244,8 +3249,8 @@ dialog::backdrop {
     border: 0;
     background: transparent;
     color: var(--muted);
-    font-family: var(--font-geist-mono), monospace;
-    font-size: 12px;
+    font-family: var(--mono);
+    font-size: var(--text-xs);
     cursor: pointer;
   }
 
@@ -3477,7 +3482,7 @@ dialog::backdrop {
   }
 
   .page-shell__wordmark {
-    font-size: 12px;
+    font-size: var(--text-xs);
   }
 
   .page-shell__nav {
@@ -3534,7 +3539,7 @@ dialog::backdrop {
   }
 
   .homelab-diagram__host strong {
-    font-size: 12px;
+    font-size: var(--text-xs);
   }
 
   .page-dialog {
@@ -3697,12 +3702,12 @@ dialog::backdrop {
   }
 
   .quickview__role {
-    font-size: 12px !important;
+    font-size: var(--text-xs) !important;
   }
 
   .quickview__contact {
     gap: 4px 9px !important;
-    font-size: 12px !important;
+    font-size: var(--text-xs) !important;
   }
 
   .quickview__grid {
@@ -3723,7 +3728,7 @@ dialog::backdrop {
 
   .quickview__grid section h3 {
     margin-bottom: 4px !important;
-    font-size: 12px !important;
+    font-size: var(--text-xs) !important;
   }
 
   .quickview__grid section h4 {
@@ -3745,7 +3750,7 @@ dialog::backdrop {
   }
 
   .resume-experience__head strong {
-    font-size: 12px !important;
+    font-size: var(--text-xs) !important;
   }
 
   .resume-experience__head span,
@@ -3756,7 +3761,7 @@ dialog::backdrop {
   .resume-languages,
   .resume-business,
   .resume-edu {
-    font-size: 12px !important;
+    font-size: var(--text-xs) !important;
   }
 
   .resume-projects,
@@ -3771,7 +3776,7 @@ dialog::backdrop {
 
   .resume-looking,
   .resume-looking li {
-    font-size: 12px !important;
+    font-size: var(--text-xs) !important;
     line-height: 1.4 !important;
   }
 
