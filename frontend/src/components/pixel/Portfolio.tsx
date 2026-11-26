@@ -15,7 +15,7 @@ import {
   progressFromScroll,
   scrollToChapter,
 } from "../../lib/chapters";
-import { useReducedMotion } from "../../hooks/useMotionPreference";
+import { useViewMode } from "../../hooks/useMotionPreference";
 import { useAmbientSound } from "../../hooks/useAmbientSound";
 import { track } from "../../lib/analytics";
 import CommandPalette from "./CommandPalette";
@@ -31,7 +31,7 @@ import HomelabDialog from "./pages/HomelabDialog";
 import PixelPanel from "./ui/PixelPanel";
 
 export default function Portfolio() {
-  const reduced = useReducedMotion();
+  const { reduced } = useViewMode();
   // Reduced-motion visitors never mount the cinematic, so no sound or scroll listeners.
   return reduced ? null : <CinematicPortfolio />;
 }

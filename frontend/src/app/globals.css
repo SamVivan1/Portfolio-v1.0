@@ -445,41 +445,11 @@ html.js:not(.reduced) .reduced-document {
   padding: 6px;
 }
 
-.hud__mobile-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  min-height: 46px;
-  padding: 0 10px;
-  border: 1px solid transparent;
-  background: transparent;
-  color: var(--muted);
-  font-family: var(--font-silkscreen), monospace;
-  font-size: 12px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.hud__mobile-item span {
-  color: var(--violet-soft);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
-}
-
-.hud__mobile-item.is-active {
-  border-color: var(--teal);
-  background: rgba(94, 234, 212, 0.07);
-  color: var(--cream);
-}
-
 .hud__mobile-actions {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px;
-  padding: 8px 4px 4px;
-  border-top: 1px solid var(--line);
-  margin-top: 4px;
+  padding: 4px;
 }
 
 /* Chapter panels */

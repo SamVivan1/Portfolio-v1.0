@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Download, ExternalLink, FileText } from "lucide-react";
+import { Download, ExternalLink, Mail, Sparkles } from "lucide-react";
+import { setSimpleView, useViewMode } from "../../hooks/useMotionPreference";
 import { CHAPTERS, profile } from "../../data/portfolio";
 import DeskContent from "./chapters/DeskContent";
 import HomelabContent from "./chapters/HomelabContent";
@@ -40,6 +41,8 @@ const sceneAlts = [
 ];
 
 export default function ReducedMotionDocument() {
+  const { manual } = useViewMode();
+
   return (
     <div className="reduced-document">
       <header className="doc-hero">
@@ -58,7 +61,9 @@ export default function ReducedMotionDocument() {
               <span className="live-dot" /> {profile.availability}
             </PixelChip>
             <PixelChip tone="violet">UTC+7</PixelChip>
-            <PixelChip tone="amber">Reduced motion view</PixelChip>
+            <PixelChip tone="amber">
+              {manual ? "Simple view" : "Reduced motion view"}
+            </PixelChip>
           </div>
           <div className="doc-hero__actions">
             <a
@@ -73,7 +78,7 @@ export default function ReducedMotionDocument() {
               className="pixel-button pixel-button--ghost"
               href={`mailto:${profile.email}`}
             >
-              <FileText size={15} aria-hidden="true" />
+              <Mail size={15} aria-hidden="true" />
               Email me
             </a>
             <a
@@ -85,6 +90,17 @@ export default function ReducedMotionDocument() {
               GitHub
               <ExternalLink size={13} aria-hidden="true" />
             </a>
+            {/* Only offered when the visitor chose this view; the OS setting always wins. */}
+            {manual ? (
+              <button
+                type="button"
+                className="pixel-button pixel-button--quiet"
+                onClick={() => setSimpleView(false)}
+              >
+                <Sparkles size={15} aria-hidden="true" />
+                Back to the world
+              </button>
+            ) : null}
           </div>
         </div>
         <nav className="doc-nav" aria-label="Chapters">

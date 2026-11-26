@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { clamp, FLOOR_Y, WORLD_WIDTH } from "../../lib/chapters";
-import { useReducedMotion } from "../../hooks/useMotionPreference";
+import { useViewMode } from "../../hooks/useMotionPreference";
 import { getWorldCanvas } from "./world";
 
 interface ScenePosterProps {
@@ -20,7 +20,7 @@ export default function ScenePoster({
   className,
 }: ScenePosterProps) {
   const ref = useRef<HTMLCanvasElement>(null);
-  const reduced = useReducedMotion();
+  const { reduced } = useViewMode();
 
   useEffect(() => {
     const canvas = ref.current;

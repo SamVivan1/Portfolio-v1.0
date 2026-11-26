@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import {
   Command,
@@ -9,6 +9,7 @@ import {
   Menu,
   Monitor,
   Moon,
+  Rows3,
   Server,
   Volume2,
   VolumeX,
@@ -16,6 +17,7 @@ import {
   X,
 } from "lucide-react";
 import { CHAPTERS, profile } from "../../data/portfolio";
+import { setSimpleView } from "../../hooks/useMotionPreference";
 import { track } from "../../lib/analytics";
 import PixelButton from "./ui/PixelButton";
 
@@ -52,6 +54,39 @@ export default function Hud({
       : "Start ambient sound";
   const [clock, setClock] = useState("--:--");
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const close = () => {
+      setMenuOpen(false);
+      menuButtonRef.current?.focus();
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") close();
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (
+        !menuRef.current?.contains(target) &&
+        !menuButtonRef.current?.contains(target)
+      ) {
+        close();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [menuOpen]);
+
+  const openSimpleView = () => {
+    track("simple_view_on");
+    setSimpleView(true);
+  };
 
   useEffect(() => {
     const update = () => {
@@ -174,6 +209,15 @@ export default function Hud({
           >
             <Download size={14} aria-hidden="true" />
           </a>
+          <button
+            type="button"
+            className="hud__key hud__key--icon"
+            onClick={openSimpleView}
+            aria-label="Switch to simple view"
+            title="Simple view (no animation)"
+          >
+            <Rows3 size={14} aria-hidden="true" />
+          </button>
           <PixelButton
             onClick={onQuickView}
             variant="primary"
@@ -184,12 +228,13 @@ export default function Hud({
             Quick view
           </PixelButton>
           <button
+            ref={menuButtonRef}
             type="button"
             className="hud__menu"
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-controls="hud-mobile-menu"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-label={menuOpen ? "Close more menu" : "More options"}
           >
             {menuOpen ? (
               <X size={19} aria-hidden="true" />
@@ -201,36 +246,9 @@ export default function Hud({
       </div>
 
       {menuOpen ? (
-        <div className="hud__mobile-menu" id="hud-mobile-menu">
-          <nav aria-label="Chapters">
-            {CHAPTERS.map((chapter, index) => (
-              <button
-                key={chapter.id}
-                type="button"
-                className={clsx(
-                  "hud__mobile-item",
-                  activeChapter === index && "is-active"
-                )}
-                aria-current={activeChapter === index ? "step" : undefined}
-                onClick={() => navigate(index)}
-              >
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                {chapter.label}
-              </button>
-            ))}
-          </nav>
+        // Chapters and the resume live in the bottom bar; this menu holds the rest.
+        <div className="hud__mobile-menu" id="hud-mobile-menu" ref={menuRef}>
           <div className="hud__mobile-actions">
-            <PixelButton
-              onClick={() => {
-                setMenuOpen(false);
-                onQuickView();
-              }}
-              variant="primary"
-              size="sm"
-              icon={<FileText size={13} aria-hidden="true" />}
-            >
-              Quick view
-            </PixelButton>
             <PixelButton
               href={profile.cv}
               download
@@ -270,6 +288,14 @@ export default function Hud({
                 : soundEnabled
                   ? "Sound: ready"
                   : "Sound: off"}
+            </PixelButton>
+            <PixelButton
+              onClick={openSimpleView}
+              variant="ghost"
+              size="sm"
+              icon={<Rows3 size={13} aria-hidden="true" />}
+            >
+              Simple view
             </PixelButton>
           </div>
         </div>
