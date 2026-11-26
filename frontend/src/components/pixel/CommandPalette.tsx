@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   Copy,
@@ -17,6 +18,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { business, profile } from "../../data/portfolio";
 import { routedCaseStudies } from "../../data/caseStudies";
 import { noteLinks } from "../../data/noteLinks";
+import { useModalDialog } from "../../hooks/useModalDialog";
 
 interface CommandPaletteProps {
   open: boolean;
@@ -31,8 +33,10 @@ interface PaletteAction {
   hint: string;
   group: string;
   icon: React.ReactNode;
-  run: () => void;
+  run: () => void | Promise<void>;
   keywords?: string;
+  /** The action shows its own feedback and closes the palette itself. */
+  keepOpen?: boolean;
 }
 
 export default function CommandPalette({
@@ -41,7 +45,8 @@ export default function CommandPalette({
   onNavigate,
   onQuickView,
 }: CommandPaletteProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialog = useModalDialog(open, onClose);
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
@@ -104,9 +109,7 @@ export default function CommandPalette({
         hint: "printable",
         group: "Pages",
         icon: <FileText size={15} aria-hidden="true" />,
-        run: () => {
-          window.location.href = "/resume";
-        },
+        run: () => router.push("/resume"),
         keywords: "resume cv print pdf web version",
       },
       {
@@ -115,9 +118,7 @@ export default function CommandPalette({
         hint: "full page",
         group: "Pages",
         icon: <Server size={15} aria-hidden="true" />,
-        run: () => {
-          window.location.href = "/homelab";
-        },
+        run: () => router.push("/homelab"),
         keywords: "homelab architecture hardware diagram ubuntu docker",
       },
       {
@@ -126,9 +127,7 @@ export default function CommandPalette({
         hint: "writing",
         group: "Pages",
         icon: <FileText size={15} aria-hidden="true" />,
-        run: () => {
-          window.location.href = "/notes";
-        },
+        run: () => router.push("/notes"),
         keywords: "notes articles writing deploy n8n homelab",
       },
       ...noteLinks.map((note) => ({
@@ -137,9 +136,7 @@ export default function CommandPalette({
         hint: "note",
         group: "Notes",
         icon: <FileText size={15} aria-hidden="true" />,
-        run: () => {
-          window.location.href = `/notes/${note.slug}`;
-        },
+        run: () => router.push(`/notes/${note.slug}`),
         keywords: `notes ${note.title} deploy n8n homelab`,
       })),
       ...routedCaseStudies.map((study) => ({
@@ -148,9 +145,7 @@ export default function CommandPalette({
         hint: "project",
         group: "Case studies",
         icon: <FileText size={15} aria-hidden="true" />,
-        run: () => {
-          window.location.href = `/projects/${study.slug}`;
-        },
+        run: () => router.push(`/projects/${study.slug}`),
         keywords: `${study.repo} ${study.stack.join(" ")}`,
       })),
       {
@@ -177,12 +172,17 @@ export default function CommandPalette({
           try {
             await navigator.clipboard.writeText(profile.email);
             setCopied(true);
-            window.setTimeout(() => setCopied(false), 1800);
+            window.setTimeout(() => {
+              onClose();
+              setCopied(false);
+            }, 900);
           } catch {
+            onClose();
             window.location.href = `mailto:${profile.email}`;
           }
         },
         keywords: "mail contact copy",
+        keepOpen: true,
       },
       {
         id: "github",
@@ -215,7 +215,7 @@ export default function CommandPalette({
         keywords: "print workshop business",
       },
     ];
-  }, [copied, onNavigate, onQuickView]);
+  }, [copied, onClose, onNavigate, onQuickView, router]);
 
   const filtered = useMemo(() => {
     const term = query.trim().toLowerCase();
@@ -228,39 +228,31 @@ export default function CommandPalette({
   }, [actions, query]);
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (open && !dialog.open) {
-      setQuery("");
-      setActive(0);
-      dialog.showModal();
-      window.setTimeout(() => inputRef.current?.focus(), 30);
-      document.documentElement.classList.add("dialog-open");
-    }
-    if (!open && dialog.open) {
-      dialog.close();
-      document.documentElement.classList.remove("dialog-open");
-    }
+    if (!open) return;
+    setQuery("");
+    setActive(0);
+    const timer = window.setTimeout(() => inputRef.current?.focus(), 30);
+    return () => window.clearTimeout(timer);
   }, [open]);
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    const onDialogClose = () => {
-      document.documentElement.classList.remove("dialog-open");
-      onClose();
-    };
-    dialog.addEventListener("close", onDialogClose);
-    return () => dialog.removeEventListener("close", onDialogClose);
-  }, [onClose]);
+    if (!open) return;
+    document
+      .getElementById(`command-${filtered[active]?.id}`)
+      ?.scrollIntoView({ block: "nearest" });
+  }, [open, active, filtered]);
 
   useEffect(() => {
     if (active > filtered.length - 1) setActive(0);
   }, [active, filtered.length]);
 
   const runAction = (action: PaletteAction) => {
+    if (action.keepOpen) {
+      void action.run();
+      return;
+    }
     onClose();
-    window.setTimeout(() => action.run(), 30);
+    window.setTimeout(() => void action.run(), 30);
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -286,16 +278,9 @@ export default function CommandPalette({
 
   return (
     <dialog
-      ref={dialogRef}
+      {...dialog}
       className="command-palette"
       aria-label="Command palette"
-      onCancel={(event) => {
-        event.preventDefault();
-        onClose();
-      }}
-      onClick={(event) => {
-        if (event.target === dialogRef.current) onClose();
-      }}
     >
       <div className="command-palette__shell">
         <div className="command-palette__bar">
@@ -323,6 +308,9 @@ export default function CommandPalette({
             }}
             onKeyDown={onKeyDown}
             placeholder="Type a chapter, action, or link…"
+            role="combobox"
+            aria-expanded={filtered.length > 0}
+            aria-autocomplete="list"
             aria-controls="command-list"
             aria-activedescendant={
               filtered[active] ? `command-${filtered[active].id}` : undefined
@@ -339,7 +327,7 @@ export default function CommandPalette({
           className="command-palette__list"
         >
           {filtered.length === 0 ? (
-            <li className="command-palette__empty">
+            <li role="presentation" className="command-palette__empty">
               No command found. Try “projects”, “resume”, or “contact”.
             </li>
           ) : (
