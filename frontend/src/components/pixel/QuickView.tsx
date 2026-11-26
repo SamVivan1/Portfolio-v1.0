@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { useModalDialog } from "../../hooks/useModalDialog";
 import { Download, X } from "lucide-react";
 import { profile } from "../../data/portfolio";
 import { usePortfolioData } from "./PortfolioData";
@@ -15,45 +15,14 @@ interface QuickViewProps {
 }
 
 export default function QuickView({ open, onClose }: QuickViewProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialog = useModalDialog(open, onClose);
   const { projects, stats } = usePortfolioData();
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (open && !dialog.open) {
-      dialog.showModal();
-      document.documentElement.classList.add("dialog-open");
-    }
-    if (!open && dialog.open) {
-      dialog.close();
-      document.documentElement.classList.remove("dialog-open");
-    }
-  }, [open]);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    const onDialogClose = () => {
-      document.documentElement.classList.remove("dialog-open");
-      onClose();
-    };
-    dialog.addEventListener("close", onDialogClose);
-    return () => dialog.removeEventListener("close", onDialogClose);
-  }, [onClose]);
 
   return (
     <dialog
-      ref={dialogRef}
+      {...dialog}
       className="quickview"
       aria-labelledby="quickview-title"
-      onCancel={(event) => {
-        event.preventDefault();
-        onClose();
-      }}
-      onClick={(event) => {
-        if (event.target === dialogRef.current) onClose();
-      }}
     >
       <div className="quickview__shell">
         <div className="quickview__bar">

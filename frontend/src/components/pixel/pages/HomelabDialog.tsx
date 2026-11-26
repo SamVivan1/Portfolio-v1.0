@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { useModalDialog } from "../../../hooks/useModalDialog";
 import { ArrowUpRight, X } from "lucide-react";
 import HomelabArchitecture from "./HomelabArchitecture";
 
@@ -11,44 +11,13 @@ interface HomelabDialogProps {
 }
 
 export default function HomelabDialog({ open, onClose }: HomelabDialogProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (open && !dialog.open) {
-      dialog.showModal();
-      document.documentElement.classList.add("dialog-open");
-    }
-    if (!open && dialog.open) {
-      dialog.close();
-      document.documentElement.classList.remove("dialog-open");
-    }
-  }, [open]);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    const handleClose = () => {
-      document.documentElement.classList.remove("dialog-open");
-      onClose();
-    };
-    dialog.addEventListener("close", handleClose);
-    return () => dialog.removeEventListener("close", handleClose);
-  }, [onClose]);
+  const dialog = useModalDialog(open, onClose);
 
   return (
     <dialog
-      ref={dialogRef}
+      {...dialog}
       className="page-dialog"
       aria-label="Homelab architecture"
-      onCancel={(event) => {
-        event.preventDefault();
-        onClose();
-      }}
-      onClick={(event) => {
-        if (event.target === dialogRef.current) onClose();
-      }}
     >
       <div className="page-dialog__shell">
         <div className="page-dialog__bar">
