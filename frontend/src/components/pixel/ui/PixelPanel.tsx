@@ -34,7 +34,7 @@ export default function PixelPanel({
   return (
     <article
       ref={panelRef}
-      id={id}
+      id={`panel-${id}`}
       data-sheet={sheet}
       className={clsx(
         "chapter-panel",

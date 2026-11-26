@@ -46,8 +46,7 @@ export default function ReducedMotionDocument() {
         <div className="doc-hero__top">
           <p className="doc-hero__eyebrow">MUHAMMAD BINTANG PANJI KUSUMA</p>
           <h1>
-            I build <span className="text-teal">homelabs</span>, automate the
-            boring parts, and ship interfaces that feel alive.
+            Hi, I&apos;m <span className="text-teal">Bintang</span>.
           </h1>
           <p className="doc-hero__lede">
             Computer Engineering student at Universitas Syiah Kuala. DevOps,

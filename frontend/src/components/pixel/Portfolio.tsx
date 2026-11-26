@@ -198,6 +198,7 @@ function CinematicPortfolio() {
           footer={<span className="panel-footnote">The desk · Banda Aceh</span>}
         >
           <DeskContent
+            titleAs="h1"
             onQuickView={openQuickView}
             onNext={() => navigate(1)}
           />

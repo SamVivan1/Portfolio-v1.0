@@ -15,18 +15,23 @@ interface DeskContentProps {
   onQuickView?: () => void;
   onNext?: () => void;
   compact?: boolean;
+  titleAs?: "h1" | "h2";
 }
 
 export default function DeskContent({
   onQuickView,
   onNext,
   compact = false,
+  titleAs: Title = "h2",
 }: DeskContentProps) {
   return (
     <div className="chapter-content">
-      <h2 className="chapter-title">
-        Hi, I&apos;m <span className="text-teal">Bintang</span>.
-      </h2>
+      {/* The document view already shows this headline as its h1. */}
+      {compact ? null : (
+        <Title className="chapter-title">
+          Hi, I&apos;m <span className="text-teal">Bintang</span>.
+        </Title>
+      )}
       <p className="chapter-lede">{profile.tagline}</p>
       <p className="chapter-copy">
         {compact
