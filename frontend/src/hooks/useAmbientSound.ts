@@ -27,13 +27,13 @@ export function useAmbientSound(activeChapter: number) {
   const fades = useRef(new Map<HTMLAudioElement, number>());
   const currentTexture = useRef<Texture | null>(null);
   const chapterRef = useRef(activeChapter);
-  const enabledRef = useRef(true);
+  const enabledRef = useRef(false);
   const startedRef = useRef(false);
   const muteToken = useRef(0);
   const textureToken = useRef(0);
   const muteTimer = useRef<number | null>(null);
 
-  const [enabled, setEnabled] = useState(true);
+  const [enabled, setEnabled] = useState(false);
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
@@ -76,9 +76,10 @@ export function useAmbientSound(activeChapter: number) {
 
   useEffect(() => {
     try {
-      if (window.localStorage.getItem(STORAGE_KEY) === "off") {
-        enabledRef.current = false;
-        setEnabled(false);
+      // Opt-in: only visitors who chose "on" before get sound on their first gesture.
+      if (window.localStorage.getItem(STORAGE_KEY) === "on") {
+        enabledRef.current = true;
+        setEnabled(true);
       }
     } catch {
       // Storage can be unavailable in private modes.
