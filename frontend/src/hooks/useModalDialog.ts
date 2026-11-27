@@ -21,6 +21,9 @@ export function useModalDialog(open: boolean, onClose: () => void) {
     syncScrollLock();
   }, [open]);
 
+  // Unmounting with the dialog open fires no close event; re-sync once it is gone.
+  useEffect(() => () => void window.setTimeout(syncScrollLock), []);
+
   useEffect(() => {
     const dialog = ref.current;
     if (!dialog) return;

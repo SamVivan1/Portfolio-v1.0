@@ -82,11 +82,13 @@ export const shadeBands = (
 ) => {
   ctx.save();
   ctx.globalCompositeOperation = "multiply";
-  const step = h / BANDS;
   for (let band = 0; band < BANDS; band += 1) {
     const level = fromTop ? BANDS - band : band + 1;
+    // integer band edges, so no row is multiplied twice
+    const y0 = Math.round(y + (h * band) / BANDS);
+    const y1 = Math.round(y + (h * (band + 1)) / BANDS);
     ctx.fillStyle = hexToRgba(SHADE, (strength * level) / BANDS);
-    ctx.fillRect(Math.round(x), Math.round(y + band * step), Math.round(w), Math.ceil(step));
+    ctx.fillRect(Math.round(x), y0, Math.round(w), y1 - y0);
   }
   ctx.restore();
 };
@@ -103,11 +105,12 @@ export const shadeColumns = (
 ) => {
   ctx.save();
   ctx.globalCompositeOperation = "multiply";
-  const step = w / BANDS;
   for (let band = 0; band < BANDS; band += 1) {
     const level = fromLeft ? BANDS - band : band + 1;
+    const x0 = Math.round(x + (w * band) / BANDS);
+    const x1 = Math.round(x + (w * (band + 1)) / BANDS);
     ctx.fillStyle = hexToRgba(SHADE, (strength * level) / BANDS);
-    ctx.fillRect(Math.round(x + band * step), Math.round(y), Math.ceil(step), Math.round(h));
+    ctx.fillRect(x0, Math.round(y), x1 - x0, Math.round(h));
   }
   ctx.restore();
 };

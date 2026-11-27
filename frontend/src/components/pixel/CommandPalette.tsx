@@ -52,6 +52,7 @@ export default function CommandPalette({
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const [copied, setCopied] = useState(false);
+  const copyTimer = useRef<number | null>(null);
 
   const actions = useMemo<PaletteAction[]>(() => {
     const chapterActions: PaletteAction[] = [
@@ -176,7 +177,7 @@ export default function CommandPalette({
             return;
           }
           setCopied(true);
-          window.setTimeout(() => {
+          copyTimer.current = window.setTimeout(() => {
             onClose();
             setCopied(false);
           }, 900);
@@ -228,7 +229,13 @@ export default function CommandPalette({
   }, [actions, query]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      // A pending "copied → close" must not close the next opening.
+      if (copyTimer.current !== null) window.clearTimeout(copyTimer.current);
+      copyTimer.current = null;
+      setCopied(false);
+      return;
+    }
     setQuery("");
     setActive(0);
     const timer = window.setTimeout(() => inputRef.current?.focus(), 30);
