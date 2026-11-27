@@ -6,7 +6,7 @@ A recruiter-first portfolio you walk through. Four pixel-art rooms, one continuo
 
 ## What's inside
 
-- **A continuous pixel world** drawn on a single Canvas 2D surface. Four chapters: Desk, Homelab, Workshop, Roof.
+- **A continuous pixel world** drawn on a single Canvas 2D surface. Four chapters: Desk, Homelab, Workshop, Roof. It has depth: parallax sky, mountain and city layers behind the bedroom window and the roof, a perspective plank floor, banded pixel-art lighting with violet-tinted shadows, rim-lit foreground silhouettes, and dust in the lamp light.
 - **A game-style HUD** with availability, Banda Aceh time, chapter navigation, CV, Quick view, and scroll progress.
 - **A Quick view resume** (native `<dialog>`) with summary, education, homelab, experience, skills, projects, certifications, languages, and ProtoPrime3D.
 - **Case studies** for Lyra, OctoPad, the n8n backup workflow, the GNOME widget suite, and this portfolio, available as in-world overlays and as shareable routes (`/projects/[slug]`) built from the real READMEs. Each has an architecture diagram, a live GitHub facts strip, and a project-specific OG image.
@@ -17,8 +17,8 @@ A recruiter-first portfolio you walk through. Four pixel-art rooms, one continuo
 - **Technical notes** at `/notes`: deploy rollback, n8n backups, and the one-host homelab layout — linked from the site nav and command palette, with a dedicated OG image per note.
 - **A ProtoPrime3D workshop chapter** with real part photos, Bambu Lab A1 mini specs, materials, lead time, and links to `protoprime3d.my.id`.
 - **A draggable mobile sheet** with collapsed, half, and full snap points, plus a keyboard-accessible chevron.
-- **Chapter-aware ambient sound** that defaults on for first-time visitors, starts on the first user gesture (browser autoplay policy), pauses when the tab is hidden, and can be muted from the HUD or mobile menu. The preference persists. Five 64-second layers are crossfaded by chapter: a warm harmonic base plus rain at the Desk, server hum at the Homelab, printer rhythm in the Workshop, and crickets/fire on the Roof. The base is 48 kHz / 160 kbps; textures are 112–128 kbps and load on demand.
-- **A reduced-motion document** with the same content in a normal vertical page and static scene posters.
+- **Chapter-aware ambient sound**, opt-in: it is off until the visitor turns it on from the HUD or the More menu, then remembered and resumed on the first gesture of later visits (browser autoplay policy). It pauses when the tab is hidden. Five 64-second layers are crossfaded by chapter: a warm harmonic base plus rain at the Desk, server hum at the Homelab, printer rhythm in the Workshop, and crickets/fire on the Roof. The base is 48 kHz / 160 kbps; textures are 112–128 kbps and load on demand.
+- **A simple view**: the same content as a normal vertical page with static scene posters. It is used automatically with `prefers-reduced-motion`, and anyone can switch to it (and back) from the HUD; the choice is remembered.
 - **PWA + service worker** with an offline fallback page, cached visits, install screenshots, and shortcuts to Resume, Homelab, and Notes. Dockerized build.
 
 ## Tech stack
@@ -80,12 +80,12 @@ The portfolio does not invent testimonials, clients, hardware specs, uptime, ben
 ## Accessibility
 
 - WCAG 2.2 AA baseline.
-- `prefers-reduced-motion` switches to a complete vertical document with static scene posters; no scroll-driven camera, parallax, rain, or blinking.
+- `prefers-reduced-motion` switches to a complete vertical document with static scene posters; no scroll-driven camera, parallax, rain, or blinking. A manual "Simple view" toggle gives the same document to anyone; the OS setting always wins.
 - The canvas is decorative (`aria-hidden`); chapter content is real DOM.
-- Quick view is a native dialog with focus containment and Escape to close.
-- Command palette supports arrow keys, Enter, and Escape.
+- Quick view, the case-study and homelab overlays, and the command palette are native dialogs sharing one hook (`useModalDialog`): focus containment, Escape and backdrop click to close, and a page scroll lock that holds while any dialog is open.
+- Command palette is an ARIA combobox: arrow keys (the active item scrolls into view), Enter, and Escape.
 - Mobile panels can be dragged between collapsed, half, and full heights from the title bar; the chevron provides the same states for keyboard and assistive technology.
-- The ambient-sound toggle is a visible HUD control (and a labeled mobile-menu item) with `aria-pressed` and a persistent opt-out. Audio only starts after a user gesture and pauses when the tab is hidden.
+- The ambient-sound toggle is a visible HUD control (and a labeled More-menu item) with `aria-pressed`; sound is opt-in and the choice persists. Audio only starts after a user gesture and pauses when the tab is hidden.
 - Touch targets are at least 44px.
 - Skip link opens the resume as the first focusable element.
 
@@ -106,7 +106,7 @@ frontend/src/
   components/pixel/
     Portfolio.tsx             # scroll, chapters, deep links, keyboard
     PixelStage.tsx            # canvas sizing, camera, dynamic frame
-    Hud.tsx                   # top bar, desktop nav, mobile nav
+    Hud.tsx                   # top bar, desktop nav, mobile bottom bar + More menu
     QuickView.tsx             # resume dialog (shared ResumeDocument)
     CommandPalette.tsx        # terminal jump menu
     pages/                    # PageShell, case studies, homelab, resume, notes, dialogs
@@ -114,13 +114,14 @@ frontend/src/
     ScenePoster.tsx           # static scene slice
     chapters/                 # Desk, Homelab, Workshop, Roof content
     ui/                       # PixelButton, PixelChip, PixelPanel, Tabs
-    world/                    # palette, props, scenes, dynamic frame
+    world/                    # palette, props, scenes, lighting (light.ts), parallax backdrop/foreground (depth.ts), dynamic frame
   data/portfolio.ts           # single source of truth (profile, homelab, services, projects)
   app/api/github/route.ts     # cached GitHub API + curated fallback
   hooks/useLiveProjects.ts    # client hook for /api/github
-  hooks/useMotionPreference.ts
+  hooks/useMotionPreference.ts # reduced motion + manual simple view
+  hooks/useModalDialog.ts     # shared native <dialog> state and scroll lock
   hooks/useMobileSheet.ts     # drag/snap mobile panel
-  hooks/useAmbientSound.ts    # layered chapter mix + persistent mute
+  hooks/useAmbientSound.ts    # layered chapter mix, opt-in, persisted
   lib/chapters.ts             # world/camera/scroll math
   lib/analytics.ts            # provider-agnostic event facade (Umami-compatible)
   data/caseStudies.ts         # case-study content from real READMEs
