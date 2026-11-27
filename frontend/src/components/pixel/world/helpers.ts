@@ -69,7 +69,7 @@ export const dither = (
   }
 };
 
-const hexToRgba = (hex: string, alpha: number) => {
+export const hexToRgba = (hex: string, alpha: number) => {
   const value = hex.replace("#", "");
   const r = parseInt(value.slice(0, 2), 16);
   const g = parseInt(value.slice(2, 4), 16);
@@ -77,6 +77,7 @@ const hexToRgba = (hex: string, alpha: number) => {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 
+/** Light halo in hard concentric bands, added on top of what is below. */
 export const glow = (
   ctx: Ctx,
   cx: number,
@@ -85,13 +86,14 @@ export const glow = (
   color: string,
   alpha = 0.25
 ) => {
-  const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-  gradient.addColorStop(0, hexToRgba(color, alpha));
-  gradient.addColorStop(0.45, hexToRgba(color, alpha * 0.45));
-  gradient.addColorStop(1, hexToRgba(color, 0));
+  const bands = 4;
   ctx.save();
-  ctx.fillStyle = gradient;
-  ctx.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
+  ctx.globalCompositeOperation = "lighter";
+  for (let band = 0; band < bands; band += 1) {
+    const r = Math.round(radius * (1 - band / bands));
+    if (r < 1) break;
+    pixelCircle(ctx, cx, cy, r, hexToRgba(color, (alpha * 0.5) / bands));
+  }
   ctx.restore();
 };
 
@@ -187,53 +189,10 @@ export const drawWindow = (
   x: number,
   y: number,
   w: number,
-  h: number,
-  moon = true
+  h: number
 ) => {
   rect(ctx, x - 6, y - 6, w + 12, h + 12, P.line);
   rect(ctx, x - 3, y - 3, w + 6, h + 6, P.wallDark);
-  rect(ctx, x, y, w, h, "#0b1830");
-  dither(ctx, x, y, w, h, "rgba(125, 211, 252, 0.08)", 6, 2);
-
-  if (moon) {
-    pixelCircle(ctx, x + w - 52, y + 100, 14, P.cream);
-    rect(ctx, x + w - 58, y + 94, 5, 5, "#d9c7a3");
-    rect(ctx, x + w - 46, y + 106, 4, 4, "#d9c7a3");
-    glow(ctx, x + w - 52, y + 100, 46, P.amberGlow, 0.18);
-  }
-
-  const skyline = [
-    [0.02, 0.42],
-    [0.12, 0.62],
-    [0.22, 0.5],
-    [0.34, 0.7],
-    [0.44, 0.36],
-    [0.56, 0.58],
-    [0.68, 0.46],
-    [0.8, 0.66],
-    [0.92, 0.52],
-  ];
-  skyline.forEach(([tx, th], index) => {
-    const buildingW = 14 + (index % 3) * 8;
-    const buildingH = Math.round(h * th);
-    const bx = x + Math.round(w * tx);
-    const by = y + h - buildingH;
-    rect(ctx, bx, by, buildingW, buildingH, "#0f1728");
-    for (let wy = by + 5; wy < y + h - 4; wy += 8) {
-      for (let wx = bx + 3; wx < bx + buildingW - 3; wx += 7) {
-        if ((wx + wy) % 11 < 5) {
-          rect(ctx, wx, wy, 2, 2, index % 2 === 0 ? P.amber : P.teal);
-        }
-      }
-    }
-  });
-
-  for (let i = 0; i < 14; i += 1) {
-    const rx = x + 8 + ((i * 37) % Math.max(10, w - 16));
-    const ry = y + 12 + ((i * 53) % Math.max(10, h - 24));
-    rect(ctx, rx, ry, 1, 4, "rgba(125, 211, 252, 0.25)");
-  }
-
   rect(ctx, x + Math.floor(w / 2) - 1, y, 2, h, P.line);
   rect(ctx, x, y + Math.floor(h / 2) - 1, w, 2, P.line);
   rect(ctx, x - 10, y + h + 3, w + 20, 7, P.line);
@@ -243,6 +202,27 @@ export const drawWindow = (
   rect(ctx, x - 20, y, 8, h + 10, P.violetDark);
   rect(ctx, x + w + 8, y - 6, 16, h + 22, P.plum);
   rect(ctx, x + w + 12, y, 8, h + 10, P.violetDark);
+};
+
+/** Clear the glass so the backdrop shows through, then put mullions and glare back. */
+export const cutWindowGlass = (
+  ctx: Ctx,
+  x: number,
+  y: number,
+  w: number,
+  h: number
+) => {
+  ctx.clearRect(x, y, w, h);
+  dither(ctx, x, y, w, h, "rgba(125, 211, 252, 0.06)", 6, 2);
+  // diagonal glare streaks on the glass
+  for (let i = 0; i < 40; i += 1) {
+    rect(ctx, x + 12 + i, y + 70 - i, 3, 1, "rgba(196, 181, 253, 0.07)");
+    rect(ctx, x + 130 + i, y + 250 - i, 2, 1, "rgba(196, 181, 253, 0.05)");
+  }
+  rect(ctx, x + Math.floor(w / 2) - 1, y, 2, h, P.line);
+  rect(ctx, x, y + Math.floor(h / 2) - 1, w, 2, P.line);
+  rect(ctx, x + Math.floor(w / 2) + 1, y, 1, h, P.wallLight);
+  rect(ctx, x, y + Math.floor(h / 2) + 1, w, 1, P.wallLight);
 };
 
 export const drawPlant = (ctx: Ctx, x: number, y: number, scale = 1) => {
@@ -570,45 +550,6 @@ export const drawCampfire = (ctx: Ctx, x: number, y: number) => {
   glow(ctx, x + 20, y - 20, 90, P.amber, 0.28);
 };
 
-export const drawCity = (
-  ctx: Ctx,
-  x: number,
-  y: number,
-  w: number,
-  h: number
-) => {
-  const buildings = [
-    [0, 0.55],
-    [0.06, 0.4],
-    [0.12, 0.66],
-    [0.2, 0.5],
-    [0.27, 0.72],
-    [0.35, 0.44],
-    [0.42, 0.6],
-    [0.5, 0.34],
-    [0.58, 0.58],
-    [0.65, 0.48],
-    [0.72, 0.7],
-    [0.8, 0.42],
-    [0.87, 0.62],
-    [0.94, 0.5],
-  ];
-  buildings.forEach(([tx, th], index) => {
-    const bw = 34 + (index % 3) * 14;
-    const bh = Math.round(h * th);
-    const bx = x + Math.round(w * tx);
-    const by = y + h - bh;
-    rect(ctx, bx, by, bw, bh, index % 2 === 0 ? "#0c1424" : "#101a2c");
-    for (let wy = by + 8; wy < y + h - 6; wy += 12) {
-      for (let wx = bx + 5; wx < bx + bw - 5; wx += 10) {
-        if ((wx * 3 + wy * 5 + index) % 13 < 7) {
-          rect(ctx, wx, wy, 2, 2, index % 3 === 0 ? P.teal : P.amber);
-        }
-      }
-    }
-  });
-};
-
 export const drawRailing = (
   ctx: Ctx,
   x: number,
@@ -621,22 +562,6 @@ export const drawRailing = (
   for (let px = x; px <= x + w; px += 70) {
     rect(ctx, px, y, 4, h, P.wallLight);
     rect(ctx, px + 1, y + 4, 2, h - 8, P.line);
-  }
-};
-
-export const drawStars = (
-  ctx: Ctx,
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  count: number
-) => {
-  for (let i = 0; i < count; i += 1) {
-    const sx = x + ((i * 173 + 37) % Math.max(1, Math.round(w)));
-    const sy = y + ((i * 97 + 23) % Math.max(1, Math.round(h)));
-    const size = i % 9 === 0 ? 2 : 1;
-    rect(ctx, sx, sy, size, size, i % 5 === 0 ? P.cream : "rgba(244,230,200,0.55)");
   }
 };
 

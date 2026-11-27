@@ -8,7 +8,8 @@ import {
   cameraForProgress,
   clamp,
 } from "../../lib/chapters";
-import { drawDynamicFrame, getWorldCanvas } from "./world";
+import { drawDynamicFrame, drawWorldView, getWorldCanvas } from "./world";
+import { VIEW_FLOOR_MARGIN } from "./world/depth";
 
 interface PixelStageProps {
   progressRef: React.MutableRefObject<number>;
@@ -69,7 +70,7 @@ export default function PixelStage({
       }
 
       const viewY = clamp(
-        FLOOR_Y + 40 - viewH,
+        FLOOR_Y + VIEW_FLOOR_MARGIN - viewH,
         0,
         Math.max(0, WORLD_HEIGHT - viewH)
       );
@@ -125,16 +126,13 @@ export default function PixelStage({
 
       fctx.imageSmoothingEnabled = false;
       const sourceX = clamp(camera, 0, Math.max(0, world.width - metrics.viewW));
-      fctx.drawImage(
-        world,
+      drawWorldView(
+        fctx,
         sourceX,
         metrics.viewY,
         metrics.viewW,
         metrics.viewH,
-        0,
-        0,
-        metrics.viewW,
-        metrics.viewH
+        reduced ? 0 : now / 1000
       );
 
       drawDynamicFrame(fctx, {
