@@ -77,6 +77,10 @@ jobs:
           context: frontend
           file: frontend/Dockerfile
           push: true
+          # One manifest per build: attestations would add extra GHCR package versions,
+          # and the two-version retention below could then delete the image's own parts.
+          provenance: false
+          sbom: false
           tags: |
             ${{ env.IMAGE_NAME }}:${{ github.sha }}
           build-args: |
@@ -106,6 +110,11 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      # Twingate's setup runs `apt update`; a third-party source on the runner image
+      # (packages.microsoft.com) can return 403 and fail the deploy before it starts.
+      - name: Drop the runner's Microsoft apt sources
+        run: sudo grep -rl 'packages.microsoft.com' /etc/apt/sources.list.d/ | xargs -r sudo rm -f || true
 
       - name: Setup Twingate
         uses: twingate/github-action@v1
