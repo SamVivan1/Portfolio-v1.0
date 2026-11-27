@@ -53,6 +53,11 @@
   --copy: #d9cfe6;
   --text-xs: 12px;
   --text-sm: 13px;
+}
+
+/* next/font sets --font-* on <body>, so tokens built from them must live there too
+   (on :root they would resolve to nothing and every font falls back to Geist). */
+body {
   --mono: var(--font-geist-mono), monospace;
   --pixel: var(--font-silkscreen), monospace;
 }
