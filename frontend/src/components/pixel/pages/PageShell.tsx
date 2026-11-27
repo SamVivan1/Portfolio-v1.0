@@ -8,13 +8,18 @@ interface PageShellProps {
   children: React.ReactNode;
   posterWorldX?: number;
   posterAlt?: string;
+  current?: "homelab" | "notes" | "resume";
 }
 
 export default function PageShell({
   children,
   posterWorldX,
   posterAlt,
+  current,
 }: PageShellProps) {
+  const currentProps = (page: PageShellProps["current"]) =>
+    current === page ? { "aria-current": "page" as const } : {};
+
   return (
     <div className="page-shell">
       <header className="page-shell__bar">
@@ -36,13 +41,25 @@ export default function PageShell({
             <ArrowLeft size={14} aria-hidden="true" />
             World
           </Link>
-          <Link href="/homelab" className="page-shell__link">
+          <Link
+            href="/homelab"
+            className="page-shell__link"
+            {...currentProps("homelab")}
+          >
             Homelab
           </Link>
-          <Link href="/notes" className="page-shell__link">
+          <Link
+            href="/notes"
+            className="page-shell__link"
+            {...currentProps("notes")}
+          >
             Notes
           </Link>
-          <Link href="/resume" className="page-shell__link">
+          <Link
+            href="/resume"
+            className="page-shell__link"
+            {...currentProps("resume")}
+          >
             Resume
           </Link>
           <a

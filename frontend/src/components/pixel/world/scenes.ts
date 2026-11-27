@@ -10,7 +10,6 @@ import {
   drawCat,
   drawCertFrame,
   drawChair,
-  drawCity,
   drawDesktopTower,
   drawDriveShelf,
   drawMug,
@@ -20,11 +19,11 @@ import {
   drawRack,
   drawRailing,
   drawSpool,
-  drawStars,
   drawStool,
   drawToolboard,
   drawToolbox,
   drawWindow,
+  cutWindowGlass,
   glow,
   line,
   pixelCircle,
@@ -32,6 +31,15 @@ import {
   rect,
   dither,
 } from "./helpers";
+import {
+  bandedEllipse,
+  contactShadow,
+  lightCone,
+  lightRooms,
+  shadeBands,
+  shadeColumns,
+} from "./light";
+import { ROOF_HOLE, WINDOW_HOLE } from "./depth";
 import { P } from "./palette";
 
 const ROOMS = [
@@ -56,14 +64,54 @@ const drawCeiling = (ctx: Ctx) => {
   });
 };
 
+// Plank rows get taller towards the viewer and seams converge on a vanishing
+// point per room, so the floor reads as a plane instead of a stripe.
+const HORIZON_Y = FLOOR_Y - 320;
+const FLOOR_ROWS = Array.from({ length: 24 }, (_, k) =>
+  FLOOR_Y + Math.round(3 * Math.pow(k, 1.5))
+).filter((y) => y <= WORLD_HEIGHT + 40);
+
+const drawPerspectiveFloor = (
+  ctx: Ctx,
+  x: number,
+  w: number,
+  vanishX: number,
+  spacing: number,
+  shades: readonly string[],
+  seam: string
+) => {
+  const project = (topX: number, y: number) =>
+    Math.round(vanishX + ((topX - vanishX) * (y - HORIZON_Y)) / (FLOOR_Y - HORIZON_Y));
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(x, FLOOR_Y, w, WORLD_HEIGHT - FLOOR_Y);
+  ctx.clip();
+  for (let row = 0; row < FLOOR_ROWS.length - 1; row += 1) {
+    const offset = (row % 2) * (spacing / 2);
+    const count = Math.ceil(w / spacing) + 4;
+    for (let y = FLOOR_ROWS[row]; y < FLOOR_ROWS[row + 1]; y += 1) {
+      for (let j = -2; j < count; j += 1) {
+        const topX = x + offset + j * spacing;
+        const left = project(topX, y);
+        const right = project(topX + spacing, y);
+        ctx.fillStyle = shades[Math.abs(j * 7 + row * 3) % shades.length];
+        ctx.fillRect(left, y, right - left, 1);
+        ctx.fillStyle = seam;
+        ctx.fillRect(left, y, 1, 1);
+      }
+    }
+    rect(ctx, x, FLOOR_ROWS[row], w, 1, seam);
+  }
+  ctx.restore();
+};
+
+const WOOD = ["#1b1329", "#1f1630", "#181023", "#221832"] as const;
+
 const drawFloor = (ctx: Ctx) => {
   rect(ctx, 0, FLOOR_Y, WORLD_WIDTH, WORLD_HEIGHT - FLOOR_Y, P.floor);
-  for (let y = FLOOR_Y + 8; y < WORLD_HEIGHT; y += 14) {
-    rect(ctx, 0, y, 3000, 1, P.floorLight);
-  }
-  for (let x = 0; x < 3000; x += 120) {
-    rect(ctx, x, FLOOR_Y + 4, 1, WORLD_HEIGHT - FLOOR_Y - 4, "rgba(74,53,99,0.28)");
-  }
+  ROOMS.slice(0, 3).forEach((room) =>
+    drawPerspectiveFloor(ctx, room.x, room.w, room.x + room.w / 2, 64, WOOD, "#0c0814")
+  );
   rect(ctx, 0, FLOOR_Y - 8, 3000, 8, P.floorLight);
   rect(ctx, 0, FLOOR_Y - 10, 3000, 3, P.wallLight);
 };
@@ -120,7 +168,7 @@ const drawShelf = (ctx: Ctx, x: number, y: number) => {
 };
 
 const drawDeskRoom = (ctx: Ctx) => {
-  drawWindow(ctx, 60, 130, 220, 290, true);
+  drawWindow(ctx, 60, 130, 220, 290);
   drawPoster(ctx, 320, 128, 94, 112, ["SUDO", "MAKE", "ME A", "SANDWICH"]);
   drawPoster(ctx, 436, 152, 66, 88, ["DOCKER", "COMPOSE", "UP -D"]);
   drawShelf(ctx, 600, 170);
@@ -377,36 +425,27 @@ const drawWorkshopRoom = (ctx: Ctx) => {
 };
 
 const drawRooftop = (ctx: Ctx) => {
-  const sky = ctx.createLinearGradient(0, 0, 0, FLOOR_Y);
-  sky.addColorStop(0, "#090817");
-  sky.addColorStop(0.55, "#14102a");
-  sky.addColorStop(1, "#2a1d45");
-  ctx.fillStyle = sky;
-  ctx.fillRect(3000, 0, 900, FLOOR_Y);
-
-  drawStars(ctx, 3000, 30, 900, 380, 96);
-  pixelCircle(ctx, 3530, 230, 40, P.cream);
-  pixelCircle(ctx, 3518, 218, 8, "#e4d3b0");
-  pixelCircle(ctx, 3544, 244, 6, "#e4d3b0");
-  pixelCircle(ctx, 3548, 212, 4, "#e4d3b0");
-  glow(ctx, 3530, 230, 130, P.cream, 0.14);
-
-  drawCity(ctx, 3000, 430, 900, 190);
+  // sky, moon and skyline are parallax layers behind this hole (depth.ts)
+  ctx.clearRect(ROOF_HOLE.x, ROOF_HOLE.y, ROOF_HOLE.w, ROOF_HOLE.h);
   drawRailing(ctx, 3000, 468, 900, 152);
 
-  rect(ctx, 3000, FLOOR_Y, 900, WORLD_HEIGHT - FLOOR_Y, P.floor);
-  for (let y = FLOOR_Y + 10; y < WORLD_HEIGHT; y += 16) {
-    rect(ctx, 3000, y, 900, 1, P.floorLight);
-  }
-  for (let x = 3000; x < 3900; x += 90) {
-    rect(ctx, x, FLOOR_Y + 4, 1, WORLD_HEIGHT - FLOOR_Y - 4, "rgba(74,53,99,0.28)");
-  }
+  drawPerspectiveFloor(
+    ctx,
+    3000,
+    900,
+    3450,
+    96,
+    ["#1c1727", "#201a2c", "#191422"],
+    "#100c18"
+  );
   rect(ctx, 3000, FLOOR_Y - 6, 900, 6, P.wallLight);
 
   drawCampfire(ctx, 3170, 616);
   drawStool(ctx, 3080, 620);
+  // sit on a stool by the fire instead of floating above the roof
+  drawStool(ctx, 3262, 620);
   ctx.save();
-  ctx.translate(3270, 592);
+  ctx.translate(3264, 597);
   ctx.scale(1.8, 1.8);
   drawAvatar(ctx, 0, 0, 0, true);
   ctx.restore();
@@ -469,6 +508,41 @@ const drawDoorSign = (
   drawPixelText(ctx, label, x + 7, y + 7, color, 1);
 };
 
+/** Lamps, screens and the moon window, on top of the room lighting. */
+const lightDetails = (ctx: Ctx) => {
+  // desk: moonlight through the window, a beam and a patch on the floor
+  lightCone(ctx, 170, 424, FLOOR_Y, 216, 250, "#9ec9ff", 0.05);
+  lightCone(ctx, 170, FLOOR_Y + 1, FLOOR_Y + 48, 236, 320, "#9ec9ff", 0.16);
+  shadeBands(ctx, 168, FLOOR_Y + 1, 4, 47, 0.5);
+  // desk lamp onto the desk top, monitor spill on the keyboard
+  lightCone(ctx, 690, 387, 468, 28, 140, P.amber, 0.14);
+  bandedEllipse(ctx, 690, 470, 90, 4, P.amber, 0.3);
+  bandedEllipse(ctx, 463, 470, 80, 4, P.teal, 0.16);
+
+  // homelab: tall hardware is lit from the lamp between them, so the far sides fall off
+  shadeColumns(ctx, 1088, 298, 30, 324, 0.4, true);
+  shadeColumns(ctx, 1397, 247, 36, 376, 0.45, false);
+  // homelab: screen spill and rack glow on the floor
+  bandedEllipse(ctx, 1650, 470, 90, 4, P.teal, 0.16);
+  bandedEllipse(ctx, 1330, FLOOR_Y + 6, 120, 8, P.teal, 0.1);
+
+  // workshop: the hanging lamp over the printer
+  lightCone(ctx, 2571, 227, FLOOR_Y, 34, 330, P.amber, 0.09);
+  bandedEllipse(ctx, 2571, FLOOR_Y + 8, 170, 10, P.amber, 0.16);
+  bandedEllipse(ctx, 2580, 539, 110, 3, P.amber, 0.28);
+
+  // rooftop: firelight on the deck
+  [
+    [3076, 36],
+    [3258, 40],
+    [3316, 30],
+    [3636, 36],
+    [3716, 24],
+  ].forEach(([x, w]) => contactShadow(ctx, x, w));
+  bandedEllipse(ctx, 3190, FLOOR_Y + 6, 190, 14, P.amber, 0.22);
+  shadeBands(ctx, 3000, FLOOR_Y + 24, 900, WORLD_HEIGHT - FLOOR_Y - 24, 0.75, false);
+};
+
 export const drawWorldBase = (ctx: Ctx) => {
   rect(ctx, 0, 0, WORLD_WIDTH, WORLD_HEIGHT, P.void);
   drawWallTexture(ctx);
@@ -488,9 +562,15 @@ export const drawWorldBase = (ctx: Ctx) => {
   drawWorkshopRoom(ctx);
   drawRooftop(ctx);
 
+  lightRooms(ctx);
+  lightDetails(ctx);
+
   drawDoorSign(ctx, 812, 104, "LAB >", P.teal);
   drawDoorSign(ctx, 1788, 104, "MAKE >", P.teal);
   drawDoorSign(ctx, 2830, 104, "ROOF >", P.teal);
+
+  // last, so no lighting pass paints into the glass
+  cutWindowGlass(ctx, WINDOW_HOLE.x, WINDOW_HOLE.y, WINDOW_HOLE.w, WINDOW_HOLE.h);
 };
 
 

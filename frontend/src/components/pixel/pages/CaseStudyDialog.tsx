@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { useModalDialog } from "../../../hooks/useModalDialog";
 import { ArrowUpRight, X } from "lucide-react";
 import { CaseStudy } from "../../../data/caseStudies";
 import CaseStudyContent from "./CaseStudyContent";
@@ -15,44 +15,13 @@ export default function CaseStudyDialog({
   study,
   onClose,
 }: CaseStudyDialogProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (study && !dialog.open) {
-      dialog.showModal();
-      document.documentElement.classList.add("dialog-open");
-    }
-    if (!study && dialog.open) {
-      dialog.close();
-      document.documentElement.classList.remove("dialog-open");
-    }
-  }, [study]);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    const handleClose = () => {
-      document.documentElement.classList.remove("dialog-open");
-      onClose();
-    };
-    dialog.addEventListener("close", handleClose);
-    return () => dialog.removeEventListener("close", handleClose);
-  }, [onClose]);
+  const dialog = useModalDialog(Boolean(study), onClose);
 
   return (
     <dialog
-      ref={dialogRef}
+      {...dialog}
       className="page-dialog"
-      aria-label={study?.title ?? "Case study"}
-      onCancel={(event) => {
-        event.preventDefault();
-        onClose();
-      }}
-      onClick={(event) => {
-        if (event.target === dialogRef.current) onClose();
-      }}
+      aria-labelledby="case-study-title"
     >
       <div className="page-dialog__shell">
         <div className="page-dialog__bar">

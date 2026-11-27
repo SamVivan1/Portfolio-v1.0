@@ -1,6 +1,7 @@
 import { FLOOR_Y, WORLD_HEIGHT, WORLD_WIDTH } from "../../../lib/chapters";
 import { Ctx, drawAvatar, glow, rect } from "./helpers";
 import { P } from "./palette";
+import { drawBackdrop, drawDust, drawForeground } from "./depth";
 import { drawWorldBase } from "./scenes";
 
 let worldCanvas: HTMLCanvasElement | null = null;
@@ -16,6 +17,19 @@ export const getWorldCanvas = (): HTMLCanvasElement => {
   drawWorldBase(ctx);
   worldCanvas = canvas;
   return canvas;
+};
+
+/** Backdrop layers, then the world canvas on top. Screen coordinates. */
+export const drawWorldView = (
+  ctx: Ctx,
+  cameraX: number,
+  viewY: number,
+  viewW: number,
+  viewH: number,
+  time = 0
+) => {
+  drawBackdrop(ctx, cameraX, viewY, viewW, viewH, time);
+  ctx.drawImage(getWorldCanvas(), cameraX, viewY, viewW, viewH, 0, 0, viewW, viewH);
 };
 
 interface DynamicOptions {
@@ -38,12 +52,6 @@ const rainDrops = Array.from({ length: 34 }, (_, index) => ({
 }));
 
 const rackRows = Array.from({ length: 10 }, (_, index) => index + 1);
-
-const starSeeds = Array.from({ length: 26 }, (_, index) => ({
-  x: 3010 + ((index * 137 + 43) % 880),
-  y: 24 + ((index * 79 + 17) % 330),
-  phase: index * 0.73,
-}));
 
 const drawRain = (ctx: Ctx, time: number) => {
   ctx.save();
@@ -132,13 +140,6 @@ const drawFire = (ctx: Ctx, time: number) => {
   glow(ctx, 3198, 588, 70 + Math.sin(time * 5) * 5, P.amber, 0.22);
 };
 
-const drawTwinkles = (ctx: Ctx, time: number) => {
-  starSeeds.forEach((star) => {
-    const alpha = 0.18 + 0.5 * Math.max(0, Math.sin(time * 1.3 + star.phase));
-    rect(ctx, star.x, star.y, 1, 1, `rgba(244,230,200,${alpha.toFixed(3)})`);
-  });
-};
-
 const drawStringBulbs = (ctx: Ctx, time: number) => {
   for (let x = 3250; x <= 3620; x += 52) {
     const t = (x - 3230) / 410;
@@ -152,6 +153,8 @@ export const drawDynamicFrame = (ctx: Ctx, options: DynamicOptions) => {
   const {
     cameraX,
     viewY,
+    viewW,
+    viewH,
     time,
     moving,
     avatarX,
@@ -168,8 +171,8 @@ export const drawDynamicFrame = (ctx: Ctx, options: DynamicOptions) => {
     drawMonitor(ctx, time);
     drawSteam(ctx, time);
     drawFire(ctx, time);
-    drawTwinkles(ctx, time);
     drawStringBulbs(ctx, time);
+    drawDust(ctx, time);
   } else {
     drawRackLeds(ctx, 0);
     drawMonitor(ctx, 0);
@@ -199,4 +202,6 @@ export const drawDynamicFrame = (ctx: Ctx, options: DynamicOptions) => {
       );
     }
   }
+
+  drawForeground(ctx, cameraX, viewW, viewH);
 };

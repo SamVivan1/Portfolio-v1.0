@@ -33,7 +33,7 @@ export default function ResumePage() {
   });
 
   return (
-    <PageShell>
+    <PageShell current="resume">
       <TrackView event="resume_view" />
       <h1 className="sr-only">Resume — {profile.name}</h1>
 

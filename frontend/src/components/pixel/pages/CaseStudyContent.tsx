@@ -52,23 +52,7 @@ function StudyVisual({
             }`}
           />
         </div>
-      ) : (
-        <div
-          className="case-study__blueprint"
-          role="img"
-          aria-label={visual.alt}
-        >
-          <span className="case-study__blueprint-mark" aria-hidden="true">
-            {title.slice(0, 2).toUpperCase()}
-          </span>
-          <span className="case-study__blueprint-lines" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-            <i />
-          </span>
-        </div>
-      )}
+      ) : null}
       {visual.caption ? <figcaption>{visual.caption}</figcaption> : null}
     </figure>
   );

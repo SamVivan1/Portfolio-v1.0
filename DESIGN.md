@@ -300,7 +300,7 @@ A single prerendered Canvas 2D world, 3900 × 800 logical pixels, floor at y=620
 - The Quick view is a native dialog; focus is contained, Escape closes, and the close button is 40px.
 - The command palette is a dialog with a labelled input, listbox options, arrow-key navigation, and Enter/Escape.
 - The mobile panel chevron has `aria-expanded` and a 36px target; the title bar is a pointer drag handle. All nav and action targets are ≥44px except compact HUD keys (36px, with 44px spacing).
-- The sound toggle is a labeled button on desktop, an icon button plus labeled menu item on mobile, and exposes `aria-pressed`. It starts muted only after an explicit opt-out; first visits default on but playback waits for a user gesture.
+- The sound toggle is a labeled button on desktop, an icon button plus labeled menu item on mobile, and exposes `aria-pressed`. Sound is opt-in: off by default, and once turned on the choice persists and playback resumes on the first user gesture of later visits.
 - `prefers-reduced-motion` delivers the full document with static posters; no camera, no rain, no blinking.
 - No horizontal scroll at 320px; panels and dialogs are width-constrained; body copy wraps.
 

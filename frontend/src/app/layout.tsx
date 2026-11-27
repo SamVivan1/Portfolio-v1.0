@@ -153,7 +153,7 @@ export default function RootLayout({
         ) : null}
         <script
           dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.add('js');if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('reduced');}`,
+            __html: `document.documentElement.classList.add('js');var r=window.matchMedia('(prefers-reduced-motion: reduce)').matches;try{r=r||localStorage.getItem('bsp-view')==='simple'}catch(e){}if(r){document.documentElement.classList.add('reduced');}`,
           }}
         />
         <script

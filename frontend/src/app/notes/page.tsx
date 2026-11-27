@@ -32,6 +32,7 @@ function formatDate(value: string) {
 export default function NotesPage() {
   return (
     <PageShell
+      current="notes"
       posterWorldX={CHAPTERS[1].worldX}
       posterAlt="Pixel-art homelab with a desktop tower, a compact 12U rack, and a drive shelf."
     >

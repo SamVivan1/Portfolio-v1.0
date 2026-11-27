@@ -15,7 +15,7 @@ import {
   progressFromScroll,
   scrollToChapter,
 } from "../../lib/chapters";
-import { useReducedMotion } from "../../hooks/useMotionPreference";
+import { useViewMode } from "../../hooks/useMotionPreference";
 import { useAmbientSound } from "../../hooks/useAmbientSound";
 import { track } from "../../lib/analytics";
 import CommandPalette from "./CommandPalette";
@@ -31,7 +31,12 @@ import HomelabDialog from "./pages/HomelabDialog";
 import PixelPanel from "./ui/PixelPanel";
 
 export default function Portfolio() {
-  const reduced = useReducedMotion();
+  const { reduced } = useViewMode();
+  // Reduced-motion visitors never mount the cinematic, so no sound or scroll listeners.
+  return reduced ? null : <CinematicPortfolio />;
+}
+
+function CinematicPortfolio() {
   const progressRef = useRef(0);
   const [activeChapter, setActiveChapter] = useState(0);
   const [activePanel, setActivePanel] = useState(0);
@@ -90,8 +95,6 @@ export default function Portfolio() {
   }, []);
 
   useLayoutEffect(() => {
-    if (reduced) return;
-
     const initialHash = window.location.hash.replace("#", "");
     const initialIndex = CHAPTERS.findIndex(
       (chapter) => chapter.id === initialHash
@@ -108,11 +111,9 @@ export default function Portfolio() {
     applyInitialChapter();
     const frame = window.requestAnimationFrame(applyInitialChapter);
     return () => window.cancelAnimationFrame(frame);
-  }, [reduced, syncScroll]);
+  }, [syncScroll]);
 
   useEffect(() => {
-    if (reduced) return;
-
     const onScroll = () => syncScroll();
     const onResize = () => syncScroll();
 
@@ -123,7 +124,7 @@ export default function Portfolio() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
     };
-  }, [reduced, syncScroll]);
+  }, [syncScroll]);
 
   useEffect(() => {
     if (activeChapter === 1) track("homelab_view");
@@ -147,15 +148,13 @@ export default function Portfolio() {
   const navigate = useCallback(
     (index: number) => {
       const target = index < 0 ? 0 : index;
-      scrollToChapter(target, reduced);
+      scrollToChapter(target);
       setActiveChapter(target);
       setActivePanel(target);
       window.history.replaceState(null, "", `#${CHAPTERS[target].id}`);
     },
-    [reduced]
+    []
   );
-
-  if (reduced) return null;
 
   return (
     <div className="cinematic-shell">
@@ -199,6 +198,7 @@ export default function Portfolio() {
           footer={<span className="panel-footnote">The desk · Banda Aceh</span>}
         >
           <DeskContent
+            titleAs="h1"
             onQuickView={openQuickView}
             onNext={() => navigate(1)}
           />
@@ -217,6 +217,7 @@ export default function Portfolio() {
           }
         >
           <HomelabContent
+            compact
             onQuickView={openQuickView}
             onOpenArchitecture={openArchitecture}
             onNext={() => navigate(2)}

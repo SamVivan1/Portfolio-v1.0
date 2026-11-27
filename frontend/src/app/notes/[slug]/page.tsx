@@ -62,7 +62,7 @@ export default async function NotePage({ params }: NotePageProps) {
   };
 
   return (
-    <PageShell>
+    <PageShell current="notes">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

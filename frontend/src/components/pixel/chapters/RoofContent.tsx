@@ -1,10 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import {
   ArrowUp,
-  Check,
-  Copy,
   Download,
   ExternalLink,
   Mail,
@@ -14,6 +11,7 @@ import {
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa6";
 import { contactLinks, profile } from "../../../data/portfolio";
 import { track } from "../../../lib/analytics";
+import CopyEmailButton from "../pages/CopyEmailButton";
 import PixelButton from "../ui/PixelButton";
 import PixelChip from "../ui/PixelChip";
 
@@ -30,19 +28,6 @@ interface RoofContentProps {
 }
 
 export default function RoofContent({ onTop }: RoofContentProps) {
-  const [copied, setCopied] = useState(false);
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(profile.email);
-      track("email_copy");
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
-    } catch {
-      window.location.href = `mailto:${profile.email}`;
-    }
-  };
-
   return (
     <div className="chapter-content">
       <h2 className="chapter-title">Let&apos;s build something.</h2>
@@ -95,10 +80,6 @@ export default function RoofContent({ onTop }: RoofContentProps) {
       <div className="roof-note">
         <MapPin size={14} aria-hidden="true" />
         <span>{profile.location}</span>
-        <span className="roof-note__sep" aria-hidden="true">
-          /
-        </span>
-        <span>Banda Aceh is UTC+7.</span>
       </div>
 
       <div className="chapter-actions">
@@ -110,20 +91,7 @@ export default function RoofContent({ onTop }: RoofContentProps) {
         >
           Email me
         </PixelButton>
-        <PixelButton
-          onClick={copyEmail}
-          variant="ghost"
-          icon={
-            copied ? (
-              <Check size={15} aria-hidden="true" />
-            ) : (
-              <Copy size={15} aria-hidden="true" />
-            )
-          }
-          aria-label={copied ? "Email copied" : "Copy email address"}
-        >
-          {copied ? "Copied" : "Copy email"}
-        </PixelButton>
+        <CopyEmailButton size="md" />
         <PixelButton
           href={profile.cv}
           download
